@@ -151,6 +151,8 @@ public class CatController : MonoBehaviour
     {
         catAudio.RandomScratch();
         OnCatAction.Invoke(CatActions.SCRATCH);
+        
+        catAnimator.SetTrigger("scratch");
         SetActionText("SCRATCH!");
     }
 
@@ -201,6 +203,22 @@ public class CatController : MonoBehaviour
     {
         currentScore += amt;
         foodScoreText.text = currentScore.ToString();
+    }
+
+    /// <summary>
+    /// Pass in transform location.
+    /// </summary>
+    /// <param name="place"></param>
+    public void TeleportCat(Transform place) => TeleportCat(place.position);
+
+    /// <summary>
+    /// Teleports the cat. 
+    /// </summary>
+    /// <param name="position"></param>
+    public void TeleportCat(Vector3 position)
+    {
+        catBody.velocity = Vector3.zero;
+        transform.position = position;
     }
     #endregion
 }

@@ -1,0 +1,20 @@
+Cat Game
+- Need to work more on scratch animations
+- Walking scratch should be focused on scratching in Front of where the cat is currentely facing
+	- the red mark can be generated as a little obj in front of the cat and damage other cats/players
+	- Should do a version of the scratch from the sitting pose
+- Work more on house logic
+- Friendly houses that you meow/purr at  have random chance of letting you inside
+ - Play door open sound and teleport cat to interior mini-game/weird cinematic 
+- Once basic cat combat (hiss/scratch) works, can add other dangerous enemies 
+	- Dogs
+	- Police
+	- Mailmen 
+	- Birds? 
+	- Cars can hurt u (run you over) 
+- How are the levels laid out? 
+- If multiple players can play, need to determine camera behavior.
+	- Could follow the average of the players on screen then lock movement past certain points
+	- Could have each screen be a concrete set of space (e.g. cross st, certain # of houses)
+- Indoor sequences could have more work from team members 
+- Other enemies/location density would be helpful from team members 
