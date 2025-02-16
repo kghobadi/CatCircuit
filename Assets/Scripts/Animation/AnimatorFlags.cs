@@ -12,9 +12,12 @@ public struct AnimatorFlag
     [SerializeField]
     public bool parameterState;
 
+    [SerializeField] public UnityEvent onFlagEvent;
+
     public void SetState(bool newState)
     {
         parameterState = newState;
+        onFlagEvent.Invoke();
     }
 }
 
@@ -69,6 +72,11 @@ public abstract class AnimatorFlags : MonoBehaviour
     {
         animFlagHashToIndex.Clear();
 
+        if (animatorFlags == null)
+        {
+            return;
+        }
+        
         for (int i = 0; i < animatorFlags.Length; i++)
         {
             var hash = Animator.StringToHash(animatorFlags[i].flagName);
@@ -119,7 +127,7 @@ public abstract class AnimatorFlags : MonoBehaviour
         }
     }
 
-    public void SetFlag(int flagHash, bool state)
+    public virtual void SetFlag(int flagHash, bool state)
     {
         int ndx = FindFlagIndex(flagHash);
         if (ndx >= 0)
@@ -132,7 +140,7 @@ public abstract class AnimatorFlags : MonoBehaviour
         }
     }
 
-    public void SetFlag(string flag, bool state)
+    public virtual void SetFlag(string flag, bool state)
     {
         //get the index of the correct anim flag
         int index = FindFlagIndex(flag);
@@ -189,8 +197,13 @@ public abstract class AnimatorFlags : MonoBehaviour
         return ret;
     }
 
-    public bool GetBoolState(string name)
+    public virtual bool GetBoolState(string name)
     {
         return GetBoolState(Animator.StringToHash(name));
+    }
+
+    public virtual void SetGameObjectActive(bool active)
+    {
+        gameObject.SetActive(active);
     }
 }

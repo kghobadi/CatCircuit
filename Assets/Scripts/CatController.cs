@@ -41,6 +41,11 @@ public class CatController : MonoBehaviour
     [SerializeField] private int currentScore = 000;
     [SerializeField] private TMP_Text foodScoreText;
 
+    [Header("Scratch Effect")]
+    [SerializeField] private Transform scratchSpawnLeft;
+    [SerializeField] private Transform scratchSpawnRight;
+    [SerializeField] private GameObject scratchPrefab;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -154,6 +159,25 @@ public class CatController : MonoBehaviour
         
         catAnimator.SetTrigger("scratch");
         SetActionText("SCRATCH!");
+    }
+
+    /// <summary>
+    /// Called by animation flag. 
+    /// </summary>
+    public void SpawnScratchFx()
+    {
+        Vector3 spawnPoint = transform.position;
+        if (spriteRenderer.flipX)
+        {
+            spawnPoint = scratchSpawnRight.position;
+        }
+        else
+        {
+            spawnPoint = scratchSpawnLeft.position;
+        }
+        
+        //Spawn scratch at position
+        GameObject scratch = Instantiate(scratchPrefab, spawnPoint, transform.rotation);
     }
 
     void SetActionText(string message)

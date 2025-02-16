@@ -3,6 +3,7 @@ Cat Game
 - Walking scratch should be focused on scratching in Front of where the cat is currentely facing
 	- the red mark can be generated as a little obj in front of the cat and damage other cats/players
 	- Should do a version of the scratch from the sitting pose
+	- Could make sitting cat/AI cats have health bars popup
 - Work more on house logic
 - Friendly houses that you meow/purr at  have random chance of letting you inside
  - Play door open sound and teleport cat to interior mini-game/weird cinematic 
