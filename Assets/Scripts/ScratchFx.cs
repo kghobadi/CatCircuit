@@ -5,12 +5,23 @@ using UnityEngine;
 
 public class ScratchFx : MonoBehaviour
 {
+    [SerializeField] private string animToTrigger = "hit_scratch";
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cat"))
         {
-            //do soemething 
+            //do something 
             Debug.Log("hit cat or player!");
+            Animator enemyAnimator = other.gameObject.GetComponent<Animator>();
+            if (enemyAnimator == null)
+            {
+                enemyAnimator = other.gameObject.GetComponentInChildren<Animator>();
+            }
+
+            if (enemyAnimator != null)
+            {
+                enemyAnimator.SetTrigger(animToTrigger);
+            }
         }
     }
 

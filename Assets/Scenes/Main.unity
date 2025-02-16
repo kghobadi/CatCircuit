@@ -209,32 +209,6 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 314337326}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &532742913 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 286651580275728751, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
-  m_PrefabInstance: {fileID: 286651578670200139}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &532742918
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532742913}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!114 &671322565 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5059066848637721555, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
@@ -585,6 +559,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1031561622, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a7cad0cd268cd984aaf1604d45786536, type: 2}
+    - target: {fileID: 1779821640, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779821640, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 286651580275728748, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
       propertyPath: m_RootOrder
       value: 0

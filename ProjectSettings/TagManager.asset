@@ -6,6 +6,7 @@ TagManager:
   tags:
   - House
   - Cat
+  - Attack
   layers:
   - Default
   - TransparentFX

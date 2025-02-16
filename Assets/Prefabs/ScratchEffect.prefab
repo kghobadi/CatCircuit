@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1187416761876526155}
   m_Layer: 0
   m_Name: ScratchEffect
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,3 +177,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317b54c3556385044acbd65960a5737a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animToTrigger: hit_scratch
