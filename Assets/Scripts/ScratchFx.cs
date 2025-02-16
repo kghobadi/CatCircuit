@@ -13,4 +13,14 @@ public class ScratchFx : MonoBehaviour
             Debug.Log("hit cat or player!");
         }
     }
+
+    public void DestroyEffect()
+    {
+        Destroy(gameObject);
+    }
+
+    public void RecycleEffect()
+    {
+        //return to pool if there is one 
+    }
 }
