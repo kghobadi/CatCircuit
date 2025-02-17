@@ -561,6 +561,8 @@ MonoBehaviour:
   showOnHitLength: 2
   healthUiAnims:
   - {fileID: 1031561622}
+  charAnimator: {fileID: 286651580275728750}
+  healthAnimParam: Health
   fullHP: 3
   healthAmt: 3
   lives: 9

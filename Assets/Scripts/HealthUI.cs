@@ -12,6 +12,8 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private GameObject[] uiObjects;
     [SerializeField] private float showOnHitLength = 2f;
     [SerializeField] private Animator[] healthUiAnims;
+    [SerializeField] private Animator charAnimator;
+    [SerializeField] private bool isDead;
 
     [SerializeField] private string healthAnimParam = "Health";
     [SerializeField] private int fullHP = 3;
@@ -34,9 +36,13 @@ public class HealthUI : MonoBehaviour
 
     public void Attacked(int dmg)
     {
-        healthAmt -= dmg;
-        UpdateHealth(healthAmt);
-        if (healthAmt < 0)
+        if (isDead)
+        {
+            return;
+        }
+        
+        UpdateHealth(healthAmt - dmg); 
+        if (healthAmt <= 0)
         {
             Die();
         }
@@ -46,22 +52,27 @@ public class HealthUI : MonoBehaviour
     {
         //anim set trigger die
         lives--;
-        livesText.text = lives.ToString();
-        if (lives > 0)
-        {
-            Resurrect();
-        }
-        else
+        livesText.text = "X" + lives.ToString();
+        charAnimator.SetTrigger("die");
+        isDead = true;
+        if (lives <= 0)
         {
             PermanentDeath();
         }
     }
 
-    void Resurrect()
+    /// <summary>
+    /// Gets called by looping death anim. 
+    /// </summary>
+    public void Resurrect()
     {
-        //anim set trigger resurrect 
-        UpdateHealth(fullHP);
-        ShowHealthUI();
+        if (lives > 0)
+        {
+            charAnimator.SetTrigger("revive");
+            isDead = false; 
+            //anim set trigger resurrect 
+            UpdateHealth(fullHP);
+        }
     }
 
     void PermanentDeath()
@@ -76,7 +87,8 @@ public class HealthUI : MonoBehaviour
     {
         for (int i = 0; i < uiObjects.Length; i++)
         { 
-            uiObjects[i].SetActive(state);
+            if(uiObjects[i].activeSelf != state)
+                uiObjects[i].SetActive(state);
         }
     }
     
@@ -90,9 +102,16 @@ public class HealthUI : MonoBehaviour
 
     void ShowHealthUI()
     {
-        StartCoroutine(ShowHealthUIForTime());
+        if (showHealthForTime != null)
+        {
+            StopCoroutine(showHealthForTime);
+        }
+
+        showHealthForTime = ShowHealthUIForTime();
+        StartCoroutine(showHealthForTime);
     }
 
+    private IEnumerator showHealthForTime;
     IEnumerator ShowHealthUIForTime()
     {
         SetHealthObjectsActive(true);

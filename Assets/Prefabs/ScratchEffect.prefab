@@ -178,3 +178,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animToTrigger: hit_scratch
+  damangedEnemy: 0

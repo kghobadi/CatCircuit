@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScratchFx : MonoBehaviour
 {
     [SerializeField] private string animToTrigger = "hit_scratch";
+    [SerializeField] private bool damangedEnemy;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cat"))
@@ -18,9 +19,10 @@ public class ScratchFx : MonoBehaviour
                 enemyAnimator = other.gameObject.GetComponentInChildren<Animator>();
             }
 
-            if (enemyAnimator != null)
+            if (enemyAnimator != null && !damangedEnemy)
             {
                 enemyAnimator.SetTrigger(animToTrigger);
+                damangedEnemy = true;
             }
         }
     }
