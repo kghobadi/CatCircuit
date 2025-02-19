@@ -9,7 +9,9 @@ using UnityEngine;
 /// </summary>
 public class HealthUI : MonoBehaviour
 {
-    [SerializeField] private GameObject[] uiObjects;
+    private CatController catController;
+    private float distFromPlayer;
+    [SerializeField] private CanvasGroup[] uiGroups;
     [SerializeField] private float showOnHitLength = 2f;
     [SerializeField] private Animator[] healthUiAnims;
     [SerializeField] private Animator charAnimator;
@@ -21,12 +23,49 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private int lives = 9;
     [SerializeField] private TMP_Text livesText;
 
+    [SerializeField] private bool healOnPurr;
+    [SerializeField] private float healRange = 5f;
+
+    private void Awake()
+    {
+        catController = FindObjectOfType<CatController>();
+    }
+
     private void Start()
     {
         UpdateHealth(fullHP);
+        
+        catController.OnCatAction.AddListener(OnCatAction);
     }
 
-    //TODO something wrong with how this updates -maybe from the blend tree? 
+    private void OnDestroy()
+    {
+        catController.OnCatAction.RemoveListener(OnCatAction);
+    }
+
+    void GetDistanceFromPlayer()
+    {
+        distFromPlayer = Vector3.Distance(transform.position, catController.transform.position);
+    }
+    
+    /// <summary>
+    /// How to respond to this provocation??? or altercation? or friendly invitation? 
+    /// </summary>
+    /// <param name="action"></param>
+    void OnCatAction(CatController.CatActions action)
+    {
+        switch (action)
+        {
+            case CatController.CatActions.PURR:
+                HealFromPurr();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Updates health UI display to this amt. 
+    /// </summary>
+    /// <param name="amt"></param>
     void UpdateHealth(int amt)
     {
         healthAmt = amt;
@@ -34,31 +73,62 @@ public class HealthUI : MonoBehaviour
         ShowHealthUI();
     }
 
+    /// <summary>
+    /// Called by opponents attack animation objects. 
+    /// </summary>
+    /// <param name="dmg"></param>
     public void Attacked(int dmg)
     {
         if (isDead)
         {
             return;
         }
+
+        if (healthAmt > 0)
+        {
+            UpdateHealth(healthAmt - dmg); 
+        }
         
-        UpdateHealth(healthAmt - dmg); 
         if (healthAmt <= 0)
         {
             Die();
         }
     }
 
+    /// <summary>
+    /// Called when I die from an attack or? 
+    /// </summary>
     void Die()
     {
         //anim set trigger die
         lives--;
         livesText.text = "X" + lives.ToString();
         charAnimator.SetTrigger("die");
+        charAnimator.SetBool("dead", true);
         isDead = true;
         if (lives <= 0)
         {
             PermanentDeath();
         }
+    }
+
+    /// <summary>
+    /// Called in response to friendly purrs. 
+    /// </summary>
+    void HealFromPurr()
+    {
+        if (isDead || healthAmt >= fullHP)
+        {
+            return;
+        }
+        
+        GetDistanceFromPlayer();
+        if (distFromPlayer > healRange)
+        {
+            return;
+        }
+        
+        UpdateHealth(healthAmt + catController.PurrHealStrength); 
     }
 
     /// <summary>
@@ -68,6 +138,7 @@ public class HealthUI : MonoBehaviour
     {
         if (lives > 0)
         {
+            charAnimator.SetBool("dead", false);
             charAnimator.SetTrigger("revive");
             isDead = false; 
             //anim set trigger resurrect 
@@ -75,6 +146,9 @@ public class HealthUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when there are no lives left. 
+    /// </summary>
     void PermanentDeath()
     {
         
@@ -83,15 +157,30 @@ public class HealthUI : MonoBehaviour
 
     #region UI Calls
 
+    /// <summary>
+    /// Activates or deactivates a UI Canvas group by setting its alpha value. 
+    /// </summary>
+    /// <param name="state"></param>
     public void SetHealthObjectsActive(bool state)
     {
-        for (int i = 0; i < uiObjects.Length; i++)
-        { 
-            if(uiObjects[i].activeSelf != state)
-                uiObjects[i].SetActive(state);
+        for (int i = 0; i < uiGroups.Length; i++)
+        {
+            if (state)
+            {
+                uiGroups[i].alpha = 1f;
+            }
+            else
+            {
+                uiGroups[i].alpha = 0f;
+            }
         }
     }
     
+    /// <summary>
+    /// Animates health UI objects using a float for their state in blend tree. 
+    /// </summary>
+    /// <param name="stateName"></param>
+    /// <param name="state"></param>
     void SetHealthUIStates(string stateName, int state)
     {
         for (int i = 0; i < healthUiAnims.Length; i++)
@@ -100,6 +189,9 @@ public class HealthUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calls variable coroutine that shows health UI for a time. 
+    /// </summary>
     void ShowHealthUI()
     {
         if (showHealthForTime != null)

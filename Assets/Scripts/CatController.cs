@@ -41,10 +41,14 @@ public class CatController : MonoBehaviour
     [SerializeField] private int currentScore = 000;
     [SerializeField] private TMP_Text foodScoreText;
 
+    [SerializeField] private int purrHealStrength = 1;
+    public int PurrHealStrength => purrHealStrength;
+
     [Header("Scratch Effect")]
     [SerializeField] private Transform scratchSpawnLeft;
     [SerializeField] private Transform scratchSpawnRight;
-    [SerializeField] private GameObject scratchPrefab;
+    [SerializeField] private GameObject scratchPrefabL;
+    [SerializeField] private GameObject scratchPrefabR;
 
     private void Awake()
     {
@@ -142,6 +146,7 @@ public class CatController : MonoBehaviour
     {
         catAudio.RandomPurr();
         OnCatAction.Invoke(CatActions.PURR);
+        //would be cool to use a slower version of the sitting animation!
         SetActionText("PURR!");
     }
 
@@ -166,18 +171,16 @@ public class CatController : MonoBehaviour
     /// </summary>
     public void SpawnScratchFx()
     {
-        Vector3 spawnPoint = transform.position;
+        Vector3 spawnPoint = scratchSpawnLeft.position;
+        GameObject spawnPrefab = scratchPrefabL;
         if (spriteRenderer.flipX)
         {
             spawnPoint = scratchSpawnRight.position;
-        }
-        else
-        {
-            spawnPoint = scratchSpawnLeft.position;
+            spawnPrefab = scratchPrefabR;
         }
         
         //Spawn scratch at position
-        GameObject scratch = Instantiate(scratchPrefab, spawnPoint, transform.rotation);
+        GameObject scratch = Instantiate(spawnPrefab, spawnPoint, transform.rotation);
     }
 
     void SetActionText(string message)

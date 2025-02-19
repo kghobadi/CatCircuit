@@ -559,10 +559,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1031561622, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: a7cad0cd268cd984aaf1604d45786536, type: 2}
     - target: {fileID: 1779821640, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -618,6 +614,10 @@ PrefabInstance:
     - target: {fileID: 286651580275728751, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
       propertyPath: m_Name
       value: SittingCat
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658150016420263423, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
+      propertyPath: m_Alpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
@@ -703,7 +703,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
       propertyPath: m_Name
-      value: ScratchEffect
+      value: ScratchEffect (R)
       objectReference: {fileID: 0}
     - target: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
       propertyPath: m_IsActive
@@ -755,6 +755,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
+--- !u!1001 &4688362550101350999
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.082
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186610, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_Name
+      value: ScratchEffect (L)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
 --- !u!1001 &5059066847966661142
 PrefabInstance:
   m_ObjectHideFlags: 0

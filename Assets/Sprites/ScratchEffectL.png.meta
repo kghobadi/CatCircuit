@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 74b887662cbb4104499745d9882c69e1
+guid: 01a92e80ccd1ce14cbed1b2e0fba171b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ScratchEffect_0
+      name: ScratchEffectL_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29b87af4b0a3a9a4093278242f7169d7
-      internalID: 1981579691
+      spriteID: bd39ceee7f73a3f46ba2ef893c9dd2ca
+      internalID: 1513963557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ScratchEffect_1
+      name: ScratchEffectL_1
       rect:
         serializedVersion: 2
         x: 32
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 851d3e077aa3c634f95c244b45bd4136
-      internalID: -492514936
+      spriteID: 1d2065b603b29ea41987888271c6d557
+      internalID: 1858507375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ScratchEffect_2
+      name: ScratchEffectL_2
       rect:
         serializedVersion: 2
         x: 64
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a953b890fe2cb44f9bf338606565cd5
-      internalID: 390757680
+      spriteID: 5f820534831e7a84fb27fed7557edc18
+      internalID: -1085271593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ScratchEffect_3
+      name: ScratchEffectL_3
       rect:
         serializedVersion: 2
         x: 96
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d3011cf1adcf894eb33baa7d1ac4452
-      internalID: -645303070
+      spriteID: ae6e3095b5c2ad043854c1b160d606e9
+      internalID: -846097368
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ScratchEffect_4
+      name: ScratchEffectL_4
       rect:
         serializedVersion: 2
         x: 128
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70d04cc6c8e30b94cbe463a084d93e77
-      internalID: 1192029859
+      spriteID: 7420dcc5d8ca7a047b67f5d6cca7a42a
+      internalID: 1182530393
       vertices: []
       indices: 
       edges: []
@@ -220,11 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ScratchEffect_0: 1981579691
-      ScratchEffect_1: -492514936
-      ScratchEffect_2: 390757680
-      ScratchEffect_3: -645303070
-      ScratchEffect_4: 1192029859
+      ScratchEffectL_0: 1513963557
+      ScratchEffectL_1: 1858507375
+      ScratchEffectL_2: -1085271593
+      ScratchEffectL_3: -846097368
+      ScratchEffectL_4: 1182530393
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

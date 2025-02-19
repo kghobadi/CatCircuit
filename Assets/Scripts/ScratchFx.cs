@@ -21,8 +21,11 @@ public class ScratchFx : MonoBehaviour
 
             if (enemyAnimator != null && !damangedEnemy)
             {
-                enemyAnimator.SetTrigger(animToTrigger);
-                damangedEnemy = true;
+                if (!enemyAnimator.GetBool("dead"))
+                {
+                    enemyAnimator.SetTrigger(animToTrigger);
+                    damangedEnemy = true;
+                }
             }
         }
     }

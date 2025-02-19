@@ -165,8 +165,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fb96032be12f88c4997488da05b9fde3, type: 3}
   - {fileID: 8300000, guid: 387f934b3c8a0b94d84b46d69131fc82, type: 3}
   scratch:
-  - {fileID: 8300000, guid: bb07fde826eba254cb86ef8dee405001, type: 3}
-  - {fileID: 8300000, guid: 6b89b5b01a044f342af0f5b380a7ec91, type: 3}
+  - {fileID: 8300000, guid: 8063214b87a971643a5aec157986225d, type: 3}
+  - {fileID: 8300000, guid: 3e31edef06e202d4aacb6345a3e76456, type: 3}
+  - {fileID: 8300000, guid: c5d793ee245857943a683c4cafaa7df7, type: 3}
+  - {fileID: 8300000, guid: abf123dc430c8b8479d65bc9492ace28, type: 3}
+  - {fileID: 8300000, guid: 55ece9c6a516f2b4691e506cc3ac9749, type: 3}
+  - {fileID: 8300000, guid: 5996cff83dfc6664bb445c6d23b019a8, type: 3}
+  - {fileID: 8300000, guid: e3830a3b6bb9c7d40bf731340b509376, type: 3}
+  - {fileID: 8300000, guid: 25a5ef0f5c4017c48afe50a9727c6c0e, type: 3}
+  - {fileID: 8300000, guid: a1a60288b6f16a74c96cae440bed2b2f, type: 3}
+  - {fileID: 8300000, guid: dafb96bb16126a44cb8a84f1e30bc497, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,9 +822,11 @@ MonoBehaviour:
   catLivesTxt: {fileID: 0}
   currentScore: 0
   foodScoreText: {fileID: 0}
+  purrHealStrength: 1
   scratchSpawnLeft: {fileID: 1204986203}
   scratchSpawnRight: {fileID: 1832205703}
-  scratchPrefab: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
+  scratchPrefabL: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
+  scratchPrefabR: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
 --- !u!50 &1867304395459942023
 Rigidbody2D:
   serializedVersion: 4
