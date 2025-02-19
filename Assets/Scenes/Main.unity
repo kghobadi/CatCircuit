@@ -628,6 +628,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 313422480, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: scratch.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: dafb96bb16126a44cb8a84f1e30bc497, type: 3}
     - target: {fileID: 748202298, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
