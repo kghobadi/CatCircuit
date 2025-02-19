@@ -89,6 +89,11 @@ public class CatController : MonoBehaviour
         {
             Scratch();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
     
     
