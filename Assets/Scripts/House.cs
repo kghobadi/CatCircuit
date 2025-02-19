@@ -7,6 +7,7 @@ using Random = System.Random;
 public class House : MonoBehaviour
 {
     private CatController catController;
+    private float distFromPlayer;
     
     [SerializeField] private SpriteRenderer house;
     [SerializeField] private HouseType houseType;
@@ -25,6 +26,12 @@ public class House : MonoBehaviour
     [SerializeField] private bool hasFood;
     private bool catPlayerPresent;
     //over time could do something with the houses changing type?  
+
+    [SerializeField] private HouseAudio houseAudio;
+    [Header("Teleport Destination")]
+    [Tooltip("What happens if the cat enters?")]
+    [SerializeField] private Transform internalHousePosition;
+    
 
     private void Awake()
     {
@@ -66,6 +73,11 @@ public class House : MonoBehaviour
     private void Start()
     {
         hasFood = true;
+    }
+    
+    void GetDistanceFromPlayer()
+    {
+        distFromPlayer = Vector3.Distance(transform.position, catController.transform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -135,6 +147,24 @@ public class House : MonoBehaviour
                     break;
             }
         }
+    }
+
+    void Update()
+    {
+        if (catPlayerPresent)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                OpenDoor();
+            }
+        }
+    }
+
+    void OpenDoor()
+    {
+        Debug.Log("Entered " + transform.parent.gameObject.name);
+        catController.TeleportCat(internalHousePosition);
+        houseAudio.RandomDoorOpen();
     }
 
     void GetFood()

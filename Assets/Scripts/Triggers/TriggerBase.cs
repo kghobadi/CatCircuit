@@ -36,7 +36,7 @@ public abstract class TriggerBase : MonoBehaviour
     /// Called whenever an object with a collider enters this collider (marked as trigger). 
     /// </summary>
     /// <param name="other"></param>
-    protected virtual void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         //already triggered?
         if (hasTriggered)
