@@ -32,21 +32,16 @@ public class House : MonoBehaviour
     [Tooltip("What happens if the cat enters?")]
     [SerializeField] private Transform internalHousePosition;
     
-
     private void Awake()
     {
-        catController = FindObjectOfType<CatController>();
-        
         //add listeners
-        catController.OnCatAction.AddListener(CheckCatAction);
+        for (int i = 0; i < GameManager.Instance.AllCats.Length; i++)
+        {
+            GameManager.Instance.AllCats[i].OnCatAction.AddListener(CheckCatAction);
+        }
     }
-
-    private void OnDestroy()
-    {
-        //remove listeners
-        catController.OnCatAction.RemoveListener(CheckCatAction);
-    }
-
+    
+    
     private void OnValidate()
     {
         UpdateHouseType();
@@ -88,8 +83,9 @@ public class House : MonoBehaviour
         }
     }
 
-    void CheckCatAction(CatController.CatActions action)
+    void CheckCatAction(CatController.CatActions action, CatController cat)
     {
+        catController = cat;
         if (catPlayerPresent)
         {
             //respond to actions depending on house type
@@ -173,6 +169,7 @@ public class House : MonoBehaviour
         {
             int randomFood = UnityEngine.Random.Range(foodAmtRange.x, foodAmtRange.y);
             catController.GainFood(randomFood);
+            houseAudio.RandomDoorOpen();
         }
         else
         {

@@ -15,6 +15,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private float showOnHitLength = 2f;
     [SerializeField] private Animator[] healthUiAnims;
     [SerializeField] private Animator charAnimator;
+    [SerializeField] private CatController linkedCat;
     [SerializeField] private bool isDead;
 
     [SerializeField] private string healthAnimParam = "Health";
@@ -26,34 +27,28 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private bool healOnPurr;
     [SerializeField] private float healRange = 5f;
 
-    private void Awake()
-    {
-        catController = FindObjectOfType<CatController>();
-    }
-
     private void Start()
     {
         UpdateHealth(fullHP);
-        
-        catController.OnCatAction.AddListener(OnCatAction);
-    }
 
-    private void OnDestroy()
-    {
-        catController.OnCatAction.RemoveListener(OnCatAction);
+        for (int i = 0; i < GameManager.Instance.AllCats.Length; i++)
+        {
+            GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatAction);
+        }
     }
-
     void GetDistanceFromPlayer()
     {
         distFromPlayer = Vector3.Distance(transform.position, catController.transform.position);
     }
-    
+
     /// <summary>
     /// How to respond to this provocation??? or altercation? or friendly invitation? 
     /// </summary>
     /// <param name="action"></param>
-    void OnCatAction(CatController.CatActions action)
+    /// <param name="cat"></param>
+    void OnCatAction(CatController.CatActions action, CatController cat)
     {
+        catController = cat;
         switch (action)
         {
             case CatController.CatActions.PURR:
@@ -88,8 +83,7 @@ public class HealthUI : MonoBehaviour
         {
             UpdateHealth(healthAmt - dmg); 
         }
-        
-        if (healthAmt <= 0)
+        else
         {
             Die();
         }
@@ -109,6 +103,12 @@ public class HealthUI : MonoBehaviour
         if (lives <= 0)
         {
             PermanentDeath();
+        }
+        
+        //update cat controller link
+        if (linkedCat)
+        {
+            linkedCat.OverrideSetLives(lives);
         }
     }
 

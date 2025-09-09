@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+public enum PlayerType
+{
+    WASD = 0,
+    ARROWS = 1,
+    CONTROLLER = 2, //Todo revisit with Rewired at some point - this will need to be an arcade machine 
+}
 
 public class CatController : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerInputActionScriptable myPlayerInputActions; 
+
     [SerializeField] private CatStates catState;
     private enum CatStates
     {
@@ -25,7 +34,7 @@ public class CatController : MonoBehaviour
     [Header("Action Audios")] [SerializeField]
     private CatAudio catAudio;
     [SerializeField] private TMP_Text actionText;
-    public UnityEvent<CatActions> OnCatAction;
+    public UnityEvent<CatActions, CatController> OnCatAction;
     public enum CatActions
     {
         MEOW = 0,
@@ -40,6 +49,7 @@ public class CatController : MonoBehaviour
 
     [SerializeField] private int currentScore = 000;
     [SerializeField] private TMP_Text foodScoreText;
+    public int PlayerScore => currentScore;
 
     [SerializeField] private int purrHealStrength = 1;
     public int PurrHealStrength => purrHealStrength;
@@ -69,23 +79,23 @@ public class CatController : MonoBehaviour
     void Update()
     { 
         //get inputs 
-        horizontalMove = Input.GetAxis("Horizontal");
-        verticalMove = Input.GetAxis("Vertical");
+        horizontalMove = Input.GetAxis(myPlayerInputActions.HorizontalInput);
+        verticalMove = Input.GetAxis(myPlayerInputActions.VerticalInput);
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(myPlayerInputActions.Meow))
         {
             Meow();
         }
         //Must be Idle in order to purr (not moving).
-        if (Input.GetKeyDown(KeyCode.X) && catState == CatStates.IDLE)
+        if (Input.GetKeyDown(myPlayerInputActions.Purr) && catState == CatStates.IDLE)
         {
             Purr();
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(myPlayerInputActions.Hiss))
         {
             Hiss();
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(myPlayerInputActions.Scratch))
         {
             Scratch();
         }
@@ -95,7 +105,6 @@ public class CatController : MonoBehaviour
             Application.Quit();
         }
     }
-    
     
     #region Movement
     private void FixedUpdate()
@@ -143,14 +152,14 @@ public class CatController : MonoBehaviour
     void Meow()
     {
         catAudio.RandomMeow();
-        OnCatAction.Invoke(CatActions.MEOW);
+        OnCatAction.Invoke(CatActions.MEOW, this);
         SetActionText("MEOW!");
     }
 
     void Purr()
     {
         catAudio.RandomPurr();
-        OnCatAction.Invoke(CatActions.PURR);
+        OnCatAction.Invoke(CatActions.PURR, this);
         //would be cool to use a slower version of the sitting animation!
         SetActionText("PURR!");
     }
@@ -158,14 +167,14 @@ public class CatController : MonoBehaviour
     void Hiss()
     {
         catAudio.RandomHiss();
-        OnCatAction.Invoke(CatActions.HISS);
+        OnCatAction.Invoke(CatActions.HISS, this);
         SetActionText("HISS!");
     }
 
     void Scratch()
     {
         catAudio.RandomScratch();
-        OnCatAction.Invoke(CatActions.SCRATCH);
+        OnCatAction.Invoke(CatActions.SCRATCH, this);
         
         catAnimator.SetTrigger("scratch");
         SetActionText("SCRATCH!");
@@ -219,12 +228,34 @@ public class CatController : MonoBehaviour
     #region Outcomes
 
     /// <summary>
+    /// Can be called by linked Health UI. 
+    /// </summary>
+    /// <param name="lives"></param>
+    public void OverrideSetLives(int lives)
+    {
+        catLives = lives;
+        UpdateLivesText();
+    }
+    
+    /// <summary>
     /// Called by dangerous houses.  
     /// </summary>
     public void LoseLife()
     {
         catLives--;
+        UpdateLivesText();
+    }
+
+    void UpdateLivesText()
+    {
         catLivesTxt.text = "x" + catLives.ToString();
+        //Checks if dead 
+        if (catLives < 0)
+        {
+            //Cat dies 
+            Debug.Log("Player " + myPlayerInputActions.name + " has died");
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
