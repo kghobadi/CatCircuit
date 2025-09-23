@@ -97,9 +97,10 @@ public class House : MonoBehaviour
 
     #region Trigger Logic
 
-    void GetDistanceFromPlayer()
+    float GetDistanceFromPlayer(CatController cat)
     {
-        distFromPlayer = Vector3.Distance(transform.position, catController.transform.position);
+        distFromPlayer = Vector3.Distance(transform.position, cat.transform.position);
+        return distFromPlayer;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -129,7 +130,7 @@ public class House : MonoBehaviour
     void CheckCatAction(CatController.CatActions action, CatController cat)
     {
         catController = cat;
-        if (catPlayerPresent)
+        if (catPlayerPresent && GetDistanceFromPlayer(cat) < 1f)
         {
             float align = 0; 
             bool goodInteraction = false;
