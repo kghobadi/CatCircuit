@@ -157,7 +157,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   house: {fileID: 1644001971}
   houseType: 0
-  foodAmtRange: {x: 50, y: 100}
+  Alignment: 0
+  favoriteAction: 0
+  hatedAction: 0
+  foodAmtRange: {x: 10, y: 100}
+  totalPrize: 0
   hasFood: 0
   houseAudio: {fileID: 212403600556787093}
   internalHousePosition: {fileID: 0}
@@ -238,7 +242,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b1ebac7ed9680bb49a9253a520fecdda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

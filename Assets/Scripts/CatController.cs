@@ -14,7 +14,13 @@ public enum PlayerType
 public class CatController : MonoBehaviour
 {
     [SerializeField]
-    private PlayerInputActionScriptable myPlayerInputActions; 
+    private PlayerInputActionScriptable myPlayerInputActions;
+
+    [SerializeField] private Color playerColor;
+    public Color PlayerColor => playerColor;
+
+    [Tooltip("Does this cat align positive? This is a temporary measurement")]
+    public bool alignPositive;
 
     [SerializeField] private CatStates catState;
     private enum CatStates
@@ -82,12 +88,12 @@ public class CatController : MonoBehaviour
         horizontalMove = Input.GetAxis(myPlayerInputActions.HorizontalInput);
         verticalMove = Input.GetAxis(myPlayerInputActions.VerticalInput);
 
-        if (Input.GetKeyDown(myPlayerInputActions.Meow))
+        if (Input.GetKeyDown(myPlayerInputActions.Meow) && !catAudio.myAudioSource.isPlaying)
         {
             Meow();
         }
         //Must be Idle in order to purr (not moving).
-        if (Input.GetKeyDown(myPlayerInputActions.Purr) && catState == CatStates.IDLE)
+        if (Input.GetKeyDown(myPlayerInputActions.Purr) && catState == CatStates.IDLE && !catAudio.myAudioSource.isPlaying)
         {
             Purr();
         }

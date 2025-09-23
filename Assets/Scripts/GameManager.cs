@@ -17,6 +17,10 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     public float totalGameTime = 180f;
     [SerializeField] private CatController[] allPlayers;
     public CatController[] AllCats => allPlayers;
+    [SerializeField] private Vector2 alignmentRange = new Vector2(-10f, 10f);
+    public Vector2 AlignmentRange => alignmentRange;
+    [SerializeField] private House[] allHouses;
+    public House[] AllHouses => allHouses;
     [SerializeField] private GameObject gameoverUi;
     [SerializeField] private TMP_Text winnerText;
     void Start()
@@ -24,6 +28,34 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         gameoverUi.SetActive(false);
         mainTimer.SetCountdown((int)totalGameTime);
         mainTimer.OnTimerFinished += OnGameEnded;
+        RandomizeHousePools();
+    }
+
+    private void OnValidate()
+    {
+        if (allHouses == null || allHouses.Length == 0)
+        {
+            allHouses = FindObjectsOfType<House>();
+        }
+    }
+
+    /// <summary>
+    /// Randomizes resource allotments of every house. 
+    /// </summary>
+    void RandomizeHousePools()
+    {
+        for (int i = 0; i < allHouses.Length; i++)
+        {
+            allHouses[i].RandomizePrize();
+        }
+    }
+    
+    /// <summary>
+    /// Would divide alignment sectors according to players. Right now there's only 2. 
+    /// </summary>
+    void DivideAlignmentSectors()
+    {
+        
     }
 
     protected override void OnDestroy()
