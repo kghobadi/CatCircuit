@@ -31,11 +31,12 @@ public class HealthUI : MonoBehaviour
     {
         UpdateHealth(fullHP);
 
-        for (int i = 0; i < GameManager.Instance.AllCats.Length; i++)
+        for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
         {
             GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatAction);
         }
     }
+
     void GetDistanceFromPlayer()
     {
         distFromPlayer = Vector3.Distance(transform.position, catController.transform.position);
@@ -49,11 +50,14 @@ public class HealthUI : MonoBehaviour
     void OnCatAction(CatController.CatActions action, CatController cat)
     {
         catController = cat;
-        switch (action)
+        if (cat != linkedCat)
         {
-            case CatController.CatActions.PURR:
-                HealFromPurr();
-                break;
+            switch (action)
+            {
+                case CatController.CatActions.PURR:
+                    HealFromPurr();
+                    break;
+            }
         }
     }
 

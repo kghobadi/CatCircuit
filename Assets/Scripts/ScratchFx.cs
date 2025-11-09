@@ -3,13 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the behavior of the scratch effect. 
+/// </summary>
 public class ScratchFx : MonoBehaviour
 {
+    public CatController creator;
     [SerializeField] private string animToTrigger = "hit_scratch";
     [SerializeField] private bool damangedEnemy;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cat"))
+        //Must be another player/cat
+        if ((other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cat"))
+            && other.gameObject != creator.gameObject) //Must not be the creator!
         {
             //do something 
             Debug.Log("hit cat or player!");

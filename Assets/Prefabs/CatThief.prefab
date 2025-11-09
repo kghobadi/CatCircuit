@@ -726,11 +726,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849977866f33717488a0f9d27be5e297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerId: 0
   myPlayerInputActions: {fileID: 11400000, guid: 83113ba8c19fc08459f975c66338c0f8, type: 2}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   alignPositive: 0
   catState: 0
   moveSpeed: 0.1
+  catInteractDistance: 0.5
+  hissPushForce: 50
   catAudio: {fileID: 313422480}
   actionText: {fileID: 748202299}
   OnCatAction:
