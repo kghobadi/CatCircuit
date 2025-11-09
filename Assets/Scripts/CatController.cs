@@ -313,7 +313,7 @@ public class CatController : MonoBehaviour
     void PushFromHiss(CatController enemyCat)
     {
         //push me away!
-        Vector3 dir = enemyCat.transform.position - transform.position;
+        Vector3 dir = transform.position - enemyCat.transform.position;
         catBody.AddForce(hissPushForce * dir,  ForceMode2D.Impulse);
     }
     

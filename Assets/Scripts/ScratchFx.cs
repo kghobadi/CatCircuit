@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Controls the behavior of the scratch effect. 
@@ -10,7 +11,7 @@ public class ScratchFx : MonoBehaviour
 {
     public CatController creator;
     [SerializeField] private string animToTrigger = "hit_scratch";
-    [SerializeField] private bool damangedEnemy;
+    [FormerlySerializedAs("damangedEnemy")] [SerializeField] private bool damagedEnemy;
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Must be another player/cat
@@ -25,12 +26,12 @@ public class ScratchFx : MonoBehaviour
                 enemyAnimator = other.gameObject.GetComponentInChildren<Animator>();
             }
 
-            if (enemyAnimator != null && !damangedEnemy)
+            if (enemyAnimator != null && !damagedEnemy)
             {
                 if (!enemyAnimator.GetBool("dead"))
                 {
                     enemyAnimator.SetTrigger(animToTrigger);
-                    damangedEnemy = true;
+                    damagedEnemy = true;
                 }
             }
         }

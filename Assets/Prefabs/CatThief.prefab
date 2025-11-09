@@ -733,7 +733,7 @@ MonoBehaviour:
   catState: 0
   moveSpeed: 0.1
   catInteractDistance: 0.5
-  hissPushForce: 50
+  hissPushForce: 10
   catAudio: {fileID: 313422480}
   actionText: {fileID: 748202299}
   OnCatAction:
