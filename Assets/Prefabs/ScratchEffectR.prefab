@@ -179,4 +179,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creator: {fileID: 0}
   animToTrigger: hit_scratch
-  damangedEnemy: 0
+  damagedEnemy: 0
