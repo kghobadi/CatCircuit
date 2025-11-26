@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebeb381f9c47a4ea65446f6896ffb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  house: {fileID: 1644001971}
+  house: {fileID: 5844163358669142842}
+  houseZone: {fileID: 1644001971}
   houseType: 0
   Alignment: 0
   favoriteAction: 0
@@ -271,14 +272,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.64, y: 0.64}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.42, y: 0.4}
   m_EdgeRadius: 0
 --- !u!50 &1166303955
 Rigidbody2D:
