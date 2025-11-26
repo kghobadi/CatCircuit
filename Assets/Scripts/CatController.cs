@@ -45,6 +45,7 @@ public class CatController : MonoBehaviour
 
     [Header("Action Audios")] [SerializeField]
     private CatAudio catAudio;
+    public CatAudio CatAudio => catAudio;
     [SerializeField] private TMP_Text actionText;
     public UnityEvent<CatActions, CatController> OnCatAction;
     public enum CatActions

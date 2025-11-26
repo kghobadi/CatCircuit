@@ -32,15 +32,21 @@ public abstract class AudioHandler : MonoBehaviour
     //plays a sound with random pitch and vol
     public virtual void PlaySoundRandomPitch(AudioClip sound, float vol)
     {
-        RandomizePitch(pitchRange.x, pitchRange.y);
-        myAudioSource.PlayOneShot(sound, vol);
+        if (sound != null)
+        {
+            RandomizePitch(pitchRange.x, pitchRange.y);
+            myAudioSource.PlayOneShot(sound, vol);
+        }
     }
 
     //plays a random sound from an array with vol
     public virtual void PlayRandomSound(AudioClip[] sounds, float vol)
     {
-        AudioClip sound = sounds[Random.Range(0, sounds.Length)];
-        myAudioSource.PlayOneShot(sound, vol);
+        if (sounds.Length > 0)
+        {
+            AudioClip sound = sounds[Random.Range(0, sounds.Length)];
+            myAudioSource.PlayOneShot(sound, vol);
+        }
     }
 
     //plays a random sound from an array with vol and random pitch 

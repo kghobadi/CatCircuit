@@ -10,6 +10,7 @@ public class House : MonoBehaviour
     private float distFromPlayer;
     
     [SerializeField] private SpriteRenderer house;
+    [SerializeField] private SpriteRenderer houseZone;
     [SerializeField] private HouseType houseType;
     private enum HouseType
     {
@@ -45,7 +46,7 @@ public class House : MonoBehaviour
             GameManager.Instance.AllCats[i].OnCatAction.AddListener(CheckCatAction);
         }
         //Reset house to neutral color. 
-        house.color = new Color(1, 1, 1, 0.05f); 
+        houseZone.color = new Color(1, 1, 1, 0.05f); 
     }
 
     /// <summary>
@@ -77,13 +78,13 @@ public class House : MonoBehaviour
         switch (houseType)
         {
             case HouseType.FRIENDLY:
-                house.color = new Color(0, 1, 0, 0.05f); 
+                houseZone.color = new Color(0, 1, 0, 0.05f); 
                 break;
             case HouseType.DANGEROUS:
-                house.color =new Color(1, 0, 0, 0.05f); 
+                houseZone.color =new Color(1, 0, 0, 0.05f); 
                 break;
             case HouseType.INQUISITIVE:
-                house.color = new Color(1, 1, 1, 0.05f); 
+                houseZone.color = new Color(1, 1, 1, 0.05f); 
                 break;
         }
 
@@ -213,18 +214,18 @@ public class House : MonoBehaviour
         //We're moving towards blue
         if (Alignment > 0)
         {
-            house.color = new Color(0, 0, 1,  Mathf.Abs(Alignment) / 10f); 
+            houseZone.color = new Color(0, 0, 1,  Mathf.Abs(Alignment) / 10f); 
         }
         //Neutral 
         else if (Alignment == 0)
         {
             //Reset house to neutral color. 
-            house.color = new Color(1, 1, 1, 0.05f); 
+            houseZone.color = new Color(1, 1, 1, 0.05f); 
         }
         //Red Team
         else
         {
-            house.color =new Color(1, 0, 0, Mathf.Abs(Alignment) / 10f); 
+            houseZone.color = new Color(1, 0, 0, Mathf.Abs(Alignment) / 10f); 
         }
     }
     
