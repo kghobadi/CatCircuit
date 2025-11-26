@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: befb1de9063ca3d449875d95d31a57fa
+guid: d114d79c94774b54da5c54515265744b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,38 +117,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Heart
+  - name: Inhabitants
     originalName: 
-    pivot: {x: 0.92857146, y: -0.1}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 37
-      y: 31
-      width: 14
-      height: 10
-    spriteID: 87bf91dacba69814a960b70a179bed94
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 37, y: 31}
-  - name: Heart_Frame_1
-    originalName: 
-    pivot: {x: 0.6666667, y: -0.10526316}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 39
-      width: 21
-      height: 19
-    spriteID: 2c0e811cfaa945843a96a3e778b532e1
+      y: 65
+      width: 30
+      height: 52
+    spriteID: 4834930ce8423ec49a50886dee47a9c1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -156,19 +136,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 39}
-  - name: Heart_Frame_2
+    uvTransform: {x: 4, y: 65}
+  - name: Inhabitants_Frame_1
     originalName: 
-    pivot: {x: 0.52, y: -0.11111111}
+    pivot: {x: 0.53658533, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 25
-      height: 27
-    spriteID: be7b1090fbd562b4ebf02bab5af0d3ec
+      width: 41
+      height: 53
+    spriteID: 1f3e0dc426eadff46a9d0e7757a149b7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,98 +157,34 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Heart_Frame_3
-    originalName: 
-    pivot: {x: 0.33333334, y: -0.57894737}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 37
-      y: 4
-      width: 21
-      height: 19
-    spriteID: e5baeb3a4552b584bbff260352df3df3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 37, y: 4}
-  - name: Heart_Frame_4
-    originalName: 
-    pivot: {x: 0, y: -2}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 37
-      y: 49
-      width: 14
-      height: 10
-    spriteID: 9d962b09962e85d4383bc57a46de1710
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 37, y: 49}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1260111146
-    name: Heart
+    guid: -1361090407
+    name: Inhabitants
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Heart_Frame_0
+    - name: Inhabitants_Frame_0
       frameIndex: 0
       cellRect:
-        x: 3
-        y: 1
-        width: 14
-        height: 10
-      spriteId: 87bf91dacba69814a960b70a179bed94
-    - name: Heart_Frame_1
+        x: 17
+        y: 0
+        width: 30
+        height: 52
+      spriteId: 4834930ce8423ec49a50886dee47a9c1
+    - name: Inhabitants_Frame_1
       frameIndex: 1
       cellRect:
-        x: 2
-        y: 2
-        width: 21
-        height: 19
-      spriteId: 2c0e811cfaa945843a96a3e778b532e1
-    - name: Heart_Frame_2
-      frameIndex: 2
-      cellRect:
-        x: 3
-        y: 3
-        width: 25
-        height: 27
-      spriteId: be7b1090fbd562b4ebf02bab5af0d3ec
-    - name: Heart_Frame_3
-      frameIndex: 3
-      cellRect:
-        x: 9
-        y: 11
-        width: 21
-        height: 19
-      spriteId: e5baeb3a4552b584bbff260352df3df3
-    - name: Heart_Frame_4
-      frameIndex: 4
-      cellRect:
-        x: 16
-        y: 20
-        width: 14
-        height: 10
-      spriteId: 9d962b09962e85d4383bc57a46de1710
+        x: 10
+        y: 0
+        width: 41
+        height: 53
+      spriteId: 1f3e0dc426eadff46a9d0e7757a149b7
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
+  canvasSize: {x: 64, y: 64}
