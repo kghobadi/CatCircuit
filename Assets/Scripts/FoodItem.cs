@@ -10,7 +10,11 @@ public class FoodItem : MonoBehaviour
 {
     [Header("Food Settings")]
     [SerializeField] private int pointsValue;
-
+    public int SetScore
+    {
+        get => pointsValue;
+        set => pointsValue = value;
+    }
     [SerializeField] private AudioClip foodSound;
 
     private void OnTriggerEnter2D(Collider2D other)

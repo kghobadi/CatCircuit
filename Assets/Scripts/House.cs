@@ -32,11 +32,17 @@ public class House : MonoBehaviour
     [SerializeField] private bool hasFood;
     private bool catPlayerPresent;
     //over time could do something with the houses changing type?  
-
+ 
     [SerializeField] private HouseAudio houseAudio;
-    [Header("Teleport Destination")]
-    [Tooltip("What happens if the cat enters?")]
-    [SerializeField] private Transform internalHousePosition;
+    [Header("Inhabitants")] 
+    public GameObject inhabitantPrefab;//todo make this a random list 
+    private ThrowItem throwItem;
+    public bool foodCooldown;
+    [SerializeField] private Vector2 foodCooldownWait = new Vector2(3f, 5f);
+    public bool fetchingFood;
+    [SerializeField] private Vector2 fetchWait = new Vector2(1f, 3f);
+    [Tooltip("What happens if the cat meows?")]
+    [SerializeField] private Transform inhabitantPosition;
     
     private void Awake()
     {
@@ -47,6 +53,8 @@ public class House : MonoBehaviour
         }
         //Reset house to neutral color. 
         houseZone.color = new Color(1, 1, 1, 0.05f); 
+        //inhabitant set up
+        throwItem = inhabitantPrefab.GetComponent<ThrowItem>();
     }
 
     /// <summary>
@@ -230,11 +238,17 @@ public class House : MonoBehaviour
     }
     
     /// <summary>
-    /// Determine food amt from alignment * total. 
+    /// Determine food amt from alignment * total and call forth inhabitant if possible. 
     /// </summary>
     /// <param name="wasFaveAction"></param>
     void GetFood(bool wasFaveAction)
     {
+        //Can't get food during wait time 
+        if (fetchingFood || foodCooldown)
+        {
+            return;
+        }
+        
         int foodPts = Mathf.RoundToInt(Mathf.Abs(Alignment / 10) * totalPrize);
         //if its house fave, you get double. 
         if (wasFaveAction)
@@ -242,8 +256,28 @@ public class House : MonoBehaviour
             foodPts *= 2;
         }
         
-        catController.GainFood(foodPts);
+        //catController.GainFood(foodPts); GIVE food directly to player
+        StartCoroutine(WaitToSpawnInhabitant(foodPts));
+    }
+
+    IEnumerator WaitToSpawnInhabitant(int points)
+    {
+        fetchingFood = true;
+        float randomFetchWait = UnityEngine.Random.Range(fetchWait.x, fetchWait.y);
+
+        yield return new WaitForSeconds(randomFetchWait);
+        throwItem.OverrideScore = points;
+        inhabitantPrefab.SetActive(true);
         houseAudio.RandomDoorOpen();
+
+        yield return new WaitUntil(() => !inhabitantPrefab.gameObject.activeSelf);
+        fetchingFood = false;
+
+        foodCooldown = true;
+        float randomCooldown = UnityEngine.Random.Range(foodCooldownWait.x, foodCooldownWait.y);
+
+        yield return new WaitForSeconds(randomCooldown);
+        foodCooldown = false;
     }
 
     #region Single Player Tests
@@ -320,12 +354,12 @@ public class House : MonoBehaviour
         }
     }*/
     
-    void OpenDoor()
-    {
-        Debug.Log("Entered " + transform.parent.gameObject.name);
-        catController.TeleportCat(internalHousePosition);
-        houseAudio.RandomDoorOpen();
-    }
+    // void OpenDoor()
+    // {
+    //     Debug.Log("Entered " + transform.parent.gameObject.name);
+    //     catController.TeleportCat(internalHousePosition);
+    //     houseAudio.RandomDoorOpen();
+    // }
 
     #endregion
 }

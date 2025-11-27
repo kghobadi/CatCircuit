@@ -864,63 +864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &791929631
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1024322760585241043, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_Name
-      value: Inhabitant (happy-lady) (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_RootOrder
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
 --- !u!114 &795120762 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
@@ -1186,63 +1129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebeb381f9c47a4ea65446f6896ffb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1018257998
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1024322760585241043, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_Name
-      value: Inhabitant (happy-lady) (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.365
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
 --- !u!1 &1134931299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,63 +1688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebeb381f9c47a4ea65446f6896ffb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1521094654
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1024322760585241043, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_Name
-      value: Inhabitant (happy-lady) (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.365
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
 --- !u!1001 &1543525486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2992,63 +2821,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba478e0049a77c44d897f2091c8861e1, type: 3}
---- !u!1001 &1024322761473150968
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1024322760585241043, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_Name
-      value: Inhabitant (happy-lady)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024322760585241045, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
 --- !u!1001 &1867304394336772407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3289,7 +3061,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3939839917246604977, guid: a389605cb0808414799d119afc683d55, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3939839917246604977, guid: a389605cb0808414799d119afc683d55, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3630,6 +3402,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 20604822}
     m_Modifications:
+    - target: {fileID: 645667691, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
+      propertyPath: m_Name
+      value: InhabitantSpot
+      objectReference: {fileID: 0}
+    - target: {fileID: 645667692, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.03999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 645667692, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09000003
+      objectReference: {fileID: 0}
     - target: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Color.b
       value: 1

@@ -11,8 +11,10 @@ public class ThrowItem : AudioHandler
     [SerializeField] private Animator inhabitantAnim;
     [SerializeField] private Vector2 timeRange = new Vector2(1f, 3f);
     [SerializeField] private Transform throwSpot;
-    [SerializeField] private GameObject foodPrefab;
+    [SerializeField] private GameObject foodPrefab; //todo how do we determine this ? 
     [SerializeField] private AudioClip[] throwSounds;
+
+    public int OverrideScore = -1;
     
     void OnEnable()
     {
@@ -27,6 +29,9 @@ public class ThrowItem : AudioHandler
         inhabitantAnim.SetTrigger("throw");
         GameObject foodClone = Instantiate(foodPrefab);
         foodClone.transform.position = throwSpot.position;
+        FoodItem foodItem = foodClone.GetComponent<FoodItem>();
+        if(OverrideScore > 0)
+            foodItem.SetScore = OverrideScore;
         PlayRandomSound(throwSounds, 1f);
 
         yield return new WaitForEndOfFrame();
@@ -36,5 +41,7 @@ public class ThrowItem : AudioHandler
         yield return new WaitForSeconds(0.25f);
         //disable after we are back to idle 
         gameObject.SetActive(false);
+
+        OverrideScore = -1;
     }
 }
