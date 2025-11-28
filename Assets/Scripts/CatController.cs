@@ -164,6 +164,7 @@ public class CatController : MonoBehaviour
     #region Movement
     private void FixedUpdate()
     {
+        //TODO cats shouldn't move in death - but be moved like a respawning Pacman
         moveForce = new Vector2(moveSpeed * horizontalMove, moveSpeed * verticalMove);
         catBody.AddForce(moveForce, ForceMode2D.Impulse);
 
