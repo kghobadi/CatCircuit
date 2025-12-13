@@ -62,6 +62,8 @@ public class CatController : MonoBehaviour
 
     [SerializeField] private int currentScore = 000;
     [SerializeField] private TMP_Text foodScoreText;
+    [SerializeField] private Transform catConsumePos;
+    public Transform ConsumePos => catConsumePos;
     public int PlayerScore => currentScore;
 
     [SerializeField] private int purrHealStrength = 1;

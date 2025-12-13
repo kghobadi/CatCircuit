@@ -743,6 +743,7 @@ MonoBehaviour:
   catLivesTxt: {fileID: 0}
   currentScore: 0
   foodScoreText: {fileID: 0}
+  catConsumePos: {fileID: 0}
   purrHealStrength: 1
   scratchSpawnLeft: {fileID: 1204986203}
   scratchSpawnRight: {fileID: 1832205703}

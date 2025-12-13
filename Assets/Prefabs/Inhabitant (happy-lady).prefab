@@ -126,14 +126,26 @@ MonoBehaviour:
   voiceCounter: 0
   voices: []
   currentSound: 0
+  inhabitantType: 0
+  foodCooldownWait: {x: 3, y: 5}
+  fetchWait: {x: 1, y: 3}
   inhabitantAnim: {fileID: 1024322760585241047}
-  timeRange: {x: 1, y: 3}
+  waitToThrowTimeRange: {x: 1, y: 3}
   throwSpot: {fileID: 1024322761287314818}
+  throwSpace: 0.2
   foodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
+  randomnessIntervals:
+  - 50
+  - 100
+  foodOptions:
+  - {fileID: 11400000, guid: 1773fc5447335a1429a7a28d957b9ce9, type: 2}
+  - {fileID: 11400000, guid: 46cef8d60794d1d41aad333005f1f797, type: 2}
+  foodCount: {x: 1, y: 3}
   throwSounds:
   - {fileID: 8300000, guid: 42d5ad7117f5c184e84906c1625b6877, type: 3}
   - {fileID: 8300000, guid: d358b34bf64878a4e92fe32c896c9e50, type: 3}
   - {fileID: 8300000, guid: c9245e8920a9f1641928955083b53b54, type: 3}
+  OverrideMultiplier: -1
 --- !u!82 &1024322760585241032
 AudioSource:
   m_ObjectHideFlags: 0

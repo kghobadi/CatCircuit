@@ -11,20 +11,12 @@ public class House : MonoBehaviour
     
     [SerializeField] private SpriteRenderer house;
     [SerializeField] private SpriteRenderer houseZone;
-    [SerializeField] private HouseType houseType;
-    private enum HouseType
-    {
-        FRIENDLY = 0, // for an already friendly house - you scratch to get food
-        DANGEROUS = 1, // for a dangerous house - you hiss&scratch to escape the dog
-        INQUISITIVE = 2, // for an inquisitive house - you meow to make a friend 
-    }
 
     [Tooltip("Stat for alignment to players")]
     public float Alignment = 0;
     public CatController.CatActions favoriteAction;
     public CatController.CatActions hatedAction;
     private float friendshipMeter; //TODO maybe  this is like underlying state on a spectrum? 
-    //could do purrs/meows needed for inquisitive to get to friend 
 
     //Could think more about how to assign points. 
     [SerializeField] private Vector2Int foodAmtRange = new Vector2Int(10, 100);
@@ -36,11 +28,10 @@ public class House : MonoBehaviour
     [SerializeField] private HouseAudio houseAudio;
     [Header("Inhabitants")] 
     public GameObject inhabitantPrefab;//todo make this a random list 
-    private ThrowItem throwItem;
+    private Inhabitant myInhabitant;
     public bool foodCooldown;
-    [SerializeField] private Vector2 foodCooldownWait = new Vector2(3f, 5f);
     public bool fetchingFood;
-    [SerializeField] private Vector2 fetchWait = new Vector2(1f, 3f);
+
     [Tooltip("What happens if the cat meows?")]
     [SerializeField] private Transform inhabitantPosition;
     
@@ -54,7 +45,7 @@ public class House : MonoBehaviour
         //Reset house to neutral color. 
         houseZone.color = new Color(1, 1, 1, 0.05f); 
         //inhabitant set up
-        throwItem = inhabitantPrefab.GetComponent<ThrowItem>();
+        myInhabitant = inhabitantPrefab.GetComponent<Inhabitant>();
     }
 
     /// <summary>
@@ -74,29 +65,6 @@ public class House : MonoBehaviour
             favoriteAction = CatController.CatActions.MEOW;
             hatedAction = CatController.CatActions.SCRATCH;
         }
-    }
-    
-    private void OnValidate()
-    {
-        //UpdateHouseType();
-    }
-
-    void UpdateHouseType()
-    {
-        switch (houseType)
-        {
-            case HouseType.FRIENDLY:
-                houseZone.color = new Color(0, 1, 0, 0.05f); 
-                break;
-            case HouseType.DANGEROUS:
-                houseZone.color =new Color(1, 0, 0, 0.05f); 
-                break;
-            case HouseType.INQUISITIVE:
-                houseZone.color = new Color(1, 1, 1, 0.05f); 
-                break;
-        }
-
-        transform.parent.gameObject.name = "House" + houseType;
     }
 
     private void Start()
@@ -260,13 +228,13 @@ public class House : MonoBehaviour
         StartCoroutine(WaitToSpawnInhabitant(foodPts));
     }
 
-    IEnumerator WaitToSpawnInhabitant(int points)
+    IEnumerator WaitToSpawnInhabitant(int multiplier)
     {
         fetchingFood = true;
-        float randomFetchWait = UnityEngine.Random.Range(fetchWait.x, fetchWait.y);
+        float randomFetchWait = UnityEngine.Random.Range(myInhabitant.FetchWait.x, myInhabitant.FetchWait.y);
 
         yield return new WaitForSeconds(randomFetchWait);
-        throwItem.OverrideScore = points;
+        myInhabitant.OverrideMultiplier = multiplier;
         inhabitantPrefab.SetActive(true);
         houseAudio.RandomDoorOpen();
 
@@ -274,92 +242,9 @@ public class House : MonoBehaviour
         fetchingFood = false;
 
         foodCooldown = true;
-        float randomCooldown = UnityEngine.Random.Range(foodCooldownWait.x, foodCooldownWait.y);
+        float randomCooldown = UnityEngine.Random.Range(myInhabitant.FoodCooldown.x, myInhabitant.FoodCooldown.y);
 
         yield return new WaitForSeconds(randomCooldown);
         foodCooldown = false;
     }
-
-    #region Single Player Tests
-
-    // void Update()
-    // {
-    //     if (catPlayerPresent)
-    //     {
-    //         if (Input.GetKeyDown(KeyCode.Space))
-    //         {
-    //             OpenDoor();
-    //         }
-    //     }
-    // }
-
-    /// <summary>
-    /// Respond to actions depending on house type
-    /// </summary>
-    /// <param name="action"></param>
-    /*void SinglePlayerEval(CatController.CatActions action)
-    {
-        switch (action)
-        {
-            case CatController.CatActions.MEOW:
-                if (houseType == HouseType.FRIENDLY)
-                {
-                    GetFood();
-                }
-                else if (houseType == HouseType.INQUISITIVE)
-                {
-                    //become friend
-                    houseType = HouseType.FRIENDLY;
-                    UpdateHouseType();
-                }
-                else if (houseType == HouseType.DANGEROUS)
-                {
-                    //lose life 
-                    catController.LoseLife();
-                }
-                break;
-            case CatController.CatActions.PURR:
-                if (houseType == HouseType.FRIENDLY)
-                {
-                    //add friendship points? 
-                }
-                else if (houseType == HouseType.INQUISITIVE)
-                {
-                    //become friend
-                    houseType = HouseType.FRIENDLY;
-                    UpdateHouseType();
-                }
-                break;
-            case CatController.CatActions.HISS:
-                if (houseType == HouseType.FRIENDLY)
-                {
-                    //penalty to friendship? 
-                }
-                else if (houseType == HouseType.DANGEROUS)
-                {
-                    //nothing? 
-                }
-                break;
-            case CatController.CatActions.SCRATCH:
-                if (houseType == HouseType.FRIENDLY)
-                {
-                    //penalty to friendship? 
-                }
-                else if (houseType == HouseType.DANGEROUS)
-                {
-                    //lose a life?
-                    //roll dice to see what happens? 
-                }
-                break;
-        }
-    }*/
-    
-    // void OpenDoor()
-    // {
-    //     Debug.Log("Entered " + transform.parent.gameObject.name);
-    //     catController.TeleportCat(internalHousePosition);
-    //     houseAudio.RandomDoorOpen();
-    // }
-
-    #endregion
 }
