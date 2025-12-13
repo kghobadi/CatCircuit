@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773ed41dfe4bc574c90be69845350b32, type: 3}
   m_Name: HotDog
   m_EditorClassIdentifier: 
-  pointsValue: 5
+  pointsValue: 3
   foodSound: {fileID: 8300000, guid: cbde927da1153e24cbef900e534998c1, type: 3}
   foodSprite: {fileID: 21300000, guid: ef97100a0eab82c4e99ac3332056911e, type: 3}

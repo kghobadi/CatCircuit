@@ -17,6 +17,8 @@ public class Inhabitant : AudioHandler
     }
     
     [Header("Throw Settings")]
+    [SerializeField] private Vector2Int foodAmtRange = new Vector2Int(10, 100);
+    public Vector2Int FoodRange => foodAmtRange;
     [Tooltip("How long does it take for this Inhabitant to recharge?")]
     [SerializeField] private Vector2 foodCooldownWait = new Vector2(3f, 5f);
     public Vector2 FoodCooldown => foodCooldownWait;

@@ -19,7 +19,6 @@ public class House : MonoBehaviour
     private float friendshipMeter; //TODO maybe  this is like underlying state on a spectrum? 
 
     //Could think more about how to assign points. 
-    [SerializeField] private Vector2Int foodAmtRange = new Vector2Int(10, 100);
     public int totalPrize; //determined when randomized
     [SerializeField] private bool hasFood;
     private bool catPlayerPresent;
@@ -53,7 +52,7 @@ public class House : MonoBehaviour
     /// </summary>
     public void RandomizePrize()
     {
-        totalPrize = UnityEngine.Random.Range(foodAmtRange.x, foodAmtRange.y);
+        totalPrize = UnityEngine.Random.Range(myInhabitant.FoodRange.x, myInhabitant.FoodRange.y);
         float randomFave = UnityEngine.Random.Range(0, 100);
         if (randomFave > 50)
         {
