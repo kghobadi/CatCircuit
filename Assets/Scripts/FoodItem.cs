@@ -16,7 +16,7 @@ public class FoodItem : MonoBehaviour
    
     public bool consuming;
     public float consumeSpeed = 5f;
-    private Vector3 endPos;
+    private Transform endPos;
 
     private void Awake()
     {
@@ -54,7 +54,7 @@ public class FoodItem : MonoBehaviour
         
         //TODO play effect before destroy? 
         //TODO move to Player UI spot while inactive? 
-        endPos = consumer.ConsumePos.position;
+        endPos = consumer.ConsumePos;
         consuming = true;
     }
 
@@ -65,10 +65,10 @@ public class FoodItem : MonoBehaviour
     {
         if (consuming)
         {
-            transform.position = Vector3.Lerp(transform.position, endPos, consumeSpeed * Time.deltaTime);
-
-            float dist = Vector2.Distance(transform.position, endPos);
-            if (dist < 0.25f)
+            transform.position = Vector3.Lerp(transform.position, endPos.position, consumeSpeed * Time.deltaTime);
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, consumeSpeed * Time.deltaTime);
+            float dist = Vector2.Distance(transform.position, endPos.position);
+            if (dist < 0.05f)
             {
                 Destroy(gameObject);
             }

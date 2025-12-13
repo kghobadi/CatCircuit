@@ -62,6 +62,9 @@ public class CatController : MonoBehaviour
 
     [SerializeField] private int currentScore = 000;
     [SerializeField] private TMP_Text foodScoreText;
+    [SerializeField] private CanvasFader pointAddFader;
+    [SerializeField] private TMP_Text pointsAddedText;
+    private Vector2 origPointsAddPos;
     [SerializeField] private Transform catConsumePos;
     public Transform ConsumePos => catConsumePos;
     public int PlayerScore => currentScore;
@@ -79,6 +82,7 @@ public class CatController : MonoBehaviour
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
+        origPointsAddPos = pointAddFader.RectTransform.anchoredPosition;
         spriteRenderer = GetComponent<SpriteRenderer>();
         catBody = GetComponent<Rigidbody2D>();
         catAnimator = GetComponent<Animator>();
@@ -358,8 +362,35 @@ public class CatController : MonoBehaviour
     /// <param name="amt"></param>
     public void GainFood(int amt)
     {
-        currentScore += amt;
-        foodScoreText.text = currentScore.ToString();
+        currentScore += amt; //TODO figure out why the score amt is not right 
+        pointsAddedText.text = amt.ToString();
+        DoPointsAnim();
+    }
+
+    private bool animScore;
+    /// <summary>
+    /// Animates points text
+    /// </summary>
+    void DoPointsAnim()
+    {
+        if (animScore)
+        {
+            LeanTween.cancel(pointAddFader.gameObject);
+            foodScoreText.text = currentScore.ToString();
+        }
+
+        animScore = true;
+        pointAddFader.RectTransform.anchoredPosition = origPointsAddPos;
+        pointAddFader.FadeIn((() =>
+        {
+            LeanTween.moveY(pointAddFader.RectTransform, 0f, 0.25f).setOnComplete(() =>
+            {
+                //Update score and fade out
+                foodScoreText.text = currentScore.ToString();
+                pointAddFader.FadeOut();
+                animScore = false;
+            });
+        }));
     }
 
     /// <summary>

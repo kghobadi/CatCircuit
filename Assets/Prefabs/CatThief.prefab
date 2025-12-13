@@ -638,6 +638,7 @@ Transform:
   - {fileID: 1204986203}
   - {fileID: 1832205703}
   - {fileID: 1990166891278031475}
+  - {fileID: 5547138861209310791}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -743,7 +744,9 @@ MonoBehaviour:
   catLivesTxt: {fileID: 0}
   currentScore: 0
   foodScoreText: {fileID: 0}
-  catConsumePos: {fileID: 0}
+  pointAddFader: {fileID: 0}
+  pointsAddedText: {fileID: 0}
+  catConsumePos: {fileID: 5547138861209310791}
   purrHealStrength: 1
   scratchSpawnLeft: {fileID: 1204986203}
   scratchSpawnRight: {fileID: 1832205703}
@@ -853,6 +856,37 @@ MonoBehaviour:
   livesText: {fileID: 1990166891065171961}
   healOnPurr: 1
   healRange: 0.25
+--- !u!1 &8647839265082964062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5547138861209310791}
+  m_Layer: 0
+  m_Name: Cat-ConsumeSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5547138861209310791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8647839265082964062}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.1065, y: 0.0413, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1867304395459942041}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5169421136189178196
 PrefabInstance:
   m_ObjectHideFlags: 0
