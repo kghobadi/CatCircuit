@@ -11,15 +11,17 @@ public class ScratchFx : MonoBehaviour
 {
     public CatController creator;
     [SerializeField] private string animToTrigger = "hit_scratch";
-    [FormerlySerializedAs("damangedEnemy")] [SerializeField] private bool damagedEnemy;
+    [SerializeField] private bool damagedEnemy;
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (damagedEnemy)
+            return;
+        
         //Must be another player/cat
         if ((other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cat"))
             && other.gameObject != creator.gameObject) //Must not be the creator!
         {
             //do something 
-            Debug.Log("hit cat or player!");
             Animator enemyAnimator = other.gameObject.GetComponent<Animator>();
             if (enemyAnimator == null)
             {
@@ -30,6 +32,7 @@ public class ScratchFx : MonoBehaviour
             {
                 if (!enemyAnimator.GetBool("dead"))
                 {
+                    Debug.Log("hit cat or player!");
                     enemyAnimator.SetTrigger(animToTrigger);
                     damagedEnemy = true;
                 }

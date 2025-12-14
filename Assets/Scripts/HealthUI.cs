@@ -70,6 +70,10 @@ public class HealthUI : MonoBehaviour
         healthAmt = amt;
         SetHealthUIStates(healthAnimParam, healthAmt);
         ShowHealthUI();
+        if (amt == 0)
+        {
+            Die();
+        }
     }
 
     /// <summary>
@@ -86,10 +90,6 @@ public class HealthUI : MonoBehaviour
         if (healthAmt > 0)
         {
             UpdateHealth(healthAmt - dmg); 
-        }
-        else
-        {
-            Die();
         }
     }
 
