@@ -6,6 +6,9 @@ using UnityEngine;
 using Utils;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Overall Game manager
+/// </summary>
 public class GameManager : NonInstantiatingSingleton<GameManager>
 {
     protected override GameManager GetInstance()
@@ -56,6 +59,30 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     void DivideAlignmentSectors()
     {
         
+    }
+
+    /// <summary>
+    /// Returns nearest cat to a point. 
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    public CatController GetNearestCatToPoint(Vector3 point)
+    {
+        CatController cat = null;
+        float closest = Mathf.Infinity;
+
+        for (int i = 0; i < AllCats.Length; i++)
+        {
+            //Is this closest?
+            float dist = Vector3.Distance(AllCats[i].transform.position, point);
+            if (dist < closest)
+            {
+                cat = AllCats[i];
+                closest = dist;
+            }
+        }
+
+        return cat;
     }
 
     protected override void OnDestroy()

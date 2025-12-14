@@ -78,6 +78,7 @@ public class House : MonoBehaviour
         
         //inhabitant set up
         myInhabitant = inhabitantClone.GetComponent<Inhabitant>();
+        myInhabitant.transform.localPosition = myInhabitant.SpawnOffset;
         inhabitantClone.SetActive(false);
     }
 

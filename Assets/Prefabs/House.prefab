@@ -166,8 +166,10 @@ MonoBehaviour:
   inhabitantPrefabs:
   - {fileID: 1024322760585241043, guid: 79163d6bacdf5e646ae7422729f98442, type: 3}
   - {fileID: 1024322760585241043, guid: 55c1fd5c1ea8c734b8035d71ed8cdeac, type: 3}
+  - {fileID: 1024322760585241043, guid: 837e0387fd5b5b04e9b08a3e13a85d5a, type: 3}
   randomnessIntervals:
-  - 80
+  - 70
+  - 90
   - 100
   inhabitantClone: {fileID: 0}
   foodCooldown: 0

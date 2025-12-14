@@ -369,7 +369,7 @@ public class CatController : MonoBehaviour
 
     private bool animScore;
     /// <summary>
-    /// Animates points text
+    /// Animates points text  TODO this could be moved to a UI component. 
     /// </summary>
     void DoPointsAnim()
     {
@@ -383,12 +383,15 @@ public class CatController : MonoBehaviour
         pointAddFader.RectTransform.anchoredPosition = origPointsAddPos;
         pointAddFader.FadeIn((() =>
         {
-            LeanTween.moveY(pointAddFader.RectTransform, 0f, 0.2f).setOnComplete(() =>
+            LeanTween.delayedCall(0.1f, () =>
             {
-                //Update score and fade out
-                foodScoreText.text = currentScore.ToString();
-                pointAddFader.FadeOut();
-                animScore = false;
+                LeanTween.moveY(pointAddFader.RectTransform, 0f, 0.2f).setOnComplete(() =>
+                {
+                    //Update score and fade out
+                    foodScoreText.text = currentScore.ToString();
+                    pointAddFader.FadeOut();
+                    animScore = false;
+                });
             });
         }));
     }

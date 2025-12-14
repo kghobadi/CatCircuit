@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 1024322760585241047}
   - component: {fileID: 1024322760585241046}
   - component: {fileID: 1024322760585241032}
+  - component: {fileID: 2987157121694108762}
+  - component: {fileID: 4108585972285707809}
   m_Layer: 0
-  m_Name: Inhabitant (old-lady)
-  m_TagString: Untagged
+  m_Name: Inhabitant (attack-dog)
+  m_TagString: Danger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,10 +31,9 @@ Transform:
   m_GameObject: {fileID: 1024322760585241043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1024322761287314818}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: c723e3a4ed656fb4cac728506596be82, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e4004dd8d4633114f9db7d2a9a271732, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 1024322760585241043}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 93c8e804e8261ca488ac0fb3de8e9c71, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9cc05fc2b54ec0a4b9371b9b9b65fab8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -122,18 +123,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myAudioSource: {fileID: 0}
-  pitchRange: {x: 0.9, y: 1.1}
+  pitchRange: {x: 0.6, y: 0.8}
   voiceCounter: 0
   voices: []
   currentSound: 0
-  inhabitantType: 0
-  spawnOffset: {x: 0, y: 0, z: 0}
-  foodAmtRange: {x: 25, y: 50}
-  foodCooldownWait: {x: 5, y: 7}
-  fetchWait: {x: 3, y: 5}
+  inhabitantType: 1
+  spawnOffset: {x: 0, y: -0.19, z: 0}
+  foodAmtRange: {x: 10, y: 50}
+  foodCooldownWait: {x: 5, y: 10}
+  fetchWait: {x: 1, y: 3}
   inhabitantAnim: {fileID: 1024322760585241047}
-  waitToThrowTimeRange: {x: 2, y: 4}
-  throwSpot: {fileID: 1024322761287314818}
+  waitToThrowTimeRange: {x: 1, y: 3}
+  throwSpot: {fileID: 0}
   throwSpace: 0.2
   foodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
   randomnessIntervals:
@@ -142,22 +143,25 @@ MonoBehaviour:
   - 100
   foodOptions:
   - {fileID: 11400000, guid: 1773fc5447335a1429a7a28d957b9ce9, type: 2}
+  - {fileID: 11400000, guid: 46cef8d60794d1d41aad333005f1f797, type: 2}
   - {fileID: 11400000, guid: bc14baf43ce1ff54e84e2d4d9d344d45, type: 2}
-  - {fileID: 11400000, guid: df8b80318e168544abd1ade34a7d8560, type: 2}
-  foodCount: {x: 2, y: 5}
+  foodCount: {x: 1, y: 3}
   throwSounds:
   - {fileID: 8300000, guid: 42d5ad7117f5c184e84906c1625b6877, type: 3}
   - {fileID: 8300000, guid: d358b34bf64878a4e92fe32c896c9e50, type: 3}
   - {fileID: 8300000, guid: c9245e8920a9f1641928955083b53b54, type: 3}
   waitToAttackTimeRange: {x: 1, y: 3}
-  damageAmt: 0
+  damageAmt: 1
   catTarget: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 3
   trackingTarget: 0
   catInteractDistance: 1
-  hissPushForce: 15
-  trackSounds: []
-  attackSounds: []
+  hissPushForce: 5
+  trackSounds:
+  - {fileID: 8300000, guid: dc51889573b356e4f8895600f226027b, type: 3}
+  attackSounds:
+  - {fileID: 8300000, guid: 618753914f7b6fc489e5b4aec196da97, type: 3}
+  - {fileID: 8300000, guid: 3f774a9ca1f21a24db00362c944e25f2, type: 3}
   OverrideMultiplier: -1
 --- !u!82 &1024322760585241032
 AudioSource:
@@ -255,34 +259,50 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1024322761287314817
-GameObject:
+--- !u!50 &2987157121694108762
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1024322761287314818}
-  m_Layer: 0
-  m_Name: ThrowSpot
-  m_TagString: Untagged
-  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1024322761287314818
-Transform:
+  m_GameObject: {fileID: 1024322760585241043}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 2
+  m_LinearDrag: 0.1
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!61 &4108585972285707809
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024322761287314817}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.407, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1024322760585241045}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1024322760585241043}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.09}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.42, y: 0.32}
+  m_EdgeRadius: 0
