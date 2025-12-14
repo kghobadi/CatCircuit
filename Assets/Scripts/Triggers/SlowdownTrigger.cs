@@ -1,0 +1,19 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// Can slowdown things like dogs and other dangers. 
+/// </summary>
+public class SlowdownTrigger : MonoBehaviour
+{
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Danger"))
+        {
+            Inhabitant inhab = other.gameObject.GetComponent<Inhabitant>();
+            inhab.Slowdown();
+        }
+    }
+}

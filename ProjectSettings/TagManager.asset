@@ -8,6 +8,7 @@ TagManager:
   - Cat
   - Attack
   - Danger
+  - Wall
   layers:
   - Default
   - TransparentFX

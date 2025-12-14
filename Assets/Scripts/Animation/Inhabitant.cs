@@ -10,7 +10,8 @@ using Random = UnityEngine.Random;
 public class Inhabitant : AudioHandler
 {
     [SerializeField] private InhabitantType inhabitantType;
-    private enum InhabitantType
+    public InhabitantType InhabiType => inhabitantType;
+    public enum InhabitantType
     {
         FRIENDLY = 0, // for an already friendly house - you scratch to get food
         DANGEROUS = 1, // for a dangerous house - you hiss&scratch to escape the dog
@@ -52,6 +53,13 @@ public class Inhabitant : AudioHandler
     public bool trackingTarget;
     public float catInteractDistance = 1f;
     [SerializeField] private float hissPushForce = 15f;
+    [SerializeField] private AttackType attackType;
+    public enum AttackType
+    {
+        Chase = 0, // for attack dogs
+        Shoot = 1, // for a redneck shooter
+    }
+        
     [SerializeField] private AudioClip[] trackSounds;
     [SerializeField] private AudioClip[] attackSounds;
     public int OverrideMultiplier = -1;
@@ -291,5 +299,12 @@ public class Inhabitant : AudioHandler
         body.AddForce(hissPushForce * dir,  ForceMode2D.Impulse);
     }
 
+    /// <summary>
+    /// Calls immediate slowdown to swap up velocity when flying offscreen. 
+    /// </summary>
+    public void Slowdown()
+    {
+        body.velocity = Vector2.zero;
+    }
     #endregion
 }

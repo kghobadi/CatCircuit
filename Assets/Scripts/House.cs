@@ -141,7 +141,7 @@ public class House : MonoBehaviour
     void CheckCatAction(CatController.CatActions action, CatController cat)
     {
         catController = cat;
-        if (catPlayerPresent && GetDistanceFromPlayer(cat) < 1f)
+        if (catPlayerPresent && GetDistanceFromPlayer(cat) < 1f && !foodCooldown)
         {
             float align = 0; 
             bool goodInteraction = false;
@@ -195,23 +195,32 @@ public class House : MonoBehaviour
                     break;
             }
 
-            //Alignment can be multiplied in either direction 
-            if (favoriteAction == action || action == hatedAction)
+            //Friendly houses update alignment then give food 
+            if (myInhabitant.InhabiType == Inhabitant.InhabitantType.FRIENDLY)
             {
-                align *= 2;
-            }
-            //calc new alignment for this house
-            Alignment += align;
-            //Clamp to global alignment range 
-            Alignment = Mathf.Clamp(Alignment, GameManager.Instance.AlignmentRange.x,
-                GameManager.Instance.AlignmentRange.y);
-            UpdateHouseVisuals();
+                //Alignment can be multiplied in either direction 
+                if (favoriteAction == action || action == hatedAction)
+                {
+                    align *= 2;
+                }
+                //calc new alignment for this house
+                Alignment += align;
+                //Clamp to global alignment range 
+                Alignment = Mathf.Clamp(Alignment, GameManager.Instance.AlignmentRange.x,
+                    GameManager.Instance.AlignmentRange.y);
+                UpdateHouseVisuals();
             
-            //Cats get food rewards ONLY for good actions. 
-            if (goodInteraction)
+                //Cats get food rewards ONLY for good actions. 
+                if (goodInteraction)
+                {
+                    //base food amt on 
+                    GetFood(favoriteAction == action);
+                }
+            }
+            //Dangerous houses show inhabitant no matter what 
+            else if (myInhabitant.InhabiType == Inhabitant.InhabitantType.DANGEROUS)
             {
-                //base food amt on 
-                GetFood(favoriteAction == action);
+                GetAttacked();
             }
         }
     }
@@ -259,10 +268,16 @@ public class House : MonoBehaviour
         }
         
         //catController.GainFood(foodPts); GIVE food directly to player
-        StartCoroutine(WaitToSpawnInhabitant(foodPts));
+        StartCoroutine(WaitToShowInhabitant(foodPts));
     }
 
-    IEnumerator WaitToSpawnInhabitant(int multiplier)
+    //Starts attack 
+    void GetAttacked()
+    {
+        StartCoroutine(WaitToShowInhabitant(0));
+    }
+
+    IEnumerator WaitToShowInhabitant(int multiplier)
     {
         fetchingFood = true;
         float randomFetchWait = UnityEngine.Random.Range(myInhabitant.FetchWait.x, myInhabitant.FetchWait.y);

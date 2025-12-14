@@ -157,6 +157,7 @@ MonoBehaviour:
   trackingTarget: 0
   catInteractDistance: 1
   hissPushForce: 5
+  attackType: 0
   trackSounds:
   - {fileID: 8300000, guid: dc51889573b356e4f8895600f226027b, type: 3}
   attackSounds:
@@ -272,7 +273,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 0.1
+  m_LinearDrag: 0.01
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
