@@ -1011,6 +1011,11 @@ MonoBehaviour:
   cars:
   - {fileID: 9177921715530856892, guid: 694ba164af623364cb90c7adf397e6bf, type: 3}
   - {fileID: 9177921715530856892, guid: f21e247c144f0194584988c126715e7e, type: 3}
+  - {fileID: 9177921715530856892, guid: c729cd6f9d0f93e4a938cab45f8768ff, type: 3}
+  randomnessIntervals:
+  - 40
+  - 70
+  - 100
   carClone: {fileID: 0}
   flipped: 0
 --- !u!114 &795120762 stripped
@@ -2990,6 +2995,11 @@ MonoBehaviour:
   cars:
   - {fileID: 9177921715530856892, guid: 694ba164af623364cb90c7adf397e6bf, type: 3}
   - {fileID: 9177921715530856892, guid: f21e247c144f0194584988c126715e7e, type: 3}
+  - {fileID: 9177921715530856892, guid: c729cd6f9d0f93e4a938cab45f8768ff, type: 3}
+  randomnessIntervals:
+  - 40
+  - 70
+  - 100
   carClone: {fileID: 0}
   flipped: 1
 --- !u!4 &1933451135

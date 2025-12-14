@@ -14,6 +14,8 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private Vector2 spawnTimeRange = new Vector2(10f, 15f);
 
     [SerializeField] private GameObject[] cars;
+    [Tooltip("These must all be within 0 - 100. They should be increasing, eg 35, 55, 75")]
+    [SerializeField] private float[] randomnessIntervals;
     [SerializeField] private GameObject carClone;
     private Car lastCar;
     [SerializeField] private bool flipped;
@@ -38,8 +40,19 @@ public class CarSpawner : MonoBehaviour
     void SpawnRandomCar()
     {
         GameObject randomCarPrefab = cars[0];
-        if(cars.Length > 1)
-            randomCarPrefab = cars[Random.Range(0, cars.Length)];
+        if (cars.Length > 1)
+        {
+            float randomCar = UnityEngine.Random.Range(0f, 100f);
+            for (int i = 0; i < randomnessIntervals.Length; i++)
+            {
+                //Check if the chance fell below the interval 
+                if (randomCar < randomnessIntervals[i])
+                {
+                    randomCarPrefab = cars[i]; 
+                    break;
+                }
+            }
+        }
         carClone = Instantiate(randomCarPrefab, transform.position, Quaternion.identity, transform);
         lastCar = carClone.GetComponent<Car>();
         lastCar.SetMoving(flipped);
