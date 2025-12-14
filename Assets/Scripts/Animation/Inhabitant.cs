@@ -235,38 +235,35 @@ public class Inhabitant : AudioHandler
     /// <summary>
     /// Attacks should be trigger based. 
     /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter2D(Collider2D other)
+    /// <param name="obj"></param>
+    public void TriggerAttack(GameObject obj)
     {
-        if (trackingTarget && (other.gameObject.CompareTag("Cat") || other.gameObject.CompareTag("Player")))
+        //trigger attack on said cat. 
+        inhabitantAnim.SetTrigger("attack");
+        //do something 
+        Debug.Log("hit cat or player!");
+        Animator enemyAnimator = obj.GetComponent<Animator>();
+        if (enemyAnimator == null)
         {
-            //trigger attack on said cat. 
-            inhabitantAnim.SetTrigger("attack");
-            //do something 
-            Debug.Log("hit cat or player!");
-            Animator enemyAnimator = other.gameObject.GetComponent<Animator>();
+            enemyAnimator = obj.GetComponentInChildren<Animator>();
+            //try in parent
             if (enemyAnimator == null)
             {
-                enemyAnimator = other.gameObject.GetComponentInChildren<Animator>();
-                //try in parent
-                if (enemyAnimator == null)
-                {
-                    enemyAnimator = other.gameObject.GetComponentInParent<Animator>();
-                }
+                enemyAnimator = obj.GetComponentInParent<Animator>();
             }
-
-            if (enemyAnimator != null)
-            {
-                if (!enemyAnimator.GetBool("dead"))
-                {
-                    enemyAnimator.SetTrigger("hit_scratch"); // this determines dmg 
-                }
-            }
-
-            PlayRandomSound(attackSounds, 1f);
-            body.velocity = Vector2.zero; //zero velocity 
-            trackingTarget = false;
         }
+
+        if (enemyAnimator != null)
+        {
+            if (!enemyAnimator.GetBool("dead"))
+            {
+                enemyAnimator.SetTrigger("hit_scratch"); // this determines dmg 
+            }
+        }
+
+        PlayRandomSound(attackSounds, 1f);
+        body.velocity = Vector2.zero; //zero velocity 
+        trackingTarget = false;
     }
 
     

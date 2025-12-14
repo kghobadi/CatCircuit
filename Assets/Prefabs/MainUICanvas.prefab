@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2590388898768913130}
   m_Layer: 5
-  m_Name: Player UI  (1)
+  m_Name: Player UI  (P2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 7015291724292479833}
   - component: {fileID: 763554210889095768}
   m_Layer: 5
-  m_Name: FoodAnim
+  m_Name: FoodAnim (P2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,6 +1713,7 @@ GameObject:
   - component: {fileID: 5059066850030891641}
   - component: {fileID: 5059066850030891623}
   - component: {fileID: 5059066850030891622}
+  - component: {fileID: 8979826530379199307}
   m_Layer: 5
   m_Name: HealthIcon
   m_TagString: Untagged
@@ -1779,6 +1780,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &8979826530379199307
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5059066850030891640}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a7cad0cd268cd984aaf1604d45786536, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5338809247319560956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,7 +2255,7 @@ GameObject:
   - component: {fileID: 5179017236601100236}
   - component: {fileID: 439430620479130931}
   m_Layer: 5
-  m_Name: FoodAnim
+  m_Name: FoodAnim (P1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2563,6 +2585,7 @@ GameObject:
   - component: {fileID: 8217279412986126573}
   - component: {fileID: 1705983610263332319}
   - component: {fileID: 3851802063361948570}
+  - component: {fileID: 401037327745931016}
   m_Layer: 5
   m_Name: HealthIcon
   m_TagString: Untagged
@@ -2629,3 +2652,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &401037327745931016
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7986783469630718943}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a7cad0cd268cd984aaf1604d45786536, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

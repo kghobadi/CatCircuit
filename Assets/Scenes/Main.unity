@@ -2036,6 +2036,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 2137686164}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1595322797 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 401037327745931016, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+  m_PrefabInstance: {fileID: 5059066847966661142}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1595322798 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8979826530379199307, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+  m_PrefabInstance: {fileID: 5059066847966661142}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1603596121
 GameObject:
   m_ObjectHideFlags: 0
@@ -2720,6 +2730,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294910976
       objectReference: {fileID: 0}
+    - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: healthUiAnims.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: healthUiAnims.Array.data[1]
+      value: 
+      objectReference: {fileID: 1595322797}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
 --- !u!114 &1845711101 stripped
@@ -3245,6 +3263,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190335
       objectReference: {fileID: 0}
+    - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: healthUiAnims.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: healthUiAnims.Array.data[1]
+      value: 
+      objectReference: {fileID: 1595322798}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
 --- !u!1001 &3672580453289589874
@@ -3498,10 +3524,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2105140067999177827, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
-      propertyPath: m_Name
-      value: FoodAnim (P2)
-      objectReference: {fileID: 0}
     - target: {fileID: 2239117219244759464, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -3605,14 +3627,6 @@ PrefabInstance:
     - target: {fileID: 5059066848527815673, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_Name
       value: MainUICanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7167297857116652277, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
-      propertyPath: m_Name
-      value: FoodAnim (P1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8696465925225700878, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
