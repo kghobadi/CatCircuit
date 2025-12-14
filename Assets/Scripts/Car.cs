@@ -71,7 +71,8 @@ public class Car : AudioHandler
         HealthUI cat = obj.GetComponentInParent<HealthUI>();
         if (cat)
         {
-            cat.Die();
+            //This will kill the cat with proper UI 
+            cat.UpdateHealth(0);
         }
         //Hit a dog? 
         else

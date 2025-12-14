@@ -65,7 +65,7 @@ public class HealthUI : MonoBehaviour
     /// Updates health UI display to this amt. 
     /// </summary>
     /// <param name="amt"></param>
-    void UpdateHealth(int amt)
+    public void UpdateHealth(int amt)
     {
         healthAmt = amt;
         SetHealthUIStates(healthAnimParam, healthAmt);

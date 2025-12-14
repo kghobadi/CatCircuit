@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTimer: {fileID: 5059066847966661145}
-  totalGameTime: 120
+  totalGameTime: 180
   allPlayers:
   - {fileID: 324347817}
   - {fileID: 795120762}
