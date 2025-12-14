@@ -26,7 +26,12 @@ public class House : MonoBehaviour
  
     [SerializeField] private HouseAudio houseAudio;
     [Header("Inhabitants")] 
-    public GameObject inhabitantPrefab;//todo make this a random list 
+    [Tooltip("This is the list of possible inhabitants")]
+    public GameObject[] inhabitantPrefabs;//todo make this a random list 
+    [Tooltip("These must all be within 0 - 100. They should be increasing, eg 35, 55, 75")]
+    [SerializeField] private float[] randomnessIntervals;
+    [Tooltip("This is the spawned inhabitant at start who lives in the house")]
+    public GameObject inhabitantClone;
     private Inhabitant myInhabitant;
     public bool foodCooldown;
     public bool fetchingFood;
@@ -43,8 +48,37 @@ public class House : MonoBehaviour
         }
         //Reset house to neutral color. 
         houseZone.color = new Color(1, 1, 1, 0.05f); 
+        RandomizeInhabitant();
+    }
+
+    /// <summary>
+    /// Spawns a random inhabitant from the array. 
+    /// </summary>
+    void RandomizeInhabitant()
+    {
+        //Assign food type from random table
+        if (inhabitantPrefabs.Length > 1)
+        {
+            float randomInhab = UnityEngine.Random.Range(0f, 100f);
+            for (int i = 0; i < randomnessIntervals.Length; i++)
+            {
+                //Check if the chance fell below the interval 
+                if (randomInhab < randomnessIntervals[i])
+                {
+                    inhabitantClone = Instantiate(inhabitantPrefabs[i], inhabitantPosition);
+                    break;
+                }
+            }
+        }
+        //Only the one option 
+        else
+        {
+            inhabitantClone = Instantiate(inhabitantPrefabs[0], inhabitantPosition);
+        }
+        
         //inhabitant set up
-        myInhabitant = inhabitantPrefab.GetComponent<Inhabitant>();
+        myInhabitant = inhabitantClone.GetComponent<Inhabitant>();
+        inhabitantClone.SetActive(false);
     }
 
     /// <summary>
@@ -234,10 +268,10 @@ public class House : MonoBehaviour
 
         yield return new WaitForSeconds(randomFetchWait);
         myInhabitant.OverrideMultiplier = multiplier;
-        inhabitantPrefab.SetActive(true);
+        myInhabitant.gameObject.SetActive(true);
         houseAudio.RandomDoorOpen();
 
-        yield return new WaitUntil(() => !inhabitantPrefab.gameObject.activeSelf);
+        yield return new WaitUntil(() => ! myInhabitant.gameObject.activeSelf);
         fetchingFood = false;
 
         foodCooldown = true;

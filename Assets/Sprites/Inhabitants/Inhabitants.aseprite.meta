@@ -119,14 +119,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Inhabitants
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.575, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 65
-      width: 30
+      x: 53
+      y: 4
+      width: 40
       height: 52
     spriteID: 4834930ce8423ec49a50886dee47a9c1
     spriteBone: []
@@ -136,10 +136,10 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 65}
+    uvTransform: {x: 53, y: 4}
   - name: Inhabitants_Frame_1
     originalName: 
-    pivot: {x: 0.53658533, y: 0}
+    pivot: {x: 0.5609756, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -147,8 +147,8 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 41
-      height: 53
-    spriteID: 1f3e0dc426eadff46a9d0e7757a149b7
+      height: 61
+    spriteID: c1f5e839142e2c44490df886a916063f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -169,19 +169,19 @@ ScriptedImporter:
     - name: Inhabitants_Frame_0
       frameIndex: 0
       cellRect:
-        x: 17
+        x: 9
         y: 0
-        width: 30
+        width: 40
         height: 52
       spriteId: 4834930ce8423ec49a50886dee47a9c1
     - name: Inhabitants_Frame_1
       frameIndex: 1
       cellRect:
-        x: 10
+        x: 9
         y: 0
         width: 41
-        height: 53
-      spriteId: 1f3e0dc426eadff46a9d0e7757a149b7
+        height: 61
+      spriteId: c1f5e839142e2c44490df886a916063f
     linkedCells: []
     parentIndex: -1
   platformSettings: []

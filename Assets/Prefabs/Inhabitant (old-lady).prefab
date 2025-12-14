@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1024322760585241046}
   - component: {fileID: 1024322760585241032}
   m_Layer: 0
-  m_Name: Inhabitant (happy-lady)
+  m_Name: Inhabitant (old-lady)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: e2b940a78d17b1d44aa3bd9b9d4c48cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c723e3a4ed656fb4cac728506596be82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1024322760585241043}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2153d702f64a57e4886059519607e5aa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 93c8e804e8261ca488ac0fb3de8e9c71, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -127,11 +127,11 @@ MonoBehaviour:
   voices: []
   currentSound: 0
   inhabitantType: 0
-  foodAmtRange: {x: 10, y: 50}
-  foodCooldownWait: {x: 3, y: 5}
-  fetchWait: {x: 1, y: 3}
+  foodAmtRange: {x: 25, y: 100}
+  foodCooldownWait: {x: 5, y: 7}
+  fetchWait: {x: 3, y: 5}
   inhabitantAnim: {fileID: 1024322760585241047}
-  waitToThrowTimeRange: {x: 1, y: 3}
+  waitToThrowTimeRange: {x: 2, y: 4}
   throwSpot: {fileID: 1024322761287314818}
   throwSpace: 0.2
   foodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
@@ -141,9 +141,9 @@ MonoBehaviour:
   - 100
   foodOptions:
   - {fileID: 11400000, guid: 1773fc5447335a1429a7a28d957b9ce9, type: 2}
-  - {fileID: 11400000, guid: 46cef8d60794d1d41aad333005f1f797, type: 2}
   - {fileID: 11400000, guid: bc14baf43ce1ff54e84e2d4d9d344d45, type: 2}
-  foodCount: {x: 1, y: 3}
+  - {fileID: 11400000, guid: df8b80318e168544abd1ade34a7d8560, type: 2}
+  foodCount: {x: 2, y: 5}
   throwSounds:
   - {fileID: 8300000, guid: 42d5ad7117f5c184e84906c1625b6877, type: 3}
   - {fileID: 8300000, guid: d358b34bf64878a4e92fe32c896c9e50, type: 3}
