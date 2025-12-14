@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shownAtStart: 0
-  fadeDuration: 1
+  fadeDuration: 0.1
   fadeInAmt: 1
   fadeOutAmt: 0
   delayIn: 0
@@ -2396,7 +2396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shownAtStart: 0
-  fadeDuration: 1
+  fadeDuration: 0.1
   fadeInAmt: 1
   fadeOutAmt: 0
   delayIn: 0

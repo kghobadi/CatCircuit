@@ -362,7 +362,7 @@ public class CatController : MonoBehaviour
     /// <param name="amt"></param>
     public void GainFood(int amt)
     {
-        currentScore += amt; //TODO figure out why the score amt is not right 
+        currentScore += amt; //TODO figure out how to ensure we see all the latest food pt amt updates even if anim is active 
         pointsAddedText.text = amt.ToString();
         DoPointsAnim();
     }
@@ -383,7 +383,7 @@ public class CatController : MonoBehaviour
         pointAddFader.RectTransform.anchoredPosition = origPointsAddPos;
         pointAddFader.FadeIn((() =>
         {
-            LeanTween.moveY(pointAddFader.RectTransform, 0f, 0.25f).setOnComplete(() =>
+            LeanTween.moveY(pointAddFader.RectTransform, 0f, 0.2f).setOnComplete(() =>
             {
                 //Update score and fade out
                 foodScoreText.text = currentScore.ToString();
