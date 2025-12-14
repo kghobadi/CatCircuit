@@ -164,6 +164,9 @@ MonoBehaviour:
   attackSounds:
   - {fileID: 8300000, guid: 618753914f7b6fc489e5b4aec196da97, type: 3}
   - {fileID: 8300000, guid: 3f774a9ca1f21a24db00362c944e25f2, type: 3}
+  hurtSounds:
+  - {fileID: 8300000, guid: 0c96ca3337c7cb34ba6750f1f8bb4c90, type: 3}
+  - {fileID: 8300000, guid: f4998b52515fa994e9b2ef9950a7e607, type: 3}
   OverrideMultiplier: -1
 --- !u!82 &1024322760585241032
 AudioSource:
@@ -380,3 +383,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inhabitant: {fileID: 1024322760585241046}
+  Car: {fileID: 0}

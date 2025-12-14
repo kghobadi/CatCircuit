@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Can slowdown things like dogs and other dangers. 
+/// Can slowdown things like dogs and other dangers.
+/// Can also despawn or disable cars? 
 /// </summary>
 public class SlowdownTrigger : MonoBehaviour
 {
@@ -14,6 +15,15 @@ public class SlowdownTrigger : MonoBehaviour
         {
             Inhabitant inhab = other.gameObject.GetComponent<Inhabitant>();
             inhab.Slowdown();
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Car"))
+        {
+            Car car = other.gameObject.GetComponent<Car>();
+            car.CountTriggers();
         }
     }
 }

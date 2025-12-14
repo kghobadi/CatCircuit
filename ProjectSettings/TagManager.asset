@@ -9,6 +9,7 @@ TagManager:
   - Attack
   - Danger
   - Wall
+  - Car
   layers:
   - Default
   - TransparentFX

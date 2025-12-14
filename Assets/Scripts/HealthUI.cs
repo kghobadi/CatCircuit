@@ -96,8 +96,11 @@ public class HealthUI : MonoBehaviour
     /// <summary>
     /// Called when I die from an attack or? 
     /// </summary>
-    void Die()
+    public void Die()
     {
+        if (isDead)
+            return;
+        
         //anim set trigger die
         lives--;
         livesText.text = "X" + lives.ToString();

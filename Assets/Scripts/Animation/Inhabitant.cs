@@ -62,6 +62,7 @@ public class Inhabitant : AudioHandler
         
     [SerializeField] private AudioClip[] trackSounds;
     [SerializeField] private AudioClip[] attackSounds;
+    [SerializeField] private AudioClip[] hurtSounds;
     public int OverrideMultiplier = -1;
 
     private void Start()
@@ -302,6 +303,15 @@ public class Inhabitant : AudioHandler
     public void Slowdown()
     {
         body.velocity = Vector2.zero;
+    }
+
+    /// <summary>
+    /// When an environmental element hurts this inhabitant - like a car crash. 
+    /// </summary>
+    public void DisableInhabitant()
+    {
+        PlayRandomSound(hurtSounds, 1f);
+        gameObject.SetActive(false);
     }
     #endregion
 }

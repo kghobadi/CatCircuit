@@ -137,11 +137,9 @@ MonoBehaviour:
   throwSpace: 0.2
   foodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
   randomnessIntervals:
-  - 40
   - 80
   - 100
   foodOptions:
-  - {fileID: 11400000, guid: 1773fc5447335a1429a7a28d957b9ce9, type: 2}
   - {fileID: 11400000, guid: bc14baf43ce1ff54e84e2d4d9d344d45, type: 2}
   - {fileID: 11400000, guid: df8b80318e168544abd1ade34a7d8560, type: 2}
   foodCount: {x: 2, y: 5}
@@ -156,8 +154,10 @@ MonoBehaviour:
   trackingTarget: 0
   catInteractDistance: 1
   hissPushForce: 15
+  attackType: 0
   trackSounds: []
   attackSounds: []
+  hurtSounds: []
   OverrideMultiplier: -1
 --- !u!82 &1024322760585241032
 AudioSource:
