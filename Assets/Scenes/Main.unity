@@ -992,6 +992,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainTimer: {fileID: 5059066847966661145}
   totalGameTime: 180
+  OnQuarterEvent:
+    m_PersistentCalls:
+      m_Calls: []
   allPlayers:
   - {fileID: 324347817}
   - {fileID: 795120762}
@@ -1176,6 +1179,7 @@ MonoBehaviour:
   - 100
   carClone: {fileID: 0}
   flipped: 0
+  hasSpawnedMailman: 0
 --- !u!114 &795120762 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
@@ -3367,6 +3371,7 @@ MonoBehaviour:
   - 100
   carClone: {fileID: 0}
   flipped: 1
+  hasSpawnedMailman: 0
 --- !u!4 &1933451135
 Transform:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using Utils;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,7 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     public CountdownTimer mainTimer;
     public bool IsGameOver => mainTimer.TimeLeft <= 0;
     public float totalGameTime = 180f;
+    public UnityEvent <int> OnQuarterEvent;//Sends out current quarter 
     [SerializeField] private CatController[] allPlayers;
     public CatController[] AllCats => allPlayers;
     [SerializeField] private Vector2 alignmentRange = new Vector2(-10f, 10f);
@@ -95,6 +97,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         {
             allPlayers[i].OnCatAction.RemoveAllListeners();
         }
+        //Remove all quarter event listeners 
+        OnQuarterEvent.RemoveAllListeners();
     }
 
     private void Update()
@@ -125,4 +129,5 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         string winnerMessage = "Player " + (winningPlayerIndex + 1).ToString() + " Wins!";
         winnerText.text = winnerMessage;
     }
+
 }

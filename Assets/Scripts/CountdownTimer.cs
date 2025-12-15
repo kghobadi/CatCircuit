@@ -16,6 +16,9 @@ public class CountdownTimer : MonoBehaviour
     private bool hasFinished;
     [SerializeField]
     private int countdownTime;
+
+    private int quarterInterval => countdownTime / 4;
+    private int currentQuarter = 0;
     private float currentTime;
     [SerializeField] private AudioSource timerSource;
     public AudioSource TimerSource => timerSource;
@@ -45,7 +48,8 @@ public class CountdownTimer : MonoBehaviour
                 return;
             }
             currentTime -= Time.deltaTime;
-
+            CheckQuarters();
+            
             //set time to string value 
             string timeVal = GetTimeInMinutesSeconds(currentTime);
             if (!useMinutesSeconds)
@@ -66,6 +70,19 @@ public class CountdownTimer : MonoBehaviour
             {
                 FinishTimer();
             }
+        }
+    }
+
+    /// <summary>
+    /// Checks quarters to send out events from GM. 
+    /// </summary>
+    void CheckQuarters()
+    {
+        float dif = countdownTime - currentTime;
+        if (dif > currentQuarter * quarterInterval)
+        {
+            GameManager.Instance.OnQuarterEvent?.Invoke(currentQuarter);
+            currentQuarter++;
         }
     }
 
@@ -99,6 +116,7 @@ public class CountdownTimer : MonoBehaviour
     {
         countdownTime = count;
         currentTime = count;
+        currentQuarter = 1;
         SetTexts(count.ToString());
         ToggleTextsEnabled(true);
         timing = true;

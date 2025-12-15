@@ -82,7 +82,7 @@ public class CatController : MonoBehaviour
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
-        origPointsAddPos = pointAddFader.RectTransform.anchoredPosition;
+        origPointsAddPos = pointAddFader.RectTransform.anchoredPosition; //todo fix null ref on restart?
         spriteRenderer = GetComponent<SpriteRenderer>();
         catBody = GetComponent<Rigidbody2D>();
         catAnimator = GetComponent<Animator>();

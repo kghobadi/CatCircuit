@@ -20,9 +20,13 @@ public class CarSpawner : MonoBehaviour
     private Car lastCar;
     [SerializeField] private bool flipped;
 
+    public bool hasSpawnedMailman;
+
     private void Start()
     {
         SetSpawnTimer();
+
+        GameManager.Instance.OnQuarterEvent.AddListener(OnQuarterEvent);
     }
 
     void Update()
@@ -55,6 +59,21 @@ public class CarSpawner : MonoBehaviour
         }
         carClone = Instantiate(randomCarPrefab, transform.position, Quaternion.identity, transform);
         lastCar = carClone.GetComponent<Car>();
+        if (lastCar.carType == Car.CarType.MailTruck)
+            hasSpawnedMailman = true; 
+        lastCar.SetMoving(flipped);
+        SetSpawnTimer();
+    }
+
+    void SpawnMailman()
+    {
+        if(hasSpawnedMailman)
+            return;
+        
+        carClone = Instantiate(cars[3], transform.position, Quaternion.identity, transform);
+        lastCar = carClone.GetComponent<Car>();
+        if (lastCar.carType == Car.CarType.MailTruck)
+            hasSpawnedMailman = true; 
         lastCar.SetMoving(flipped);
         SetSpawnTimer();
     }
@@ -62,5 +81,28 @@ public class CarSpawner : MonoBehaviour
     void SetSpawnTimer()
     {
         spawnTimer = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
+    }
+
+    /// <summary>
+    /// Checks at quarter time if there's been mailmen. Spawns on L or R if so. 
+    /// </summary>
+    void OnQuarterEvent(int quarter)
+    {
+        if (flipped)
+        {
+            if (quarter == 2 || quarter == 4)
+            {
+                SpawnMailman();
+            }
+        }
+        else
+        {
+            if (quarter == 1 || quarter == 3)
+            {
+                SpawnMailman();
+            }
+        }
+
+        hasSpawnedMailman = false;
     }
 }

@@ -73,7 +73,7 @@ public class Car : AudioHandler
         HealthUI cat = obj.GetComponentInParent<HealthUI>();
         if (cat)
         {
-            //This will kill the cat with proper UI 
+            //This will kill the cat with proper UI - TODO bug where this does not reset UI 
             cat.UpdateHealth(0);
         }
         //Hit a dog? 
