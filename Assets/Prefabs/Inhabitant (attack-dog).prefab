@@ -130,6 +130,7 @@ MonoBehaviour:
   currentSound: 0
   inhabitantType: 1
   spawnOffset: {x: 0, y: -0.19, z: 0}
+  mailChance: 50
   foodAmtRange: {x: 10, y: 50}
   foodCooldownWait: {x: 5, y: 10}
   fetchWait: {x: 1, y: 3}

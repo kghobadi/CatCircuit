@@ -20,6 +20,10 @@ public class Inhabitant : AudioHandler
 
     [SerializeField] private Vector3 spawnOffset = Vector3.zero;
     public Vector3 SpawnOffset => spawnOffset;
+
+    [Tooltip("The chance this inhabitant receives mail when the truck passes.")]
+    [SerializeField] private float mailChance = 50f;
+    public float MailChance => mailChance; 
     
     [Header("Throw Settings")]
     [SerializeField] private Vector2Int foodAmtRange = new Vector2Int(10, 100);
@@ -163,7 +167,7 @@ public class Inhabitant : AudioHandler
     /// <summary>
     /// Actual throw method 
     /// </summary>
-    void ThrowItem( float offset)
+    void ThrowItem(float offset)
     {
         //Animate inhabitant and instantiate food item from prefab 
         inhabitantAnim.SetTrigger("throw");
@@ -171,6 +175,17 @@ public class Inhabitant : AudioHandler
         foodClone.transform.position = throwSpot.position + new Vector3(offset, 0, 0);
         FoodItem foodItem = foodClone.GetComponent<FoodItem>();
         
+        AssignFoodData(foodItem);
+        
+        PlayRandomSound(throwSounds, 1f);
+    }
+
+    /// <summary>
+    /// Assigns a food data to a food item according to my lists. 
+    /// </summary>
+    /// <param name="item"></param>
+    public void AssignFoodData(FoodItem item)
+    {
         //Assign food type from random table
         if (foodOptions.Length > 1)
         {
@@ -180,7 +195,7 @@ public class Inhabitant : AudioHandler
                 //Check if the chance fell below the interval 
                 if (randomFood < randomnessIntervals[i])
                 {
-                    foodItem.AssignFoodData(foodOptions[i]); //Now assign it 
+                    item.AssignFoodData(foodOptions[i]); //Now assign it 
                     break;
                 }
             }
@@ -188,12 +203,28 @@ public class Inhabitant : AudioHandler
         //Only the one option 
         else
         {
-            foodItem.AssignFoodData(foodOptions[0]); //Now assign it 
+            item.AssignFoodData(foodOptions[0]); //Now assign it 
         }
         
         //Set food item score and play sound 
         if(OverrideMultiplier > 0)
-            foodItem.SetScore(OverrideMultiplier);
+            item.SetScore(OverrideMultiplier);
+    }
+
+    /// <summary>
+    /// Mailman throws package this way. 
+    /// </summary>
+    /// <param name="house"></param>
+    public void ThrowDelivery( House house)
+    {
+        //Animate inhabitant and instantiate food item from prefab 
+        inhabitantAnim.SetTrigger("throw");
+        GameObject foodClone = Instantiate(foodPrefab);
+        foodClone.transform.position = throwSpot.position ;
+        //This is a package.Its insides will be determined by the Inhabitant of the house. 
+        Package package = foodClone.GetComponent<Package>();
+        package.AssignHouse(house);
+        
         PlayRandomSound(throwSounds, 1f);
     }
 

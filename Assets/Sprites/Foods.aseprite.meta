@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8e5a916c399d78147874cacd4ce76178
+guid: c3ca8a43b376cb241b13bb39e0274d4e
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,38 +117,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Inhabitants
+  - name: Foods
     originalName: 
-    pivot: {x: 0.5714286, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 68
-      width: 28
-      height: 56
-    spriteID: 492d9b974758bdb40855b13c8b03b07f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 68}
-  - name: Inhabitants_Frame_1
-    originalName: 
-    pivot: {x: 0.6756757, y: 0}
+    pivot: {x: 0.5, y: -0.11111111}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 37
-      height: 56
-    spriteID: d8f1c1af226bc6241bba6c944ef98c2d
+      width: 26
+      height: 27
+    spriteID: 50b1a5729575ec744945ef1e56572608
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,31 +140,23 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1361090407
-    name: Inhabitants
+    guid: 1305391873
+    name: Foods
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Inhabitants_Frame_0
+    - name: Foods
       frameIndex: 0
       cellRect:
-        x: 16
-        y: 0
-        width: 28
-        height: 56
-      spriteId: 492d9b974758bdb40855b13c8b03b07f
-    - name: Inhabitants_Frame_1
-      frameIndex: 1
-      cellRect:
-        x: 7
-        y: 0
-        width: 37
-        height: 56
-      spriteId: d8f1c1af226bc6241bba6c944ef98c2d
+        x: 3
+        y: 3
+        width: 26
+        height: 27
+      spriteId: 50b1a5729575ec744945ef1e56572608
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 64}
+  canvasSize: {x: 32, y: 32}

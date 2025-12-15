@@ -26,6 +26,8 @@ public class Car : AudioHandler
 
     public bool flipped; // set true when going up
 
+    [Header("Mail Settings")] 
+    public Inhabitant mailman;
     public override void Awake()
     {
         base.Awake();
@@ -84,6 +86,42 @@ public class Car : AudioHandler
             }
         }
         PlayRandomSound(crashSounds, 0.5f);
+    }
+
+    //Triggering delivery should make the packages get thrown out 
+    public void TriggerDeliveries(House[] houses)
+    {
+        StartCoroutine(Deliveries(houses));
+    }
+
+    IEnumerator Deliveries(House[] houses)
+    {
+        //stop truck
+        body.velocity = Vector2.zero;
+        moving = false;
+        
+        //show mailman
+        mailman.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        //Throw out the packages. 
+        for (int i = 0; i < houses.Length; i++)
+        {
+            float randomPackageChance = Random.Range(0f, 100f);
+            if (randomPackageChance < houses[i].Inhab.MailChance)
+            {
+                if(i == 0)
+                    yield return new WaitForSeconds(0.25f);
+                
+                mailman.ThrowDelivery( houses[i]);
+
+                yield return new WaitForSeconds(0.25f);
+            }
+        }
+        
+        yield return new WaitForSeconds(0.25f);
+        //bye bye 
+        mailman.gameObject.SetActive(false);
+        moving = true;
     }
 
     private int triggerCount;

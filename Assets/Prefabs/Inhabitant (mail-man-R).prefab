@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1024322760585241046}
   - component: {fileID: 1024322760585241032}
   m_Layer: 0
-  m_Name: Inhabitant (happy-lady)
+  m_Name: Inhabitant (mail-man-R)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,9 +77,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: e2b940a78d17b1d44aa3bd9b9d4c48cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e18aa1a86172924a9bf66cb26787b64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.32, y: 0.32}
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1024322760585241043}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2153d702f64a57e4886059519607e5aa, type: 2}
+  m_Controller: {fileID: 9100000, guid: 34d384087794758488a95ffec527c98b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -126,9 +126,9 @@ MonoBehaviour:
   voiceCounter: 0
   voices: []
   currentSound: 0
-  inhabitantType: 0
+  inhabitantType: 2
   spawnOffset: {x: 0, y: 0, z: 0}
-  mailChance: 50
+  mailChance: 0
   foodAmtRange: {x: 10, y: 50}
   foodCooldownWait: {x: 3, y: 5}
   fetchWait: {x: 1, y: 3}
@@ -136,7 +136,7 @@ MonoBehaviour:
   waitToThrowTimeRange: {x: 1, y: 3}
   throwSpot: {fileID: 1024322761287314818}
   throwSpace: 0.2
-  foodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
+  foodPrefab: {fileID: 1205882896679737631, guid: a184845fea9546f468c546d4ead4165e, type: 3}
   randomnessIntervals:
   - 40
   - 80
@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024322761287314817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.407, z: 0}
+  m_LocalPosition: {x: 0.407, y: -0.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

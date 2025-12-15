@@ -33,11 +33,14 @@ public class House : MonoBehaviour
     [Tooltip("This is the spawned inhabitant at start who lives in the house")]
     public GameObject inhabitantClone;
     private Inhabitant myInhabitant;
+    public Inhabitant Inhab => myInhabitant;
     public bool foodCooldown;
     public bool fetchingFood;
 
     [Tooltip("What happens if the cat meows?")]
     [SerializeField] private Transform inhabitantPosition;
+
+    public Transform InhabPos => inhabitantPosition;
     
     private void Awake()
     {
