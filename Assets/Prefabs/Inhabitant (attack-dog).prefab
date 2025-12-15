@@ -151,7 +151,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42d5ad7117f5c184e84906c1625b6877, type: 3}
   - {fileID: 8300000, guid: d358b34bf64878a4e92fe32c896c9e50, type: 3}
   - {fileID: 8300000, guid: c9245e8920a9f1641928955083b53b54, type: 3}
-  waitToAttackTimeRange: {x: 1, y: 3}
+  waitToAttackTimeRange: {x: 1, y: 2}
   damageAmt: 1
   catTarget: {fileID: 0}
   moveSpeed: 3

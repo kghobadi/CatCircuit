@@ -15,6 +15,7 @@ public class Inhabitant : AudioHandler
     {
         FRIENDLY = 0, // for an already friendly house - you scratch to get food
         DANGEROUS = 1, // for a dangerous house - you hiss&scratch to escape the dog
+        MAILMAN = 2, // delivers mail to houses 
     }
 
     [SerializeField] private Vector3 spawnOffset = Vector3.zero;
