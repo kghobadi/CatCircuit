@@ -855,6 +855,7 @@ MonoBehaviour:
   lives: 9
   livesText: {fileID: 1990166891065171961}
   healOnPurr: 1
+  deathFood: {fileID: 11400000, guid: 066617c673ef94a4a8630afa90458336, type: 2}
   healRange: 0.5
 --- !u!1 &8647839265082964062
 GameObject:

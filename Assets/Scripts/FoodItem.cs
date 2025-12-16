@@ -33,6 +33,15 @@ public class FoodItem : MonoBehaviour
     {
         truePoints = foodData.pointsValue * multiplier;
     }
+
+    /// <summary>
+    /// For a death item. 
+    /// </summary>
+    /// <param name="pts"></param>
+    public void SetScoreDeath(int pts)
+    {
+        truePoints = pts;
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -49,6 +58,8 @@ public class FoodItem : MonoBehaviour
     /// <param name="consumer"></param>
     void CatConsumesMe(CatController consumer)
     {
+        if (consumer.HealthUI.IsDead)
+            return;
         consumer.GainFood(truePoints);
         consumer.CatAudio.PlaySoundRandomPitch(foodData.foodSound, 1f);
         

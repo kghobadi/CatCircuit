@@ -17,6 +17,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private Animator charAnimator;
     [SerializeField] private CatController linkedCat;
     [SerializeField] private bool isDead;
+    public bool IsDead => isDead;
 
     [SerializeField] private string healthAnimParam = "Health";
     [SerializeField] private int fullHP = 3;
@@ -25,6 +26,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private TMP_Text livesText;
 
     [SerializeField] private bool healOnPurr;
+    [SerializeField] private FoodScriptable deathFood;
     [SerializeField] private float healRange = 5f;
 
     private void Start()
@@ -111,12 +113,31 @@ public class HealthUI : MonoBehaviour
         {
             PermanentDeath();
         }
+
+        LeanTween.delayedCall(0.1f, () =>
+        {
+            SubtractAndSpawnDeathFood();
+        });
         
         //update cat controller link
         if (linkedCat)
         {
             linkedCat.OverrideSetLives(lives);
         }
+    }
+
+    /// <summary>
+    /// Spawn food drop and subtract 1/9 of food score 
+    /// </summary>
+    void SubtractAndSpawnDeathFood()
+    {
+        GameObject foodDrop =
+            Instantiate(GameManager.Instance.genericFoodPrefab, transform.position, Quaternion.identity);
+        FoodItem food = foodDrop.GetComponent<FoodItem>();
+        food.AssignFoodData(deathFood);
+        int scoreToSubtract = linkedCat.PlayerScore / 9;
+        linkedCat.GainFood(-scoreToSubtract);
+        food.SetScoreDeath(scoreToSubtract);
     }
 
     /// <summary>

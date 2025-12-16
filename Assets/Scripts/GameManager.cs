@@ -27,6 +27,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     [SerializeField] private Vector2 alignmentRange = new Vector2(-10f, 10f);
     public Vector2 AlignmentRange => alignmentRange;
     [SerializeField] private House[] allHouses;
+
+    public GameObject genericFoodPrefab;
     public House[] AllHouses => allHouses;
     [SerializeField] private GameObject gameoverUi;
     [SerializeField] private TMP_Text winnerText;

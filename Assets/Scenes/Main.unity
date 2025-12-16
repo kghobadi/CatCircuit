@@ -1013,6 +1013,7 @@ MonoBehaviour:
   - {fileID: 1845711101}
   - {fileID: 1435372241}
   - {fileID: 1745626055}
+  genericFoodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
   gameoverUi: {fileID: 1251663300}
   winnerText: {fileID: 5059066847966661146}
 --- !u!4 &462795326
@@ -1172,10 +1173,14 @@ MonoBehaviour:
   - {fileID: 9177921715530856892, guid: 694ba164af623364cb90c7adf397e6bf, type: 3}
   - {fileID: 9177921715530856892, guid: f21e247c144f0194584988c126715e7e, type: 3}
   - {fileID: 9177921715530856892, guid: c729cd6f9d0f93e4a938cab45f8768ff, type: 3}
+  - {fileID: 9177921715530856892, guid: f8ae40339687fca43afe70321c0dd247, type: 3}
+  - {fileID: 9177921715530856892, guid: c020bb226be352f41a5831ca697ae566, type: 3}
   - {fileID: 9177921715530856892, guid: 868a57890607eab46ae8b58c754ed960, type: 3}
   randomnessIntervals:
-  - 40
-  - 65
+  - 20
+  - 45
+  - 70
+  - 75
   - 90
   - 100
   carClone: {fileID: 0}
@@ -3368,10 +3373,14 @@ MonoBehaviour:
   - {fileID: 9177921715530856892, guid: 694ba164af623364cb90c7adf397e6bf, type: 3}
   - {fileID: 9177921715530856892, guid: f21e247c144f0194584988c126715e7e, type: 3}
   - {fileID: 9177921715530856892, guid: c729cd6f9d0f93e4a938cab45f8768ff, type: 3}
+  - {fileID: 9177921715530856892, guid: f8ae40339687fca43afe70321c0dd247, type: 3}
+  - {fileID: 9177921715530856892, guid: c020bb226be352f41a5831ca697ae566, type: 3}
   - {fileID: 9177921715530856892, guid: 14b2834832413cd438035572ccce63d4, type: 3}
   randomnessIntervals:
-  - 40
-  - 65
+  - 20
+  - 45
+  - 70
+  - 75
   - 90
   - 100
   carClone: {fileID: 0}
@@ -4204,6 +4213,18 @@ PrefabInstance:
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: internalHousePosition
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
+      propertyPath: randomnessIntervals.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
+      propertyPath: randomnessIntervals.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
+      propertyPath: randomnessIntervals.Array.data[2]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name

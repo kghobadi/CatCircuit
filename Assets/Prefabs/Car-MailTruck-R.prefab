@@ -115,7 +115,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 700ecad0f37e03d438e1479979a7b0cd, type: 3}
   crashSounds:
   - {fileID: 8300000, guid: 41a2fd78ae8a9b541b95b5c1608c8aae, type: 3}
-  - {fileID: 8300000, guid: 044b4da2b4aebf44b87b3f721647161e, type: 3}
   - {fileID: 8300000, guid: b0c030b92b902784dad1d4e812d5085a, type: 3}
   flipped: 0
   mailman: {fileID: 4682483686128901076}
