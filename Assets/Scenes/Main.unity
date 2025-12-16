@@ -790,7 +790,7 @@ GameObject:
   - component: {fileID: 351682955}
   - component: {fileID: 351682957}
   - component: {fileID: 351682956}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall (trigger)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -991,6 +991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTimer: {fileID: 5059066847966661145}
+  mailManFavorsRight: 0
   totalGameTime: 180
   OnQuarterEvent:
     m_PersistentCalls:
@@ -1800,7 +1801,7 @@ GameObject:
   - component: {fileID: 1366167970}
   - component: {fileID: 1366167972}
   - component: {fileID: 1366167971}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall (trigger)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1972,7 +1973,7 @@ GameObject:
   - component: {fileID: 1416856231}
   - component: {fileID: 1416856233}
   - component: {fileID: 1416856232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall (trigger)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3057,6 +3058,10 @@ PrefabInstance:
       value: CatThief (P2)
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942044, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942044, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -3398,7 +3403,7 @@ GameObject:
   - component: {fileID: 2047035812}
   - component: {fileID: 2047035814}
   - component: {fileID: 2047035813}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall (trigger)
   m_TagString: Wall
   m_Icon: {fileID: 0}

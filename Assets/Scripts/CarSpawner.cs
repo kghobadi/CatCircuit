@@ -88,18 +88,41 @@ public class CarSpawner : MonoBehaviour
     /// </summary>
     void OnQuarterEvent(int quarter)
     {
+        //Right side 
         if (flipped)
         {
-            if (quarter == 2 || quarter == 4)
+            if (GameManager.Instance.mailManFavorsRight)
             {
-                SpawnMailman();
+                if (quarter == 1 || quarter == 3)
+                {
+                    SpawnMailman();
+                }
+               
+            }
+            else
+            {
+                if (quarter == 2 || quarter == 4)
+                {
+                    SpawnMailman();
+                }
             }
         }
+        //Left side 
         else
         {
-            if (quarter == 1 || quarter == 3)
+            if (GameManager.Instance.mailManFavorsRight)
             {
-                SpawnMailman();
+                if (quarter == 2 || quarter == 4)
+                {
+                    SpawnMailman();
+                }
+            }
+            else
+            {
+                if (quarter == 1 || quarter == 3)
+                {
+                    SpawnMailman();
+                }
             }
         }
 

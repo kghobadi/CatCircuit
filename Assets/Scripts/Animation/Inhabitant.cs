@@ -64,9 +64,15 @@ public class Inhabitant : AudioHandler
         Chase = 0, // for attack dogs
         Shoot = 1, // for a redneck shooter
     }
-        
-    [SerializeField] private AudioClip[] trackSounds;
-    [SerializeField] private AudioClip[] attackSounds;
+
+    [SerializeField] private Vector2 aimingTimeRange = new Vector2(3f, 5f);
+    [SerializeField] private float aimingTime;
+    [SerializeField] private GameObject aimingTarget;
+    
+    [Tooltip("Barks for dogs, Reloads for shooters")]
+    [SerializeField] private AudioClip[] trackSounds; // barks reloads
+    [Tooltip("Bites, shots")]
+    [SerializeField] private AudioClip[] attackSounds; // bites. shoots
     [SerializeField] private AudioClip[] hurtSounds;
     public int OverrideMultiplier = -1;
 
@@ -102,11 +108,15 @@ public class Inhabitant : AudioHandler
                 break;
             //Dangerous inhabitants attack 
             case InhabitantType.DANGEROUS: //TODO implement attacks - dog that hones in on nearest cat - redneck with gun etc 
-                //Add cat listeners 
-                for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
+                //Add cat listeners for dogs/chasers
+                if (attackType == AttackType.Chase)
                 {
-                    GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatActionInvoked);
+                    for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
+                    {
+                        GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatActionInvoked);
+                    }
                 }
+               
                 //return to spawn offset pos 
                 transform.localPosition = spawnOffset;
                 //Begin the hunt...
@@ -241,12 +251,20 @@ public class Inhabitant : AudioHandler
         PlayRandomSound(trackSounds, 1f);
         //get target 
         catTarget = GameManager.Instance.GetNearestCatToPoint(transform.position);
+        //randomize aim - shoot time 
+        if (attackType == AttackType.Shoot)
+        {
+            aimingTime = Random.Range(aimingTimeRange.x, aimingTimeRange.y);
+            aimingTarget.SetActive(true);
+        }
+        
         inhabitantAnim.SetBool("tracking", true);
         trackingTarget = true;
 
         yield return new WaitUntil(() => !trackingTarget);
         inhabitantAnim.SetBool("tracking", false);
-        
+        if(aimingTarget)
+            aimingTarget.SetActive(false);
         yield return new WaitForSeconds(0.5f);
 
         gameObject.SetActive(false);
@@ -257,11 +275,22 @@ public class Inhabitant : AudioHandler
         if (trackingTarget)
         {
             //moves towards cat target
-            Vector3 dir = catTarget.transform.position - transform.position;
-            body.AddForce(moveSpeed * dir,  ForceMode2D.Force);
-            
-            //TODO what to do about swinging velocity? could play with it somewhat 
-            //TODO should it have legit collision with most objects?
+            if (attackType == AttackType.Chase)
+            {
+                Vector3 dir = catTarget.transform.position - transform.position;
+                body.AddForce(moveSpeed * dir,  ForceMode2D.Force);
+                
+                //TODO what to do about swinging velocity? could play with it somewhat 
+            }
+            else if (attackType == AttackType.Shoot)
+            {
+                aimingTime -= Time.fixedDeltaTime;
+                aimingTarget.transform.position = catTarget.transform.position;
+                if (aimingTime < 0)
+                {
+                    ShootBullet();
+                }
+            }
         }
     }
 
@@ -299,6 +328,24 @@ public class Inhabitant : AudioHandler
         trackingTarget = false;
     }
 
+    /// <summary>
+    /// Spawn bullet with given direction and speed 
+    /// </summary>
+    void ShootBullet()
+    {     
+        //trigger attack on said cat. 
+        inhabitantAnim.SetTrigger("attack");
+
+        //spawn bullet and assign dir
+        GameObject bullet = Instantiate(foodPrefab, throwSpot);
+        bullet.transform.SetParent(null);
+        Bullet bulletLogic = bullet.GetComponent<Bullet>();
+        bulletLogic.Fire(catTarget.transform);
+        
+        //sound and bool 
+        PlayRandomSound(attackSounds, 1f);
+        trackingTarget = false;
+    }
     
     /// <summary>
     /// How to respond to this provocation??? or altercation? or friendly invitation? 

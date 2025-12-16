@@ -11,15 +11,16 @@ TagManager:
   - Wall
   - Car
   - Package
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - Bullet
+  - Wall
   - 
   - 
   - 

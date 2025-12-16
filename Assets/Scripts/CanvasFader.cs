@@ -9,7 +9,19 @@ using UnityEngine;
 public class CanvasFader : MonoBehaviour
 {
     private RectTransform myRect;
-    public RectTransform RectTransform => myRect;
+
+    public RectTransform RectTransform
+    {
+        get
+        {
+            if (myRect == null)
+            {
+                myRect = GetComponent<RectTransform>();
+            }
+
+            return myRect;
+        }
+    }
     private CanvasGroup myCanvasGroup;
     public CanvasGroup CG => myCanvasGroup;
     [SerializeField] private bool shownAtStart;

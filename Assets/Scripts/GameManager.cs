@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Utils;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Overall Game manager
@@ -18,6 +19,7 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     }
     public CountdownTimer mainTimer;
     public bool IsGameOver => mainTimer.TimeLeft <= 0;
+    public bool mailManFavorsRight; //decided at start 
     public float totalGameTime = 180f;
     public UnityEvent <int> OnQuarterEvent;//Sends out current quarter 
     [SerializeField] private CatController[] allPlayers;
@@ -34,6 +36,19 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         mainTimer.SetCountdown((int)totalGameTime);
         mainTimer.OnTimerFinished += OnGameEnded;
         RandomizeHousePools();
+    }
+
+    private void OnEnable()
+    {
+        float randomChance = Random.Range(0f, 100f);
+        if (randomChance <= 50f)
+        {
+            mailManFavorsRight = false;
+        }
+        else
+        {
+            mailManFavorsRight = true;
+        }
     }
 
     private void OnValidate()

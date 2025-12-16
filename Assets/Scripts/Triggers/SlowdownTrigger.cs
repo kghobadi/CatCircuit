@@ -25,5 +25,9 @@ public class SlowdownTrigger : MonoBehaviour
             Car car = other.gameObject.GetComponent<Car>();
             car.CountTriggers();
         }
+        else if (other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

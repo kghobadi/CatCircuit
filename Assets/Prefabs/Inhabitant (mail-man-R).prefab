@@ -158,6 +158,9 @@ MonoBehaviour:
   catInteractDistance: 1
   hissPushForce: 15
   attackType: 0
+  aimingTimeRange: {x: 3, y: 5}
+  aimingTime: 0
+  aimingTarget: {fileID: 0}
   trackSounds: []
   attackSounds: []
   hurtSounds: []
