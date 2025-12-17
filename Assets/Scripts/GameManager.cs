@@ -18,6 +18,7 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         return this;
     }
     public CountdownTimer mainTimer;
+    public bool beginOnStart;
     public bool IsGameOver => mainTimer.TimeLeft <= 0;
     public bool mailManFavorsRight; //decided at start 
     public float totalGameTime = 180f;
@@ -33,6 +34,14 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     [SerializeField] private GameObject gameoverUi;
     [SerializeField] private TMP_Text winnerText;
     void Start()
+    {
+        if (beginOnStart)
+        {
+            BeginNewGame();
+        }
+    }
+
+    public void BeginNewGame()
     {
         gameoverUi.SetActive(false);
         mainTimer.SetCountdown((int)totalGameTime);

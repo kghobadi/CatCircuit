@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 /// <summary>
 /// Handles the countdown timer behavior in the UI.
 /// </summary>
 public class CountdownTimer : MonoBehaviour
 {
+    [SerializeField] private bool beginOnStart;
     [SerializeField]
     private TMP_Text[] timeText;
     [SerializeField]
@@ -17,6 +19,7 @@ public class CountdownTimer : MonoBehaviour
     [SerializeField]
     private int countdownTime;
 
+    [SerializeField] private bool mainGameTimer;
     private int quarterInterval => countdownTime / 4;
     private int currentQuarter = 0;
     private float currentTime;
@@ -35,9 +38,18 @@ public class CountdownTimer : MonoBehaviour
     public bool HasFinished => hasFinished;
 
     public Action OnTimerFinished;
+    public UnityEvent OnTimerComplete; //for public event based coding
 
     public float TimeLeft => currentTime;
     private bool paused;
+
+    private void Start()
+    {
+        if (beginOnStart)
+        {
+            SetCountdown(countdownTime);
+        }
+    }
 
     void Update()
     {
@@ -48,13 +60,17 @@ public class CountdownTimer : MonoBehaviour
                 return;
             }
             currentTime -= Time.deltaTime;
-            CheckQuarters();
+
+            if (mainGameTimer)
+            {
+                CheckQuarters();
+            }
             
             //set time to string value 
             string timeVal = GetTimeInMinutesSeconds(currentTime);
             if (!useMinutesSeconds)
             {
-                int num = (int)currentTime;
+                int num = (int)currentTime + 1;
                 if(num == 0)
                 {
                     timeVal = zeroString;   
@@ -90,9 +106,13 @@ public class CountdownTimer : MonoBehaviour
     {
         if(timerSource)
             timerSource.Play();
+        
+        if(!useMinutesSeconds)
+            SetTexts(zeroString);
         timing = false;
         hasFinished = true;
         OnTimerFinished?.Invoke();
+        OnTimerComplete?.Invoke();
     }
 
     public void SetPause(bool pause)
