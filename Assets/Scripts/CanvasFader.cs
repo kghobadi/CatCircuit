@@ -25,6 +25,7 @@ public class CanvasFader : MonoBehaviour
     private CanvasGroup myCanvasGroup;
     public CanvasGroup CG => myCanvasGroup;
     [SerializeField] private bool shownAtStart;
+    [SerializeField] private bool fadeOutAtStart;
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private float fadeInAmt = 1f;
     [SerializeField] private float fadeOutAmt = 0f;
@@ -50,6 +51,14 @@ public class CanvasFader : MonoBehaviour
             {
                 CG.interactable = CG.blocksRaycasts = false; // allows interaction with rest of screen
             }
+        }
+    }
+
+    private void Start()
+    {
+        if (fadeOutAtStart)
+        {
+            FadeOut();
         }
     }
 
