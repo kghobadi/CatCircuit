@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 741f65020f0257a4ea8011efb136bca8
+guid: da9bd1105ab8dcc42901e018574c9b1b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CatWalking_0
+      name: BakeBiscuits_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f71c2d78adae422499876a7ebed60937
-      internalID: 692981111
+      spriteID: 293e66f8a24b66a41835cbfd3d884282
+      internalID: -302864738
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CatWalking_1
+      name: BakeBiscuits_1
       rect:
         serializedVersion: 2
         x: 32
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab22bf5c94ebdf94ca8b2f8730c11e71
-      internalID: -399921612
+      spriteID: 149c3185cc4b8e146abd829df682a4c0
+      internalID: -1284622400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CatWalking_2
+      name: BakeBiscuits_2
       rect:
         serializedVersion: 2
         x: 64
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 939cf1d2c70ea6b40b00108debbd6a7b
-      internalID: 2117059535
+      spriteID: 8c8dab69c3b48b942a13aeb841486124
+      internalID: 1801206394
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CatWalking_3
+      name: BakeBiscuits_3
       rect:
         serializedVersion: 2
         x: 96
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dbfc66d4a422464bbf0fe8b3ea72609
-      internalID: -760775478
+      spriteID: cc3be91346ff49245a6827c1be1a337a
+      internalID: -891919310
       vertices: []
       indices: 
       edges: []
@@ -199,10 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CatWalking_0: 692981111
-      CatWalking_1: -399921612
-      CatWalking_2: 2117059535
-      CatWalking_3: -760775478
+      BakeBiscuits_0: -302864738
+      BakeBiscuits_1: -1284622400
+      BakeBiscuits_2: 1801206394
+      BakeBiscuits_3: -891919310
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
