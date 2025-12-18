@@ -124,6 +124,10 @@ public class CatController : MonoBehaviour
             //get move inputs
             horizontalMove = player.GetAxis("MoveHorizontal"); // get input by name or action id
             verticalMove = player.GetAxis("MoveVertical");
+
+            //No inputs when dead 
+            if (healthUI.IsDead)
+                return;
              
             if (player.GetButtonDown("Meow") && !catAudio.myAudioSource.isPlaying)
             {
@@ -134,7 +138,7 @@ public class CatController : MonoBehaviour
             {
                 Purr();
             }
-            if (player.GetButtonDown("Hiss"))
+            if (player.GetButtonDown("Hiss") )
             {
                 Hiss();
             }
@@ -149,6 +153,10 @@ public class CatController : MonoBehaviour
             //get inputs 
             horizontalMove = Input.GetAxis(myPlayerInputActions.HorizontalInput);
             verticalMove = Input.GetAxis(myPlayerInputActions.VerticalInput);
+            
+            //No inputs when dead 
+            if (healthUI.IsDead)
+                return;
 
             if (Input.GetKeyDown(myPlayerInputActions.Meow) && !catAudio.myAudioSource.isPlaying)
             {
