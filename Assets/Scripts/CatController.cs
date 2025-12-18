@@ -5,6 +5,8 @@ using Rewired;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+
 public enum PlayerType
 {
     WASD = 0,
@@ -66,6 +68,9 @@ public class CatController : MonoBehaviour
     [SerializeField] private TMP_Text foodScoreText;
     [SerializeField] private CanvasFader pointAddFader;
     [SerializeField] private TMP_Text pointsAddedText;
+    [SerializeField] private Image plusImg;
+    [SerializeField] private Sprite plusSprite;
+    [SerializeField] private Sprite deathSprite;
     private Vector2 origPointsAddPos;
     [SerializeField] private Transform catConsumePos;
     public Transform ConsumePos => catConsumePos;
@@ -367,6 +372,21 @@ public class CatController : MonoBehaviour
     {
         currentScore += amt; //TODO figure out how to ensure we see all the latest food pt amt updates even if anim is active 
         pointsAddedText.text = amt.ToString();
+        plusImg.sprite = plusSprite;
+        plusImg.color = pointsAddedText.color;
+        DoPointsAnim();
+    }
+    
+    /// <summary>
+    /// Lose food score. (on death)
+    /// </summary>
+    /// <param name="amt"></param>
+    public void LoseFood(int amt)
+    {
+        currentScore -= amt; //TODO figure out how to ensure we see all the latest food pt amt updates even if anim is active 
+        pointsAddedText.text = amt.ToString();
+        plusImg.sprite = deathSprite;
+        plusImg.color = Color.white;
         DoPointsAnim();
     }
 

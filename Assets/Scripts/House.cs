@@ -283,6 +283,7 @@ public class House : MonoBehaviour
     IEnumerator WaitToShowInhabitant(int multiplier)
     {
         fetchingFood = true;
+        foodCooldown = true;
         float randomFetchWait = UnityEngine.Random.Range(myInhabitant.FetchWait.x, myInhabitant.FetchWait.y);
 
         yield return new WaitForSeconds(randomFetchWait);
@@ -293,7 +294,6 @@ public class House : MonoBehaviour
         yield return new WaitUntil(() => ! myInhabitant.gameObject.activeSelf);
         fetchingFood = false;
 
-        foodCooldown = true;
         float randomCooldown = UnityEngine.Random.Range(myInhabitant.FoodCooldown.x, myInhabitant.FoodCooldown.y);
 
         yield return new WaitForSeconds(randomCooldown);

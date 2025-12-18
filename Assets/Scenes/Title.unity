@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 87303595}
   - component: {fileID: 87303597}
   - component: {fileID: 87303596}
+  - component: {fileID: 87303598}
   m_Layer: 5
   m_Name: ScratchText (TMP) (1)
   m_TagString: Untagged
@@ -326,6 +327,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87303594}
   m_CullTransparentMesh: 1
+--- !u!114 &87303598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87303594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae7e144a3192a34598c4318c0a5b030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 0
+  fadeState: 0
+  shownAtStart: 1
+  startAlpha: 0
+  keepActive: 1
+  fadeInAmount: 1
+  fadeInDuration: 1
+  fadeInWait: 0
+  fadeOutImmediately: 0
+  fadeOutAmount: 0
+  fadeOutDuration: 1
+  fadeOutWait: 0
+  FadedOut:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &351350499
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,6 +992,7 @@ GameObject:
   - component: {fileID: 981873283}
   - component: {fileID: 981873285}
   - component: {fileID: 981873284}
+  - component: {fileID: 981873286}
   m_Layer: 5
   m_Name: HissText (TMP) (2)
   m_TagString: Untagged
@@ -1088,6 +1117,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981873282}
   m_CullTransparentMesh: 1
+--- !u!114 &981873286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981873282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae7e144a3192a34598c4318c0a5b030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 0
+  fadeState: 0
+  shownAtStart: 1
+  startAlpha: 0
+  keepActive: 1
+  fadeInAmount: 1
+  fadeInDuration: 1
+  fadeInWait: 0
+  fadeOutImmediately: 0
+  fadeOutAmount: 0
+  fadeOutDuration: 1
+  fadeOutWait: 0
+  FadedOut:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1062406527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1277,10 @@ MonoBehaviour:
   - {fileID: 1532315093}
   - {fileID: 1143915644}
   - {fileID: 1932046597}
+  - {fileID: 1132043929}
+  - {fileID: 1857044736}
+  - {fileID: 981873286}
+  - {fileID: 87303598}
   OnPress:
     m_PersistentCalls:
       m_Calls: []
@@ -1292,6 +1352,7 @@ GameObject:
   - component: {fileID: 1132043926}
   - component: {fileID: 1132043928}
   - component: {fileID: 1132043927}
+  - component: {fileID: 1132043929}
   m_Layer: 5
   m_Name: MeowText (TMP)
   m_TagString: Untagged
@@ -1416,6 +1477,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132043925}
   m_CullTransparentMesh: 1
+--- !u!114 &1132043929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132043925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae7e144a3192a34598c4318c0a5b030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 0
+  fadeState: 0
+  shownAtStart: 1
+  startAlpha: 0
+  keepActive: 1
+  fadeInAmount: 1
+  fadeInDuration: 1
+  fadeInWait: 0
+  fadeOutImmediately: 0
+  fadeOutAmount: 0
+  fadeOutDuration: 1
+  fadeOutWait: 0
+  FadedOut:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1134988367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,6 +2044,7 @@ GameObject:
   - component: {fileID: 1857044733}
   - component: {fileID: 1857044735}
   - component: {fileID: 1857044734}
+  - component: {fileID: 1857044736}
   m_Layer: 5
   m_Name: PurrText (TMP) (1)
   m_TagString: Untagged
@@ -2080,6 +2169,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857044732}
   m_CullTransparentMesh: 1
+--- !u!114 &1857044736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857044732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae7e144a3192a34598c4318c0a5b030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiType: 0
+  fadeState: 0
+  shownAtStart: 1
+  startAlpha: 0
+  keepActive: 1
+  fadeInAmount: 1
+  fadeInDuration: 1
+  fadeInWait: 0
+  fadeOutImmediately: 0
+  fadeOutAmount: 0
+  fadeOutDuration: 1
+  fadeOutWait: 0
+  FadedOut:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1932046590
 GameObject:
   m_ObjectHideFlags: 0

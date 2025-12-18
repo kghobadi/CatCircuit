@@ -136,7 +136,7 @@ public class HealthUI : MonoBehaviour
         FoodItem food = foodDrop.GetComponent<FoodItem>();
         food.AssignFoodData(deathFood);
         int scoreToSubtract = linkedCat.PlayerScore / 9;
-        linkedCat.GainFood(-scoreToSubtract);
+        linkedCat.LoseFood(scoreToSubtract);
         food.SetScoreDeath(scoreToSubtract);
     }
 
@@ -157,6 +157,16 @@ public class HealthUI : MonoBehaviour
         }
         
         UpdateHealth(healthAmt + catController.PurrHealStrength); 
+    }
+
+    private void Update()
+    {
+        //Did player return to idle sit? 
+        // if (IsDead && charAnimator.GetCurrentAnimatorStateInfo(0).IsName("CatIdleSitting"))
+        // {
+        //     //Ensure resurrect 
+        //     Resurrect();
+        // }
     }
 
     /// <summary>
