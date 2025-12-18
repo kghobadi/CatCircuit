@@ -64,6 +64,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     /// </summary>
     public void BeginNewGame()
     {
+        // Use the current time to seed the random generator
+        Random.InitState((int)DateTime.Now.Ticks);
         gameoverUi.SetActive(false);
         mainTimer.SetCountdown((int)totalGameTime);
         mainTimer.OnTimerFinished += OnGameEnded;
