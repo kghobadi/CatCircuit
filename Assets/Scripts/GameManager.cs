@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Rewired;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,9 +18,13 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     {
         return this;
     }
+    public int [] allPlayerIds ;
+    private Player[] playerInputs; // The Rewired Player
+    
     public CountdownTimer mainTimer;
     public bool beginOnStart;
-    public bool IsGameOver => mainTimer.TimeLeft <= 0;
+    public bool IsGameOver => mainTimer.TimeLeft <= 0 && gameOver;
+    private bool gameOver;
     public bool mailManFavorsRight; //decided at start 
     public float totalGameTime = 180f;
     public UnityEvent <int> OnQuarterEvent;//Sends out current quarter 
@@ -33,14 +38,30 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     public House[] AllHouses => allHouses;
     [SerializeField] private GameObject gameoverUi;
     [SerializeField] private TMP_Text winnerText;
+    
+    //Restart to title timer
+    [SerializeField] private float RestartTime = 30f;
+    private float restartTimer;
+    
     void Start()
     {
+        //Get player ids
+        playerInputs = new Player[allPlayerIds.Length];
+        for (int i = 0; i < allPlayerIds.Length; i++)
+        {
+            playerInputs[i] = ReInput.players.GetPlayer(allPlayerIds[i]);
+        }
+        
+        //Should the game begin when start is called? 
         if (beginOnStart)
         {
             BeginNewGame();
         }
     }
 
+    /// <summary>
+    /// Starts a new game. 
+    /// </summary>
     public void BeginNewGame()
     {
         gameoverUi.SetActive(false);
@@ -126,19 +147,13 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         //Remove all quarter event listeners 
         OnQuarterEvent.RemoveAllListeners();
     }
-
-    private void Update()
-    {
-        //Reload the game scene to restart 
-        if (Input.GetKeyDown(KeyCode.R) && IsGameOver)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
-
+    
+    /// <summary>
+    /// Called when Countdown timer runs out... Todo or when only one player is left living?
+    /// Compare all player scores and set winner texts for game over message. 
+    /// </summary>
     void OnGameEnded()
     {
-        //compare all player scores and set winner text 
         float highestScore = 0;
         int winningPlayerIndex = 0;
         for (int i = 0; i < allPlayers.Length; i++)
@@ -154,6 +169,46 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         gameoverUi.SetActive(true);
         string winnerMessage = "Player " + (winningPlayerIndex + 1).ToString() + " Wins!";
         winnerText.text = winnerMessage;
+        restartTimer = RestartTime;
+        gameOver = true;
     }
 
+    private void Update()
+    {
+        //While game over
+        if (IsGameOver)
+        {
+            //Reload the game scene to restart? 
+            for (int i = 0; i < playerInputs.Length; i++)
+            {
+                if ( playerInputs[i].GetButton("Restart"))
+                {
+                    Restart();
+                }
+            }
+
+            //Return to game title screen when timer runs out with no Restart input 
+            restartTimer -= Time.deltaTime;
+            if (restartTimer < 0)
+            {
+                ReturnToTitle();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Restarts gameplay scene. 
+    /// </summary>
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    /// <summary>
+    /// Returns to title screen scene. 
+    /// </summary>
+    void ReturnToTitle()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

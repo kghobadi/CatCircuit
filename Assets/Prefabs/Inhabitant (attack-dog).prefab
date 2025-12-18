@@ -135,7 +135,7 @@ MonoBehaviour:
   foodCooldownWait: {x: 5, y: 10}
   fetchWait: {x: 1, y: 3}
   inhabitantAnim: {fileID: 1024322760585241047}
-  waitToThrowTimeRange: {x: 1, y: 3}
+  waitToThrowTimeRange: {x: 1, y: 2}
   throwSpot: {fileID: 0}
   throwSpace: 0.2
   foodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
@@ -152,7 +152,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42d5ad7117f5c184e84906c1625b6877, type: 3}
   - {fileID: 8300000, guid: d358b34bf64878a4e92fe32c896c9e50, type: 3}
   - {fileID: 8300000, guid: c9245e8920a9f1641928955083b53b54, type: 3}
-  waitToAttackTimeRange: {x: 1, y: 2}
+  waitToAttackTimeRange: {x: 0.75, y: 1.5}
   damageAmt: 1
   catTarget: {fileID: 0}
   moveSpeed: 3

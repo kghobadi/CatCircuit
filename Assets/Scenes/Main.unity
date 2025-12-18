@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4b12ed467ac1e45959fcfc4bd83fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allPlayerIds: 00000000010000000200000003000000
   mainTimer: {fileID: 5059066847966661145}
   beginOnStart: 0
   mailManFavorsRight: 0
@@ -1061,6 +1062,7 @@ MonoBehaviour:
   genericFoodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
   gameoverUi: {fileID: 1251663300}
   winnerText: {fileID: 5059066847966661146}
+  RestartTime: 15
 --- !u!4 &462795326
 Transform:
   m_ObjectHideFlags: 0
