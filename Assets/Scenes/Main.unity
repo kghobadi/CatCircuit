@@ -1064,6 +1064,8 @@ MonoBehaviour:
   gameoverUi: {fileID: 1251663300}
   winnerText: {fileID: 5059066847966661146}
   RestartTime: 15
+  currentHighScore: 0
+  winningPlayerIndex: 0
 --- !u!4 &462795326
 Transform:
   m_ObjectHideFlags: 0
