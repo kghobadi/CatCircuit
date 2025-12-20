@@ -45,7 +45,7 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     private float restartTimer;
 
     //For high score menu 
-    private Dictionary<string, int> HighScores = new Dictionary<string, int>();
+    [SerializeField] private HighScoreMenu highScoreMenu;
     public int currentHighScore; // set each round for highest score at end 
     public int winningPlayerIndex;
     void Start()
@@ -108,14 +108,6 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             allHouses[i].RandomizePrize();
         }
     }
-    
-    /// <summary>
-    /// Would divide alignment sectors according to players. Right now there's only 2. 
-    /// </summary>
-    void DivideAlignmentSectors()
-    {
-        
-    }
 
     /// <summary>
     /// Returns nearest cat to a point. 
@@ -177,7 +169,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         string winnerMessage = "Player " + (winningPlayerIndex + 1).ToString() + " Wins!";
         winnerText.text = winnerMessage;
         
-        //LoadHighScores();
+        //TODO trigger load here?
+        //highScoreMenu.LoadHighScores();
         restartTimer = RestartTime;
         gameOver = true;
     }
@@ -197,61 +190,13 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             }
 
             //Return to game title screen when timer runs out with no Restart input 
+            //TODO this should reset each time there is Input to high score menu 
             restartTimer -= Time.deltaTime;
             if (restartTimer < 0)
             {
                 ReturnToTitle();
             }
         }
-    }
-    
-    void LoadHighScores()
-    {
-        //Load prefs
-        string allHighScoreNames = PlayerPrefs.GetString("HighScoreNames");
-        string allHighScores = PlayerPrefs.GetString("HighScores");
-        string[] allNames = new string[1];
-        string[] allScores = new string[1];
-        HighScores.Clear();
-
-        //Get names 
-        if (!string.IsNullOrEmpty(allHighScoreNames))
-        {
-            //split names by ,
-            allNames = allHighScoreNames.Split(",");
-        }
-        //Get scores 
-        if (!string.IsNullOrEmpty(allHighScores))
-        {
-            //split scores by ,
-            allScores = allHighScores.Split(",");
-        }
-        //Assume there is a score for every name and add all to dict
-        for (int i = 0; i < allNames.Length; i++)
-        {
-            HighScores.Add(allNames[i], int.Parse(allScores[i]));
-        }
-        
-        //current high score
-        currentHighScore = 0;
-        
-        for (int i = 0; i < AllCats.Length; i++)
-        {
-            if (AllCats[i].PlayerScore > currentHighScore)
-                currentHighScore = AllCats[i].PlayerScore;
-        }
-    }
-
-    /// <summary>
-    /// Called by Highscore entry to save the new high score, then display it. 
-    /// </summary>
-    /// <param name="newName"></param>
-    public void SaveNewHighScore(string newName)
-    {
-        //get highest score 
-        HighScores.Add(newName, currentHighScore);
-        //organize dict by highest score. 
-        HighScores.OrderByDescending(entry => entry.Value); // Sort by score, descending
     }
     
     /// <summary>
