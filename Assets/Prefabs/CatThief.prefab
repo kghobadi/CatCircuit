@@ -553,7 +553,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.01, y: -0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -564,7 +564,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.24, y: 0.28}
   m_EdgeRadius: 0
 --- !u!1 &1832205702
 GameObject:
@@ -730,7 +730,6 @@ MonoBehaviour:
   playerId: 0
   myPlayerInputActions: {fileID: 11400000, guid: 83113ba8c19fc08459f975c66338c0f8, type: 2}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
-  alignPositive: 0
   catState: 0
   moveSpeed: 0.1
   catInteractDistance: 0.5
@@ -789,7 +788,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: -0.03}
+  m_Offset: {x: -0.01, y: -0.08}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -800,7 +799,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.26}
+  m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
 --- !u!114 &314391789
 MonoBehaviour:

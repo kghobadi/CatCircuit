@@ -13,15 +13,14 @@ public class House : MonoBehaviour
     [SerializeField] private SpriteRenderer houseZone;
 
     [Tooltip("Stat for alignment to players")]
-    public float Alignment = 0;
+    public float[] Alignments;
+    private int currentAlignment;
     public CatController.CatActions favoriteAction;
     public CatController.CatActions hatedAction;
-    private float friendshipMeter; //TODO maybe  this is like underlying state on a spectrum? 
 
     //Could think more about how to assign points. 
     public int totalPrize; //determined when randomized
-    [SerializeField] private bool hasFood;
-    private bool catPlayerPresent;
+    private bool[] catPlayersPresent;
     //over time could do something with the houses changing type?  
  
     [SerializeField] private HouseAudio houseAudio;
@@ -44,10 +43,16 @@ public class House : MonoBehaviour
     
     private void Awake()
     {
-        //add listeners
-        for (int i = 0; i < GameManager.Instance.AllCats.Length; i++)
+        if (Alignments == null)
         {
-            GameManager.Instance.AllCats[i].OnCatAction.AddListener(CheckCatAction);
+            Alignments = new float[4];
+        }
+
+        catPlayersPresent = new bool[Alignments.Length];
+        //add listeners
+        foreach (var cat in GameManager.Instance.AllCats)
+        {
+            cat.OnCatAction.AddListener(CheckCatAction);
         }
         //Reset house to neutral color. 
         houseZone.color = new Color(1, 1, 1, 0.05f); 
@@ -104,11 +109,6 @@ public class House : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        hasFood = true;
-    }
-
     #region Trigger Logic
 
     float GetDistanceFromPlayer(CatController cat)
@@ -121,7 +121,12 @@ public class House : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            catPlayerPresent = true;
+            CatController cat = other.gameObject.GetComponent<CatController>();
+            if (cat)
+            {
+                catPlayersPresent[cat.PlayerID] = true;
+            }
+            
         }
     }
     
@@ -129,12 +134,15 @@ public class House : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            catPlayerPresent = false;
+            CatController cat = other.gameObject.GetComponent<CatController>();
+            if (cat)
+            {
+                catPlayersPresent[cat.PlayerID] = false;
+            }
         }
     }
 
     #endregion
-
 
     /// <summary>
     /// Receives input from a player cat action.
@@ -144,7 +152,7 @@ public class House : MonoBehaviour
     void CheckCatAction(CatController.CatActions action, CatController cat)
     {
         catController = cat;
-        if (catPlayerPresent && GetDistanceFromPlayer(cat) < 1f && !foodCooldown)
+        if (catPlayersPresent[cat.PlayerID] && GetDistanceFromPlayer(cat) < 1f)
         {
             float align = 0; 
             bool goodInteraction = false;
@@ -152,49 +160,21 @@ public class House : MonoBehaviour
             {
                 case CatController.CatActions.MEOW:
                     //Increase alignment
-                    if (cat.alignPositive)
-                    {
-                        align = 1;
-                    }
-                    else
-                    {
-                        align = -1;
-                    }
+                    align = 1;
                     goodInteraction = true;
                     break;
                 case CatController.CatActions.PURR:
                     //Increase alignment
-                    if (cat.alignPositive)
-                    {
-                        align = 1;
-                    }
-                    else
-                    {
-                        align = -1;
-                    }
+                    align = 1;
                     goodInteraction = true;
                     break;
                 case CatController.CatActions.HISS:
                     //Decrease alignment
-                    if (cat.alignPositive)
-                    {
-                        align = -1;
-                    }
-                    else
-                    {
-                        align = 1;
-                    }
+                    align = -1;
                     break;
                 case CatController.CatActions.SCRATCH:
                     //Decrease alignment
-                    if (cat.alignPositive)
-                    {
-                        align = -1;
-                    }
-                    else
-                    {
-                        align = 1;
-                    }
+                    align = -1;
                     break;
             }
 
@@ -206,22 +186,43 @@ public class House : MonoBehaviour
                 {
                     align *= 2;
                 }
-                //calc new alignment for this house
-                Alignment += align;
-                //Clamp to global alignment range 
-                Alignment = Mathf.Clamp(Alignment, GameManager.Instance.AlignmentRange.x,
-                    GameManager.Instance.AlignmentRange.y);
+                //calc new alignment for this house/cat
+                if (goodInteraction && !foodCooldown)
+                {
+                    UpdateAlignment(cat.PlayerID, align);
+                    //Bring down current top alignment if not me 
+                    if (currentAlignment != cat.PlayerID)
+                    {
+                        UpdateAlignment(currentAlignment, -align);
+                    }
+                }
+                //For bad interactions, Inhabitant must be enabled to see it. 
+                else
+                {
+                    if (inhabitantClone.activeSelf)
+                    {
+                        UpdateAlignment(cat.PlayerID, align);
+                        //Increase current top alignment if not me 
+                        if (currentAlignment != cat.PlayerID)
+                        {
+                            UpdateAlignment(currentAlignment, -align);
+                        }
+                    }
+                }
+                
+                //Update all alignments to this house, then visuals  
+                CheckGreatestAlignment();
                 UpdateHouseVisuals();
             
                 //Cats get food rewards ONLY for good actions. 
-                if (goodInteraction)
+                if (goodInteraction && !foodCooldown)
                 {
                     //base food amt on 
-                    GetFood(favoriteAction == action);
+                    GetFood(favoriteAction == action, cat);
                 }
             }
             //Dangerous houses show inhabitant no matter what 
-            else if (myInhabitant.InhabiType == Inhabitant.InhabitantType.DANGEROUS)
+            else if (myInhabitant.InhabiType == Inhabitant.InhabitantType.DANGEROUS && !foodCooldown)
             {
                 GetAttacked();
             }
@@ -229,33 +230,60 @@ public class House : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates house according to global cat alignments. 
+    /// Updates a cat alignment at ID by adding given value. 
     /// </summary>
-    void UpdateHouseVisuals()
+    /// <param name="id"></param>
+    /// <param name="val"></param>
+    void UpdateAlignment(int id, float val)
     {
-        //We're moving towards blue
-        if (Alignment > 0)
+        Alignments[id] += val;
+        //Clamp to global alignment range 
+        Alignments[id] = Mathf.Clamp(Alignments[id], GameManager.Instance.AlignmentRange.x,
+            GameManager.Instance.AlignmentRange.y);
+    }
+
+    /// <summary>
+    /// Checks current greatest Alignment index. 
+    /// </summary>
+    void CheckGreatestAlignment()
+    {
+        float greatestAlignment = 0;
+        for (int i = 0; i < Alignments.Length; i++)
         {
-            houseZone.color = new Color(0, 0, 1,  Mathf.Abs(Alignment) / 10f); 
-        }
-        //Neutral 
-        else if (Alignment == 0)
-        {
-            //Reset house to neutral color. 
-            houseZone.color = new Color(1, 1, 1, 0.05f); 
-        }
-        //Red Team
-        else
-        {
-            houseZone.color = new Color(1, 0, 0, Mathf.Abs(Alignment) / 10f); 
+            if (Alignments[i] > greatestAlignment)
+            {
+                greatestAlignment = Alignments[i];
+                currentAlignment = i;
+            }
         }
     }
     
     /// <summary>
+    /// Updates house according to global cat alignments. 
+    /// </summary>
+    void UpdateHouseVisuals()
+    {
+        //Neutral at 0 - No alignment
+        if (Alignments[currentAlignment] == 0)
+        {
+            //Reset house to neutral color. 
+            houseZone.color = new Color(1, 1, 1, 0.05f); 
+        }
+        //We're moving towards that Player color 
+        else if (Alignments[currentAlignment] > 0)
+        {
+            //Pull from player color 
+            Color playerColor = GameManager.Instance.AllCats[currentAlignment].PlayerColor;
+            houseZone.color = new Color(playerColor.r, playerColor.g, playerColor.b,  Mathf.Abs(Alignments[currentAlignment]) / 10f); 
+        }
+    }
+
+    /// <summary>
     /// Determine food amt from alignment * total and call forth inhabitant if possible. 
     /// </summary>
     /// <param name="wasFaveAction"></param>
-    void GetFood(bool wasFaveAction)
+    /// <param name="recipient"></param>
+    void GetFood(bool wasFaveAction, CatController recipient)
     {
         //Can't get food during wait time 
         if (fetchingFood || foodCooldown)
@@ -263,7 +291,7 @@ public class House : MonoBehaviour
             return;
         }
         
-        int foodPts = Mathf.RoundToInt(Mathf.Abs(Alignment / 10) * totalPrize);
+        int foodPts = Mathf.RoundToInt(Mathf.Abs(Alignments[recipient.PlayerID] / 10) * totalPrize);
         //if its house fave, you get double. 
         if (wasFaveAction)
         {
@@ -274,7 +302,9 @@ public class House : MonoBehaviour
         StartCoroutine(WaitToShowInhabitant(foodPts));
     }
 
-    //Starts attack 
+    /// <summary>
+    /// Starts attack 
+    /// </summary>
     void GetAttacked()
     {
         StartCoroutine(WaitToShowInhabitant(0));

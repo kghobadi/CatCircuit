@@ -17,8 +17,10 @@ public enum PlayerType
 public class CatController : MonoBehaviour
 {
     // The Rewired player id of this character
-    public int playerId = 0;
+    [SerializeField]
+    private int playerId = 0;
     private Player player; // The Rewired Player
+    public int PlayerID => playerId; // check for player id 
     [SerializeField]
     private PlayerInputActionScriptable myPlayerInputActions;
 
@@ -26,9 +28,6 @@ public class CatController : MonoBehaviour
     public HealthUI HealthUI => healthUI;
     [SerializeField] private Color playerColor;
     public Color PlayerColor => playerColor;
-
-    [Tooltip("Does this cat align positive? This is a temporary measurement")]
-    public bool alignPositive;
 
     [SerializeField] private CatStates catState;
     private enum CatStates

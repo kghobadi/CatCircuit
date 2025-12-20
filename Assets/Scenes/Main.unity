@@ -1045,7 +1045,7 @@ MonoBehaviour:
   allPlayers:
   - {fileID: 324347817}
   - {fileID: 795120762}
-  alignmentRange: {x: -10, y: 10}
+  alignmentRange: {x: 0, y: 10}
   allHouses:
   - {fileID: 310701396}
   - {fileID: 2137686167}
@@ -1224,6 +1224,18 @@ PrefabInstance:
       propertyPath: foodScoreText
       value: 
       objectReference: {fileID: 5059066847966661143}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.r
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: pointAddFader
       value: 
@@ -1865,6 +1877,18 @@ PrefabInstance:
       propertyPath: foodScoreText
       value: 
       objectReference: {fileID: 1678658468}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.b
+      value: 0.07058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: pointAddFader
       value: 
@@ -3457,6 +3481,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 252996784}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.g
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: pointAddFader
       value: 
       objectReference: {fileID: 252996783}
@@ -4168,6 +4204,14 @@ PrefabInstance:
       propertyPath: foodScoreText
       value: 
       objectReference: {fileID: 1684285622}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: playerColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: pointAddFader
       value: 
