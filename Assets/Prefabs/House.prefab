@@ -178,7 +178,7 @@ MonoBehaviour:
   - 70
   - 85
   - 90
-  - 97.5
+  - 95
   - 100
   inhabitantClone: {fileID: 0}
   foodCooldown: 0

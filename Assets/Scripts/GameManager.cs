@@ -37,8 +37,6 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
 
     public GameObject genericFoodPrefab;
     public House[] AllHouses => allHouses;
-    [SerializeField] private GameObject gameoverUi;
-    [SerializeField] private TMP_Text winnerText;
     
     //Restart to title timer
     [SerializeField] private float RestartTime = 30f;
@@ -71,7 +69,6 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     {
         // Use the current time to seed the random generator
         Random.InitState((int)DateTime.Now.Ticks);
-        gameoverUi.SetActive(false);
         mainTimer.SetCountdown((int)totalGameTime);
         mainTimer.OnTimerFinished += OnGameEnded;
         RandomizeHousePools();
@@ -148,11 +145,12 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     }
     
     /// <summary>
-    /// Called when Countdown timer runs out... Todo or when only one player is left living?
+    /// Called when Countdown timer runs out... 
     /// Compare all player scores and set winner texts for game over message. 
     /// </summary>
     void OnGameEnded()
     {
+        //Get highest score 
         currentHighScore = 0;
         winningPlayerIndex = 0;
         for (int i = 0; i < allPlayers.Length; i++)
@@ -164,13 +162,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             }
         }
 
-        //set game over message 
-        gameoverUi.SetActive(true);
-        string winnerMessage = "Player " + (winningPlayerIndex + 1).ToString() + " Wins!";
-        winnerText.text = winnerMessage;
-        
-        //TODO trigger load here?
-        //highScoreMenu.LoadHighScores();
+        //Set high score menu
+        highScoreMenu.LoadHighScores();
         restartTimer = RestartTime;
         gameOver = true;
     }
@@ -190,13 +183,20 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             }
 
             //Return to game title screen when timer runs out with no Restart input 
-            //TODO this should reset each time there is Input to high score menu 
             restartTimer -= Time.deltaTime;
             if (restartTimer < 0)
             {
                 ReturnToTitle();
             }
         }
+    }
+
+    /// <summary>
+    /// Reset restart timer when player is entering high score data. 
+    /// </summary>
+    public void ResetRestart()
+    {
+        restartTimer = RestartTime;
     }
     
     /// <summary>
