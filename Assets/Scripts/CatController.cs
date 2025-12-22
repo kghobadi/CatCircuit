@@ -441,5 +441,31 @@ public class CatController : MonoBehaviour
         catBody.velocity = Vector3.zero;
         transform.position = position;
     }
+
+    public void TeleportCatWithWait(float wait,Transform place) => TeleportCatWithWait(wait, place.position);
+    public void TeleportCatWithWait(float wait, Vector3 position)
+    {
+        StartCoroutine(TeleportWithWait(wait, position));
+    }
+
+    [Tooltip("IS this cat teleporting?")]
+    public bool teleporting;
+    IEnumerator TeleportWithWait(float wait, Vector3 pos)
+    {
+        //disable physics and visuals 
+        catBody.isKinematic = true;
+        spriteRenderer.enabled = false;
+        teleporting = true;
+
+        yield return new WaitForSeconds(wait);
+        
+        TeleportCat(pos);
+        //enable physics and visuals 
+        catBody.isKinematic = false;
+        spriteRenderer.enabled = true;
+
+        yield return new WaitForSeconds(0.25f);
+        teleporting = false;
+    }
     #endregion
 }
