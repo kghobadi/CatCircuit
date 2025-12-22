@@ -14,7 +14,11 @@ public class HighScoreUI : MonoBehaviour
 
     public void AssignIndex(int index)
     {
-        indexText.text = "0" + index.ToString();
+        //Start character at 0 when under 10 
+        string txt = "";
+        if (index < 10)
+            txt = "0";
+        indexText.text = txt + index.ToString();
     }
     
     public void SetHighScoreData(HighScoreData data)

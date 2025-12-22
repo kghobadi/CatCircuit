@@ -119,15 +119,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Foods
     originalName: 
-    pivot: {x: 0.45000002, y: -0.16666667}
+    pivot: {x: 0.5, y: -0.36842105}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 20
-      height: 24
+      width: 22
+      height: 19
     spriteID: 50b1a5729575ec744945ef1e56572608
     spriteBone: []
     spriteOutline: []
@@ -149,10 +149,10 @@ ScriptedImporter:
     - name: Foods
       frameIndex: 0
       cellRect:
-        x: 7
-        y: 4
-        width: 20
-        height: 24
+        x: 5
+        y: 7
+        width: 22
+        height: 19
       spriteId: 50b1a5729575ec744945ef1e56572608
     linkedCells: []
     parentIndex: -1
