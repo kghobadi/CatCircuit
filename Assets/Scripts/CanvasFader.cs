@@ -122,4 +122,10 @@ public class CanvasFader : MonoBehaviour
             CG.interactable = CG.blocksRaycasts = false; // disallows interaction with rest of screen
         }
     }
+
+    public void SetInstantAlpha(float alpha)
+    {
+        LeanTween.cancel(gameObject);
+        myCanvasGroup.alpha = alpha;
+    }
 }

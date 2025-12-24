@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Controls the display of health and death logic. 
@@ -24,10 +25,20 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private int healthAmt = 3;
     [SerializeField] private int lives = 9;
     [SerializeField] private TMP_Text livesText;
-
+    
     [SerializeField] private bool healOnPurr;
     [SerializeField] private FoodScriptable deathFood;
     [SerializeField] private float healRange = 5f;
+    
+    [Header("Points Anims")]
+    [SerializeField] private float showOnPtsLength = 0.5f;
+    [SerializeField] private CanvasFader pointsFader;
+    [SerializeField] private TMP_Text pointsText;
+    [SerializeField] private Image plugImg;
+
+    [SerializeField] private CanvasFader pointsFaderR;
+    [SerializeField] private TMP_Text pointsTextR;
+    [SerializeField] private Image plugImgR;
 
     private void Start()
     {
@@ -37,6 +48,13 @@ public class HealthUI : MonoBehaviour
         {
             GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatAction);
         }
+
+        //set color to player color 
+        livesText.color = linkedCat.PlayerColor;
+        pointsText.color = linkedCat.PlayerColor;
+        plugImg.color = linkedCat.PlayerColor;
+        pointsTextR.color = linkedCat.PlayerColor;
+        plugImgR.color = linkedCat.PlayerColor;
     }
 
     void GetDistanceFromPlayer()
@@ -250,7 +268,45 @@ public class HealthUI : MonoBehaviour
         
         SetHealthObjectsActive(false);
     }
+    
+    /// <summary>
+    /// Calls variable coroutine that shows Points UI for a time. 
+    /// </summary>
+    public void ShowPointsAnim(float amt)
+    {
+        if (linkedCat.IsFlipped)
+        {
+            pointsTextR.text = amt.ToString();
+        }
+        else
+        {
+            pointsText.text = amt.ToString();
+        }
+        if (showPointsForTime != null)
+        {
+            if(pointsFader.IsShowing)
+                pointsFader.SetInstantAlpha(0);
+            if(pointsFaderR.IsShowing)
+                pointsFaderR.SetInstantAlpha(0);
+            StopCoroutine(showPointsForTime);
+        }
 
+        showPointsForTime = ShowPointsUIForTime();
+        StartCoroutine(showPointsForTime);
+    }
+
+    private IEnumerator showPointsForTime;
+    IEnumerator ShowPointsUIForTime()
+    {
+        CanvasFader fader = pointsFader;
+        if (linkedCat.IsFlipped)
+        {
+            fader = pointsFaderR;
+        }
+        fader.FadeIn();
+        yield return new WaitForSeconds(showOnPtsLength);
+        
+        fader.FadeOut();
+    }
     #endregion
-   
 }

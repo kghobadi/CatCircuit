@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class FoodItem : MonoBehaviour
 {
+    private CatController consumer;
     private SpriteRenderer _spriteRenderer;
     [Header("Food Settings")] [SerializeField]
     private FoodScriptable foodData;
@@ -55,11 +56,12 @@ public class FoodItem : MonoBehaviour
     /// <summary>
     /// Called by cat hitting my trigger. 
     /// </summary>
-    /// <param name="consumer"></param>
-    void CatConsumesMe(CatController consumer)
+    /// <param name="consume"></param>
+    void CatConsumesMe(CatController consume)
     {
-        if (consumer.HealthUI.IsDead)
+        if (consume.HealthUI.IsDead)
             return;
+        consumer = consume;
         consumer.GainFood(truePoints);
         consumer.CatAudio.PlaySoundRandomPitch(foodData.foodSound, 1f);
         
@@ -76,6 +78,7 @@ public class FoodItem : MonoBehaviour
     {
         if (consuming)
         {
+            //Update end pos according to flip state 
             transform.position = Vector3.Lerp(transform.position, endPos.position, consumeSpeed * Time.deltaTime);
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, consumeSpeed * Time.deltaTime);
             float dist = Vector2.Distance(transform.position, endPos.position);

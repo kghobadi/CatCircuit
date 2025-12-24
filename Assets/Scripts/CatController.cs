@@ -37,6 +37,7 @@ public class CatController : MonoBehaviour
     }
 
     private SpriteRenderer spriteRenderer;
+    public bool IsFlipped => spriteRenderer.flipX;
     private Rigidbody2D catBody;
     private Animator catAnimator;
     [SerializeField] private float moveSpeed;
@@ -198,10 +199,14 @@ public class CatController : MonoBehaviour
         if (moveForce.x > 0)
         {
             spriteRenderer.flipX = true;
+            catConsumePos.localPosition = new Vector3(catConsumePos.localPosition.x * -1, catConsumePos.localPosition.y,
+                catConsumePos.localPosition.z);
         }
         else if(moveForce.x < 0)
         {
             spriteRenderer.flipX = false;
+            catConsumePos.localPosition = new Vector3(catConsumePos.localPosition.x * -1, catConsumePos.localPosition.y,
+                catConsumePos.localPosition.z);
         }
     }
 
@@ -382,6 +387,7 @@ public class CatController : MonoBehaviour
         plusImg.sprite = plusSprite;
         plusImg.color = pointsAddedText.color;
         DoPointsAnim();
+        healthUI.ShowPointsAnim(amt);
     }
     
     /// <summary>

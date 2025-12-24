@@ -1523,6 +1523,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294901960
       objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: plusImg
       value: 
@@ -1666,6 +1674,14 @@ PrefabInstance:
     - target: {fileID: 1990166891065171961, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294901960
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
@@ -2489,6 +2505,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4279419648
       objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: plusImg
       value: 
@@ -2604,6 +2628,14 @@ PrefabInstance:
     - target: {fileID: 1990166891065171961, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4279419648
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
@@ -4324,6 +4356,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294910976
       objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: plusImg
       value: 
@@ -4467,6 +4507,14 @@ PrefabInstance:
     - target: {fileID: 1990166891065171961, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294910976
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
@@ -5212,6 +5260,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190335
       objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: plusImg
       value: 
@@ -5311,6 +5367,14 @@ PrefabInstance:
     - target: {fileID: 1990166891065171961, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190335
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303751761845464888, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size

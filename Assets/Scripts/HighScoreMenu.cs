@@ -70,7 +70,7 @@ public class HighScoreMenu : MonoBehaviour
         //Assign all score indexes 
         for (int i = 0; i < allHighScoreUIs.Length; i++)
         {
-            allHighScoreUIs[i].AssignIndex(i);
+            allHighScoreUIs[i].AssignIndex(i + 1);
         }
 
         //set up all char indexes at start 
