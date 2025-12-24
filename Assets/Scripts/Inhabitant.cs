@@ -339,7 +339,7 @@ public class Inhabitant : AudioHandler
         //Animate inhabitant and instantiate food item from prefab 
         inhabitantAnim.SetTrigger("throw");
         GameObject foodClone = Instantiate(foodPrefab);
-        foodClone.transform.position = throwSpot.position + new Vector3(offset, 0, 0);
+        foodClone.transform.position = throwSpot.position + new Vector3(offset, -offset / 4, 0);
         FoodItem foodItem = foodClone.GetComponent<FoodItem>();
         
         AssignFoodData(foodItem);

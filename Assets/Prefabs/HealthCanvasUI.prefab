@@ -605,8 +605,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: 1563975993
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &6639158093364927265
 MonoBehaviour:
@@ -673,13 +673,16 @@ MonoBehaviour:
   healthAmt: 3
   lives: 9
   livesText: {fileID: 0}
-  pointsFader: {fileID: 0}
-  pointsText: {fileID: 0}
-  plugImg: {fileID: 0}
-  showOnPtsLength: 0.5
   healOnPurr: 0
   deathFood: {fileID: 0}
   healRange: 5
+  showOnPtsLength: 0.5
+  pointsFader: {fileID: 0}
+  pointsText: {fileID: 0}
+  plugImg: {fileID: 0}
+  pointsFaderR: {fileID: 0}
+  pointsTextR: {fileID: 0}
+  plugImgR: {fileID: 0}
 --- !u!1 &6639158093812670115
 GameObject:
   m_ObjectHideFlags: 0
