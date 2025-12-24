@@ -87,6 +87,7 @@ public class House : MonoBehaviour
         //inhabitant set up
         myInhabitant = inhabitantClone.GetComponent<Inhabitant>();
         myInhabitant.transform.localPosition = myInhabitant.SpawnOffset;
+        myInhabitant.Home = this;
         inhabitantClone.SetActive(false);
     }
 
@@ -234,7 +235,7 @@ public class House : MonoBehaviour
     /// </summary>
     /// <param name="id"></param>
     /// <param name="val"></param>
-    void UpdateAlignment(int id, float val)
+    public void UpdateAlignment(int id, float val)
     {
         Alignments[id] += val;
         //Clamp to global alignment range 
@@ -297,9 +298,27 @@ public class House : MonoBehaviour
         {
             foodPts *= 2;
         }
-        
+        myInhabitant.UpdateMultiColor(recipient.PlayerColor);
         //catController.GainFood(foodPts); GIVE food directly to player
         StartCoroutine(WaitToShowInhabitant(foodPts));
+    }
+
+    /// <summary>
+    /// For determined action while inhabitant awaits. 
+    /// </summary>
+    /// <param name="recipient"></param>
+    /// <param name="act"></param>
+    public void UpdateOverrideMultiplier(CatController recipient, CatController.CatActions act)
+    {
+        int foodPts = Mathf.RoundToInt(Mathf.Abs(Alignments[recipient.PlayerID] / 10) * totalPrize);
+        //if its house fave, you get double. 
+        if (act == favoriteAction)
+        {
+            foodPts *= 2;
+        }
+        //set override multiplier again for new recipient 
+        myInhabitant.OverrideMultiplier = foodPts;
+        myInhabitant.UpdateMultiColor(recipient.PlayerColor);
     }
 
     /// <summary>

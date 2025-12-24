@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -9,6 +9,13 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class Inhabitant : AudioHandler
 {
+    private House myHouse;
+
+    public House Home
+    {
+        get => myHouse;
+        set => myHouse = value;
+    }
     [SerializeField] private InhabitantType inhabitantType;
     public InhabitantType InhabiType => inhabitantType;
     public enum InhabitantType
@@ -23,7 +30,25 @@ public class Inhabitant : AudioHandler
 
     [Tooltip("The chance this inhabitant receives mail when the truck passes.")]
     [SerializeField] private float mailChance = 50f;
-    public float MailChance => mailChance; 
+    public float MailChance => mailChance;
+
+    private bool determiningResponse;
+    private FriendlyResponse friendlyResponse;
+    private enum FriendlyResponse
+    {
+        Neutral = 0,
+        Happy = 1,
+        Mad = 2,
+    }
+    
+    [SerializeField] private CanvasFader multiplierUI;
+    [SerializeField] private Animator faceResponse;
+    [SerializeField] private TMP_Text multiText;
+
+    public void UpdateMultiColor(Color color)
+    {
+        multiText.color = color;
+    }
     
     [Header("Throw Settings")]
     [SerializeField] private Vector2Int foodAmtRange = new Vector2Int(10, 100);
@@ -47,7 +72,6 @@ public class Inhabitant : AudioHandler
     
     [SerializeField] private AudioClip[] throwSounds;
 
-   
     private Rigidbody2D body;
     [Header("Attack Settings")] 
     [SerializeField] private Vector2 waitToAttackTimeRange = new Vector2(1f, 3f);
@@ -74,7 +98,20 @@ public class Inhabitant : AudioHandler
     [Tooltip("Bites, shots")]
     [SerializeField] private AudioClip[] attackSounds; // bites. shoots
     [SerializeField] private AudioClip[] hurtSounds;
-    public int OverrideMultiplier = -1;
+
+    private int multiplier = -1;
+    public int OverrideMultiplier
+    {
+        get => multiplier;
+        set
+        {
+            multiplier = value;
+            if(multiText != null)
+                multiText.text = "X" + multiplier.ToString();
+        }
+    }
+
+    private int enabledCounter = 0;
 
     private void Start()
     {
@@ -100,28 +137,127 @@ public class Inhabitant : AudioHandler
     /// </summary>
     void OnEnable()
     {
-        switch (inhabitantType)
+        //Add listeners while enabled 
+        for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
         {
-            //Friendly inhabitants give out food
-            case InhabitantType.FRIENDLY:
-                StartCoroutine(WaitToThrow());
-                break;
-            //Dangerous inhabitants attack 
-            case InhabitantType.DANGEROUS: //TODO implement attacks - dog that hones in on nearest cat - redneck with gun etc 
-                //Add cat listeners for dogs/chasers
-                if (attackType == AttackType.Chase)
+            GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatActionInvoked);
+        }
+
+        //Only do this on repeat enables 
+        if (enabledCounter > 0)
+        {
+            switch (inhabitantType)
+            {
+                //Friendly inhabitants give out food
+                case InhabitantType.FRIENDLY:
+                    StartCoroutine(WaitToThrow());
+                    break;
+                //Dangerous inhabitants attack 
+                case InhabitantType.DANGEROUS: 
+                    //disable ui
+                    multiplierUI.gameObject.SetActive(false);
+                    //return to spawn offset pos 
+                    transform.localPosition = spawnOffset;
+                    //Begin the hunt...
+                    StartCoroutine(WaitToAttack());
+                    break;
+            }
+        }
+        
+        enabledCounter++;
+    }
+    
+    private void FixedUpdate()
+    {
+        //For friendlys
+        if (determiningResponse)
+        {
+            //todo check for cat action? 
+        }
+        
+        //For attackers
+        if (trackingTarget)
+        {
+            //moves towards cat target
+            if (attackType == AttackType.Chase)
+            {
+                Vector3 dir = catTarget.transform.position - transform.position;
+                body.AddForce(moveSpeed * dir,  ForceMode2D.Force);
+                
+                //TODO what to do about swinging velocity? could play with it somewhat 
+            }
+            else if (attackType == AttackType.Shoot)
+            {
+                aimingTime -= Time.fixedDeltaTime;
+                aimingTarget.transform.position = catTarget.transform.position;
+                if (aimingTime < 0)
                 {
-                    for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
-                    {
-                        GameManager.Instance.AllCats[i].OnCatAction.AddListener(OnCatActionInvoked);
-                    }
+                    ShootBullet();
                 }
-               
-                //return to spawn offset pos 
-                transform.localPosition = spawnOffset;
-                //Begin the hunt...
-                StartCoroutine(WaitToAttack());
-                break;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// How to respond to this provocation??? or altercation? or friendly invitation? 
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="cat"></param>
+    void OnCatActionInvoked(CatController.CatActions action, CatController cat)
+    {
+        //get dist from cat 
+        float distFromCat = Vector3.Distance(cat.transform.position, transform.position);
+        if (distFromCat <= catInteractDistance)
+        {
+            switch (action)
+            {
+                case CatController.CatActions.MEOW:
+                    CheckSetResponse(FriendlyResponse.Happy, cat, action);
+                    break;
+                case CatController.CatActions.PURR:
+                    CheckSetResponse(FriendlyResponse.Happy, cat, action);
+                    break;
+                case CatController.CatActions.HISS:
+                    CheckSetResponse(FriendlyResponse.Mad, cat, action);
+                    
+                    if(inhabitantType == InhabitantType.DANGEROUS && attackType == AttackType.Chase) 
+                        PushFromHiss(cat);
+                    break;
+                case CatController.CatActions.SCRATCH:
+                    CheckSetResponse(FriendlyResponse.Mad, cat, action);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Given a response do something. 
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="cat"></param>
+    /// <param name="act"></param>
+    void CheckSetResponse(FriendlyResponse response, CatController cat, CatController.CatActions act)
+    {
+        if (determiningResponse)
+        {
+            friendlyResponse = response;
+            
+            //Set face response
+            faceResponse.SetFloat("Face",  (float)friendlyResponse);
+            
+            //Update alignment for this cat 
+            if (response == FriendlyResponse.Happy)
+            {
+                myHouse.UpdateAlignment(cat.PlayerID, 1f);
+            }
+            else //mad 
+            {
+                myHouse.UpdateAlignment(cat.PlayerID, -1f);
+            }
+            //Update mult
+            myHouse.UpdateOverrideMultiplier(cat, act);
+            
+            determiningResponse = false;
         }
     }
 
@@ -139,13 +275,34 @@ public class Inhabitant : AudioHandler
 
     #region Throw Behavior
 
-     IEnumerator WaitToThrow()
+    IEnumerator WaitToThrow()
     {
+        //All friendlies besides mailman 
+        if (inhabitantType == InhabitantType.FRIENDLY)
+        {
+            determiningResponse = true;
+            multiplierUI.FadeIn();
+            faceResponse.SetFloat("Face", 0f);
+        }
+        
         //Random wait to throw from range 
         float randomWait = Random.Range(waitToThrowTimeRange.x, waitToThrowTimeRange.y);
-        yield return new WaitForSeconds(randomWait);
 
-        //Random # of food items thrown out 
+        yield return new WaitForSeconds(randomWait);
+        
+        //Are they mad from a bad cat? 
+        if (inhabitantType == InhabitantType.FRIENDLY
+        && friendlyResponse == FriendlyResponse.Mad)
+        {
+            yield return new WaitForSeconds(0.5f);
+            
+            //disable after we are back to idle and reset multiplier 
+            gameObject.SetActive(false);
+            OverrideMultiplier = -1;
+            yield break;
+        }
+
+        //Otherwise, proceed to throw Random # of food items out 
         int randomThrows = Random.Range(foodCount.x, foodCount.y);
         if (randomThrows > 1)
         {
@@ -269,31 +426,7 @@ public class Inhabitant : AudioHandler
 
         gameObject.SetActive(false);
     }
-
-    private void FixedUpdate()
-    {
-        if (trackingTarget)
-        {
-            //moves towards cat target
-            if (attackType == AttackType.Chase)
-            {
-                Vector3 dir = catTarget.transform.position - transform.position;
-                body.AddForce(moveSpeed * dir,  ForceMode2D.Force);
-                
-                //TODO what to do about swinging velocity? could play with it somewhat 
-            }
-            else if (attackType == AttackType.Shoot)
-            {
-                aimingTime -= Time.fixedDeltaTime;
-                aimingTarget.transform.position = catTarget.transform.position;
-                if (aimingTime < 0)
-                {
-                    ShootBullet();
-                }
-            }
-        }
-    }
-
+    
     /// <summary>
     /// Attacks should be trigger based. 
     /// </summary>
@@ -347,28 +480,6 @@ public class Inhabitant : AudioHandler
         trackingTarget = false;
     }
     
-    /// <summary>
-    /// How to respond to this provocation??? or altercation? or friendly invitation? 
-    /// </summary>
-    /// <param name="action"></param>
-    /// <param name="cat"></param>
-    void OnCatActionInvoked(CatController.CatActions action, CatController cat)
-    {
-        //get dist from cat 
-        float distFromCat = Vector3.Distance(cat.transform.position, transform.position);
-        if (distFromCat <= catInteractDistance)
-        {
-            switch (action)
-            {
-                case CatController.CatActions.PURR:
-                    //HealFromPurr(); any anim to heal? 
-                    break;
-                case CatController.CatActions.HISS:
-                    PushFromHiss(cat);
-                    break;
-            }
-        }
-    }
     void PushFromHiss(CatController enemyCat)
     {
         //push me away!
