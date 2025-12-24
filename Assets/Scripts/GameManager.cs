@@ -111,13 +111,18 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     /// </summary>
     /// <param name="point"></param>
     /// <returns></returns>
-    public CatController GetNearestCatToPoint(Vector3 point)
+    public CatController GetNearestCatToPoint(Vector3 point, CatController excluding = null)
     {
         CatController cat = null;
         float closest = Mathf.Infinity;
 
         for (int i = 0; i < AllCats.Length; i++)
         {
+            //Skip the excluded cat 
+            if (excluding != null && excluding == AllCats[i])
+            {
+                continue;
+            }
             //Is this closest?
             float dist = Vector3.Distance(AllCats[i].transform.position, point);
             if (dist < closest)

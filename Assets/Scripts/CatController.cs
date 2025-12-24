@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum PlayerType
 {
@@ -146,40 +147,29 @@ public class CatController : MonoBehaviour
             {
                 Scratch();
             }
-        }
-        //Revert to custom inputs 
-        else
-        {
-            //get inputs 
-            horizontalMove = Input.GetAxis(myPlayerInputActions.HorizontalInput);
-            verticalMove = Input.GetAxis(myPlayerInputActions.VerticalInput);
-            
-            //No inputs when dead 
-            if (healthUI.IsDead)
-                return;
 
-            if (Input.GetKeyDown(myPlayerInputActions.Meow) && !catAudio.myAudioSource.isPlaying)
+            //Input timing lets us activate AI when there hasn't been any inputs 
+            if ( useAI && GameManager.Instance && !GameManager.Instance.IsGameOver)
             {
-                Meow();
+                if (player.GetAnyButton())
+                {
+                    inputTimer = 0;
+                    AIactive = false;
+                }
+                else
+                {
+                    inputTimer += Time.deltaTime;
+                    //Start up AI by thinking
+                    if (inputTimer > timeToActivateAI)
+                    {
+                        if (!AIactive)
+                        {
+                            AIactive = true;
+                            SwitchState(CatAiStates.Thinking);
+                        }
+                    }
+                }
             }
-            //Must be Idle in order to purr (not moving).
-            if (Input.GetKeyDown(myPlayerInputActions.Purr) && catState == CatStates.IDLE && !catAudio.myAudioSource.isPlaying)
-            {
-                Purr();
-            }
-            if (Input.GetKeyDown(myPlayerInputActions.Hiss))
-            {
-                Hiss();
-            }
-            if (Input.GetKeyDown(myPlayerInputActions.Scratch))
-            {
-                Scratch();
-            }
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
         }
     }
     
@@ -187,10 +177,18 @@ public class CatController : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO cats shouldn't move in death - but be moved like a respawning Pacman
-        moveForce = new Vector2(moveSpeed * horizontalMove, moveSpeed * verticalMove);
-        catBody.AddForce(moveForce, ForceMode2D.Impulse);
+        if (!AIactive)
+        {
+            moveForce = new Vector2(moveSpeed * horizontalMove, moveSpeed * verticalMove);
+            catBody.AddForce(moveForce, ForceMode2D.Impulse);
+            CheckAnimationState(moveForce);
+        }
+        else
+        {
+            StateMachine();
+            CheckAnimationState(catBody.velocity);
+        }
 
-        CheckAnimationState();
         CheckFlipState();
     }
 
@@ -210,13 +208,13 @@ public class CatController : MonoBehaviour
         }
     }
 
-    void CheckAnimationState()
+    void CheckAnimationState(Vector2 force)
     {
-        if (moveForce.magnitude > 0)
+        if (force.magnitude > 0)
         {
             catState = CatStates.MOVE;
         }
-        else if(moveForce.magnitude == 0 && catBody.velocity.magnitude < 0.1f)
+        else if(force.magnitude == 0 && catBody.velocity.magnitude < 0.1f)
         {
             catState = CatStates.IDLE;
         }
@@ -472,6 +470,222 @@ public class CatController : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
         teleporting = false;
+    }
+    #endregion
+
+    #region Cat-AI
+
+    [Header("Cat AI")] 
+    [SerializeField] private bool useAI;
+    [SerializeField] private float timeToActivateAI = 5f;
+    [SerializeField] private bool AIactive;
+    private float inputTimer;
+    [SerializeField] private House[] designatedTerritory;
+    [SerializeField] private bool[] hasFood; // cat remembers if a house had food 
+    private int currentHouse;
+    [SerializeField] private CatAiStates currentAiState;
+    private enum CatAiStates
+    {
+        Thinking = 0,
+        Moving = 1,
+        Fighting = 2, 
+    }
+
+    private Vector2 stateTimeTotal = new Vector2(1f, 3f);
+    private float stateTimer;
+
+    private Vector3 autoDir;
+    private Transform dest;
+
+    [SerializeField] private float foodCheckDistance;
+    private bool hasInteracted;
+    
+    private CatController targetCat; // for fighting 
+    [SerializeField] private float fightDist;
+    [SerializeField] private float returnDist;
+    [SerializeField]
+    private Transform origDefendPos; // tracks pos where the fighting started - so I can return 
+    private float distFromCat;
+    private float distFromHouse;
+    
+    void StateMachine()
+    {
+        stateTimer -= Time.deltaTime;
+        
+        switch (currentAiState)
+        {
+            //Think about what to do next and Idle 
+            case CatAiStates.Thinking:
+                horizontalMove = 0;
+                verticalMove = 0;
+                if (stateTimer < 0)
+                {
+                    //find nearest cat 
+                    CatController cat = GameManager.Instance.GetNearestCatToPoint(transform.position, this);
+                    distFromCat = Vector2.Distance(cat.transform.position, transform.position);
+                    distFromHouse = Vector2.Distance(designatedTerritory[currentHouse].InhabPos.position, transform.position);
+                    //go fight
+                    if (distFromCat < fightDist)
+                    {
+                        targetCat = cat;
+                        //Reset defend pos 
+                        origDefendPos.SetParent(transform);
+                        origDefendPos.localPosition = Vector3.zero;
+                        origDefendPos.SetParent(null);
+                        SwitchState(CatAiStates.Fighting);
+                    }
+                    //Near house
+                    else if (distFromHouse < 0.25f)
+                    {
+                        //Look for nearest food 
+                        if (hasInteracted)
+                        {
+                            FoodItem next = CheckForFoodItems();
+                            if (next != null)
+                            {
+                                dest = next.transform;
+                                SwitchState(CatAiStates.Moving);
+                            }
+                            else
+                            {
+                                CycleHouses();
+                            }
+                        }
+                        //Near next house - Meow or Purr! 
+                        else if (!hasInteracted)
+                        {
+                            float meowOrPurr = Random.Range(0, 100);
+                            if (meowOrPurr <= 50f)
+                            {
+                                Meow();
+                            }
+                            else
+                            {
+                                Purr();
+                            }
+
+                            hasInteracted = true;
+                            SwitchState(CatAiStates.Thinking);
+                        }
+                    }
+                    //find next house 
+                    else
+                    {
+                        CycleHouses();
+                    }
+                }
+                break;
+            case CatAiStates.Moving:
+                //Move towards point 
+                autoDir = dest.transform.position - transform.position;
+                catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+                
+                //TODO will need some basic form of collision detection to navigate around obstacles 
+                //Stop at point 
+                float distance = Vector2.Distance(dest.transform.position, transform.position);
+                if (distance < 0.1f)
+                {
+                    catBody.velocity = Vector2.zero;
+                    //Think again 
+                    SwitchState(CatAiStates.Thinking);
+                }
+
+                break;
+            case CatAiStates.Fighting:
+                distFromCat = Vector2.Distance(targetCat.transform.position, transform.position);
+                float distFromOrigDefPos = Vector2.Distance(origDefendPos.position, transform.position);
+                //stop fight
+                if (distFromCat > fightDist * 1.5f)
+                {
+                    SwitchState(CatAiStates.Thinking);
+                }
+                //Keep fighting within these dists 
+                else if(distFromCat < fightDist * 1.5f && distFromOrigDefPos < returnDist)
+                {
+                    //Move towards cat and attack
+                    autoDir = targetCat.transform.position - transform.position;
+                    catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+                    //Scratch the fucker 
+                    if(!CatAudio.myAudioSource.isPlaying)
+                        Scratch();
+                }
+                //Too far from defend point, go back
+                else if (distFromOrigDefPos > returnDist)
+                {
+                    dest = origDefendPos;
+                    SwitchState(CatAiStates.Moving); // move back to defend pos 
+                }
+                break;
+        }
+    }
+    
+    /// <summary>
+    /// Checks for nearby food and returns highest value.
+    /// </summary>
+    /// <returns></returns>
+    FoodItem CheckForFoodItems()
+    {
+        // Define the center point for the overlap box (current position)
+        Vector2 center = new Vector2(transform.position.x, transform.position.y);
+        
+        // Define the size of the box (width, height)
+        Vector2 size = new Vector2(foodCheckDistance , foodCheckDistance );
+
+        // Perform the OverlapBox check
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(center, size, 0f);
+
+        int highestPoints = 0;
+        FoodItem best = null;
+        foreach (Collider2D collider in colliders)
+        {
+            // Check if the item has a FoodItem component
+            FoodItem foodItem = collider.GetComponent<FoodItem>();
+            if (foodItem != null)
+            {
+                Debug.Log("Found food item: " + foodItem.name);
+                // Perform any actions related to the food item here
+                if (foodItem.Points > highestPoints)
+                {
+                    highestPoints = foodItem.Points;
+                    best = foodItem;
+                }
+            }
+        }
+
+        return best;
+    }
+
+    /// <summary>
+    /// Move through house options
+    /// </summary>
+    void CycleHouses()
+    {
+        //Increment 
+        if (currentHouse < designatedTerritory.Length - 1)
+        {
+            currentHouse++;
+        }
+        else
+        {
+            currentHouse = 0;
+        }
+
+        //reset interacted 
+        hasInteracted = false;
+        //Move to house point 
+        dest = designatedTerritory[currentHouse].transform;
+        SwitchState(CatAiStates.Moving);
+    }
+
+    /// <summary>
+    /// Switch to AI state
+    /// </summary>
+    /// <param name="nextState"></param>
+    void SwitchState(CatAiStates nextState)
+    {
+        stateTimer = Random.Range(stateTimeTotal.x, stateTimeTotal.y);
+        
+        currentAiState = nextState;
     }
     #endregion
 }

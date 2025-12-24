@@ -1595,6 +1595,26 @@ PrefabInstance:
       propertyPath: myPlayerInputActions
       value: 
       objectReference: {fileID: 11400000, guid: 4e7c6074af90f5e4e9fd4e59d3226981, type: 2}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[0]
+      value: 
+      objectReference: {fileID: 1845711101}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[1]
+      value: 
+      objectReference: {fileID: 1239222746}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[2]
+      value: 
+      objectReference: {fileID: 1435372241}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[3]
+      value: 
+      objectReference: {fileID: 1628004855}
     - target: {fileID: 1867304395459942041, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2569,6 +2589,26 @@ PrefabInstance:
       propertyPath: myPlayerInputActions
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[0]
+      value: 
+      objectReference: {fileID: 310701396}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[1]
+      value: 
+      objectReference: {fileID: 1003018380}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[2]
+      value: 
+      objectReference: {fileID: 1745626055}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[3]
+      value: 
+      objectReference: {fileID: 1543525490}
     - target: {fileID: 1867304395459942041, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4432,6 +4472,26 @@ PrefabInstance:
       propertyPath: myPlayerInputActions
       value: 
       objectReference: {fileID: 11400000, guid: 4e7c6074af90f5e4e9fd4e59d3226981, type: 2}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[0]
+      value: 
+      objectReference: {fileID: 2137686167}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[1]
+      value: 
+      objectReference: {fileID: 436756142}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[2]
+      value: 
+      objectReference: {fileID: 1239222746}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[3]
+      value: 
+      objectReference: {fileID: 1845711101}
     - target: {fileID: 1867304395459942041, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -5308,6 +5368,26 @@ PrefabInstance:
       propertyPath: pointsAddedText
       value: 
       objectReference: {fileID: 1684285620}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[0]
+      value: 
+      objectReference: {fileID: 1402671327}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[1]
+      value: 
+      objectReference: {fileID: 310701396}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[2]
+      value: 
+      objectReference: {fileID: 1543525490}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: designatedTerritory.Array.data[3]
+      value: 
+      objectReference: {fileID: 1479597027}
     - target: {fileID: 1867304395459942041, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_RootOrder
       value: 3

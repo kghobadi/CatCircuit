@@ -14,6 +14,7 @@ public class FoodItem : MonoBehaviour
     private FoodScriptable foodData;
 
     [SerializeField] private int truePoints;
+    public int Points => truePoints;
    
     public bool consuming;
     public float consumeSpeed = 5f;

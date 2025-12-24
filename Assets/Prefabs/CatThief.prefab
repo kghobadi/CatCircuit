@@ -639,6 +639,7 @@ Transform:
   - {fileID: 1832205703}
   - {fileID: 1990166891278031475}
   - {fileID: 5547138861209310791}
+  - {fileID: 5973425828632924800}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -755,6 +756,16 @@ MonoBehaviour:
   scratchPrefabL: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
   scratchPrefabR: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
   teleporting: 0
+  useAI: 0
+  timeToActivateAI: 5
+  AIactive: 0
+  designatedTerritory: []
+  hasFood: 
+  currentAiState: 0
+  foodCheckDistance: 0.3
+  fightDist: 0.5
+  returnDist: 1
+  origDefendPos: {fileID: 5973425828632924800}
 --- !u!50 &1867304395459942023
 Rigidbody2D:
   serializedVersion: 4
@@ -867,6 +878,37 @@ MonoBehaviour:
   pointsFaderR: {fileID: 8875863562083645625}
   pointsTextR: {fileID: 2240523317257414423}
   plugImgR: {fileID: 344966753363110206}
+--- !u!1 &3696655242591606136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5973425828632924800}
+  m_Layer: 3
+  m_Name: DefendPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5973425828632924800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696655242591606136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1867304395459942041}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8647839265082964062
 GameObject:
   m_ObjectHideFlags: 0
