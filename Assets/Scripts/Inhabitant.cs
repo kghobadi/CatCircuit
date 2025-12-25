@@ -155,7 +155,11 @@ public class Inhabitant : AudioHandler
                 //Dangerous inhabitants attack 
                 case InhabitantType.DANGEROUS: 
                     //disable ui
-                    multiplierUI.gameObject.SetActive(false);
+                    if (multiplierUI)
+                    {
+                        multiplierUI.gameObject.SetActive(false);
+                    }
+                 
                     //return to spawn offset pos 
                     transform.localPosition = spawnOffset;
                     //Begin the hunt...

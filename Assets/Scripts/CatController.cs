@@ -5,6 +5,7 @@ using Rewired;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -17,6 +18,7 @@ public enum PlayerType
 
 public class CatController : MonoBehaviour
 {
+    private BoxCollider2D boxCollider2D;
     // The Rewired player id of this character
     [SerializeField]
     private int playerId = 0;
@@ -90,6 +92,7 @@ public class CatController : MonoBehaviour
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
+        boxCollider2D = GetComponent<BoxCollider2D>();
         healthUI = GetComponent<HealthUI>();
         origPointsAddPos = pointAddFader.RectTransform.anchoredPosition; //todo fix null ref on restart?
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -182,25 +185,25 @@ public class CatController : MonoBehaviour
             moveForce = new Vector2(moveSpeed * horizontalMove, moveSpeed * verticalMove);
             catBody.AddForce(moveForce, ForceMode2D.Impulse);
             CheckAnimationState(moveForce);
+            CheckFlipState(moveForce);
         }
         else
         {
             StateMachine();
             CheckAnimationState(catBody.velocity);
+            CheckFlipState(catAnimator.velocity);
         }
-
-        CheckFlipState();
     }
 
-    void CheckFlipState()
+    void CheckFlipState(Vector2 force)
     {
-        if (moveForce.x > 0)
+        if (force.x > 0)
         {
             spriteRenderer.flipX = true;
             catConsumePos.localPosition = new Vector3(catConsumePos.localPosition.x * -1, catConsumePos.localPosition.y,
                 catConsumePos.localPosition.z);
         }
-        else if(moveForce.x < 0)
+        else if(force.x < 0)
         {
             spriteRenderer.flipX = false;
             catConsumePos.localPosition = new Vector3(catConsumePos.localPosition.x * -1, catConsumePos.localPosition.y,
@@ -494,7 +497,9 @@ public class CatController : MonoBehaviour
     private Vector2 stateTimeTotal = new Vector2(1f, 3f);
     private float stateTimer;
 
-    private Vector3 autoDir;
+    [SerializeField]
+    private Vector2 autoDir;
+    [SerializeField]
     private Transform dest;
 
     [SerializeField] private float foodCheckDistance;
@@ -523,10 +528,12 @@ public class CatController : MonoBehaviour
                     //find nearest cat 
                     CatController cat = GameManager.Instance.GetNearestCatToPoint(transform.position, this);
                     distFromCat = Vector2.Distance(cat.transform.position, transform.position);
-                    distFromHouse = Vector2.Distance(designatedTerritory[currentHouse].InhabPos.position, transform.position);
+                    distFromHouse = Vector2.Distance(designatedTerritory[currentHouse].CatPos.position, transform.position);
                     //go fight
                     if (distFromCat < fightDist)
                     {
+                        //Hiss at nearby cat to engage fight 
+                        Hiss();
                         targetCat = cat;
                         //Reset defend pos 
                         origDefendPos.SetParent(transform);
@@ -540,6 +547,12 @@ public class CatController : MonoBehaviour
                         //Look for nearest food 
                         if (hasInteracted)
                         {
+                            //Interact with owner 
+                            if (designatedTerritory[currentHouse].Inhab.gameObject.activeSelf)
+                            {
+                                FriendlyBehavior();
+                            }
+                            
                             FoodItem next = CheckForFoodItems();
                             if (next != null)
                             {
@@ -554,18 +567,12 @@ public class CatController : MonoBehaviour
                         //Near next house - Meow or Purr! 
                         else if (!hasInteracted)
                         {
-                            float meowOrPurr = Random.Range(0, 100);
-                            if (meowOrPurr <= 50f)
-                            {
-                                Meow();
-                            }
-                            else
-                            {
-                                Purr();
-                            }
-
+                            FriendlyBehavior();
                             hasInteracted = true;
-                            SwitchState(CatAiStates.Thinking);
+                            //wait for Inhab
+                            float waitTime = designatedTerritory[currentHouse].Inhab.FetchWait.x +
+                                             Random.Range(stateTimeTotal.x, stateTimeTotal.y);
+                            SwitchState(CatAiStates.Thinking, waitTime);
                         }
                     }
                     //find next house 
@@ -577,15 +584,20 @@ public class CatController : MonoBehaviour
                 break;
             case CatAiStates.Moving:
                 //Move towards point 
-                autoDir = dest.transform.position - transform.position;
-                catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+                if(dest != null)
+                    GuidedMove(dest.transform.position);
+                else
+                {
+                    SwitchState(CatAiStates.Thinking);
+                }
                 
-                //TODO will need some basic form of collision detection to navigate around obstacles 
                 //Stop at point 
                 float distance = Vector2.Distance(dest.transform.position, transform.position);
                 if (distance < 0.1f)
                 {
                     catBody.velocity = Vector2.zero;
+                    
+                    FriendlyBehavior();
                     //Think again 
                     SwitchState(CatAiStates.Thinking);
                 }
@@ -602,9 +614,8 @@ public class CatController : MonoBehaviour
                 //Keep fighting within these dists 
                 else if(distFromCat < fightDist * 1.5f && distFromOrigDefPos < returnDist)
                 {
-                    //Move towards cat and attack
-                    autoDir = targetCat.transform.position - transform.position;
-                    catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+                    //Move towards cat 
+                    GuidedMove(targetCat.transform.position);
                     //Scratch the fucker 
                     if(!CatAudio.myAudioSource.isPlaying)
                         Scratch();
@@ -617,6 +628,158 @@ public class CatController : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    /// <summary>
+    /// Do a friendly behavior if we pass audio check. 
+    /// </summary>
+    void FriendlyBehavior()
+    {
+        if (!CatAudio.myAudioSource.isPlaying)
+        {
+            float meowOrPurr = Random.Range(0, 100);
+            if (meowOrPurr <= 50f)
+            {
+                Meow();
+            }
+            else
+            {
+                Purr();
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Move towards position 
+    /// </summary>
+    /// <param name="pos"></param>
+    void GuidedMove(Vector3 pos)
+    {
+        autoDir = (Vector2) pos - (Vector2) transform.position;
+        //If we will collide with something, redirect us to closest 4 dir option which will not collide 
+        if (CollisionCheck(autoDir))
+        {
+            RedirectToPos(pos);
+        } 
+        catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+    }
+
+    [Tooltip("What tags should the AI scratch?")]
+    [SerializeField] private string[] scratchTags;
+    [Tooltip("What tags should the AI avoid?")]
+    [SerializeField] private string[] collisionTags;
+
+    [SerializeField] private LayerMask colMask;
+    [Tooltip("How big a box should I use to check with?")]
+    [SerializeField] private Vector2 colBoxSize = new Vector2(0.25f,0.25f);
+
+    [SerializeField] private float colCheckDist = 0.1f;
+
+    /// <summary>
+    /// Are we colliding with that dir 
+    /// </summary>
+    /// <returns></returns>
+    bool CollisionCheck(Vector2 dir)
+    {
+        // Cast a ray in a direction
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 0.25f);
+
+        bool willCollide = false;
+        // Define the center point for the box cast (current position)
+        // Vector2 origin = new Vector2(transform.position.x, transform.position.y) +
+        //                  (dir.normalized * (boxCollider2D.size.x / 2 + colBoxSize.x));
+
+        // Perform the BoxCastAll
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, colBoxSize, 0f, dir, colCheckDist, colMask);
+
+        // If it hits something other than this...
+        if (hit && hit.transform != transform)
+        {
+            //Can scratch!
+            // foreach (var tag in scratchTags)
+            // {
+            //     if (hit.transform.gameObject.CompareTag(tag))
+            //     {
+            //         float dist = Vector2.Distance(transform.position, hit.transform.position);
+            //         if(dist < 0.25f &&!catAudio.myAudioSource.isPlaying)
+            //         {
+            //             Scratch();
+            //         }
+            //     }
+            // }
+            //Check if it's something we can destroy or not worry abut 
+            foreach (var tag in collisionTags)
+            {
+                if ( hit.transform.gameObject.CompareTag(tag))
+                {
+                    willCollide = true;
+                    break;
+                }
+            }
+        }
+
+        return willCollide;
+    }
+
+    private Vector2[] dirs;
+    private bool[] collided;
+    void RedirectToPos(Vector3 pos)
+    {
+        //we will loop through these directions
+        dirs = new [] {Vector2.up, new Vector2(1, 1), Vector2.right,  new Vector2(1, -1), 
+            Vector2.down,  new Vector2(-1, -1), Vector2.left,  new Vector2(-1, 1)};
+        collided = new bool[8];
+
+        for (int i = 0; i < dirs.Length; i++)
+        {
+            //Get origin point outside my col
+            Vector2 origin = (Vector2) transform.position;
+            // Cast a ray in a direction
+            RaycastHit2D hit = Physics2D.Raycast( origin, dirs[i], colCheckDist, colMask);
+            if (hit && hit.transform != transform )
+            {
+                foreach (var tag in collisionTags)
+                {
+                    if (hit.transform.gameObject.CompareTag(tag))
+                    {
+                        collided[i] = true;
+                    }
+                }
+            }
+            // Define the center point for the box cast (current position)
+            // Vector2 origin = new Vector2(transform.position.x, transform.position.y);
+            // // Perform the BoxCastAll
+            // RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, colBoxSize, 0f, dirs[i], colCheckDist);
+            //
+            // foreach (RaycastHit2D hit in hits)
+            // {
+            //     if (hit && hit.transform != transform)
+            //     {
+            //         collided[i] = true;
+            //     }
+            // }
+        }
+
+        //Now decide best direction based on what's closest to player dest 
+        Vector2 bestDir = autoDir;
+        float shortestDist = 1000f;
+        for (int i = 0; i < collided.Length; i++)
+        {
+            //must have no collision there 
+            if (!collided[i])
+            {
+                var newPos = transform.position + new Vector3(dirs[i].x * colCheckDist,dirs[i].y * colCheckDist, transform.position.z);
+                float dist = Vector2.Distance(pos, newPos);
+                if (dist < shortestDist)
+                {
+                    shortestDist = dist;
+                    bestDir = newPos -  transform.position;
+                }
+            }
+        }
+        
+        //Now update final direct
+        autoDir = bestDir;
     }
     
     /// <summary>
@@ -673,7 +836,7 @@ public class CatController : MonoBehaviour
         //reset interacted 
         hasInteracted = false;
         //Move to house point 
-        dest = designatedTerritory[currentHouse].transform;
+        dest = designatedTerritory[currentHouse].CatPos;
         SwitchState(CatAiStates.Moving);
     }
 
@@ -681,9 +844,13 @@ public class CatController : MonoBehaviour
     /// Switch to AI state
     /// </summary>
     /// <param name="nextState"></param>
-    void SwitchState(CatAiStates nextState)
+    /// <param name="overrideTimer"></param>
+    void SwitchState(CatAiStates nextState, float overrideTimer = 0f)
     {
-        stateTimer = Random.Range(stateTimeTotal.x, stateTimeTotal.y);
+        if (overrideTimer == 0)
+            stateTimer = Random.Range(stateTimeTotal.x, stateTimeTotal.y);
+        else
+            stateTimer = overrideTimer;
         
         currentAiState = nextState;
     }

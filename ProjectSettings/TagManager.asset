@@ -12,6 +12,8 @@ TagManager:
   - Car
   - Package
   - Bullet
+  - Friendly
+  - Obstacle
   layers:
   - Default
   - TransparentFX

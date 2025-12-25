@@ -762,10 +762,28 @@ MonoBehaviour:
   designatedTerritory: []
   hasFood: 
   currentAiState: 0
+  autoDir: {x: 0, y: 0}
+  dest: {fileID: 0}
   foodCheckDistance: 0.3
   fightDist: 0.5
   returnDist: 1
   origDefendPos: {fileID: 5973425828632924800}
+  scratchTags:
+  - Cat
+  - Package
+  - Player
+  - Danger
+  collisionTags:
+  - House
+  - Wall
+  - Car
+  - Danger
+  - Obstacle
+  colMask:
+    serializedVersion: 2
+    m_Bits: 151
+  colBoxSize: {x: 0.05, y: 0.05}
+  colCheckDist: 0.25
 --- !u!50 &1867304395459942023
 Rigidbody2D:
   serializedVersion: 4

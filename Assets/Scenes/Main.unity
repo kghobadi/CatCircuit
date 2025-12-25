@@ -1548,6 +1548,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: useAI
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: plusImg
       value: 
       objectReference: {fileID: 1014340935}
@@ -1615,6 +1619,10 @@ PrefabInstance:
       propertyPath: designatedTerritory.Array.data[3]
       value: 
       objectReference: {fileID: 1628004855}
+    - target: {fileID: 1867304395459942040, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942041, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2547,6 +2555,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: useAI
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
@@ -4425,6 +4437,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: useAI
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: plusImg
       value: 
       objectReference: {fileID: 1014340933}
@@ -4472,6 +4488,10 @@ PrefabInstance:
       propertyPath: myPlayerInputActions
       value: 
       objectReference: {fileID: 11400000, guid: 4e7c6074af90f5e4e9fd4e59d3226981, type: 2}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: collisionTags.Array.data[1]
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: designatedTerritory.Array.size
       value: 4
@@ -5334,6 +5354,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 681604577702424152, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: useAI
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}

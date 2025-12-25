@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1024322760585241032}
   m_Layer: 0
   m_Name: Inhabitant (mail-man)
-  m_TagString: Untagged
+  m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,6 +129,9 @@ MonoBehaviour:
   inhabitantType: 2
   spawnOffset: {x: 0, y: 0, z: 0}
   mailChance: 0
+  multiplierUI: {fileID: 0}
+  faceResponse: {fileID: 0}
+  multiText: {fileID: 0}
   foodAmtRange: {x: 10, y: 50}
   foodCooldownWait: {x: 3, y: 5}
   fetchWait: {x: 1, y: 3}
@@ -164,7 +167,6 @@ MonoBehaviour:
   trackSounds: []
   attackSounds: []
   hurtSounds: []
-  OverrideMultiplier: -1
 --- !u!82 &1024322760585241032
 AudioSource:
   m_ObjectHideFlags: 0

@@ -36,11 +36,12 @@ public class House : MonoBehaviour
     public bool foodCooldown;
     public bool fetchingFood;
 
-    [Tooltip("What happens if the cat meows?")]
+    [Tooltip("Spawn pos for inhabitants?")]
     [SerializeField] private Transform inhabitantPosition;
-
+    [Tooltip("Aspirational position for AI cats?")]
+    [SerializeField] private Transform catPosition;
     public Transform InhabPos => inhabitantPosition;
-    
+    public Transform CatPos => catPosition;
     private void Awake()
     {
         if (Alignments == null)
