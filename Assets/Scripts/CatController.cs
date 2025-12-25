@@ -50,7 +50,8 @@ public class CatController : MonoBehaviour
     [SerializeField] private float catInteractDistance = 0.5f;
     [SerializeField] private float hissPushForce = 50f;
 
-    [Header("Action Audios")] [SerializeField]
+    [Header("Action Audios")] 
+    [SerializeField]
     private CatAudio catAudio;
     public CatAudio CatAudio => catAudio;
     [SerializeField] private TMP_Text actionText;
@@ -62,19 +63,12 @@ public class CatController : MonoBehaviour
         HISS = 2,
         SCRATCH =3,
     }
-    
-    [Header("Cat Stats")] 
-    [SerializeField] private int catLives = 9;
-    [SerializeField] private TMP_Text catLivesTxt;
 
+    [Header("Cat Stats")] 
+    [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private int catLives = 9;
     [SerializeField] private int currentScore = 000;
-    [SerializeField] private TMP_Text foodScoreText;
-    [SerializeField] private CanvasFader pointAddFader;
-    [SerializeField] private TMP_Text pointsAddedText;
-    [SerializeField] private Image plusImg;
-    [SerializeField] private Sprite plusSprite;
-    [SerializeField] private Sprite deathSprite;
-    private Vector2 origPointsAddPos;
+    
     [SerializeField] private Transform catConsumePos;
     public Transform ConsumePos => catConsumePos;
     public int PlayerScore => currentScore;
@@ -94,7 +88,6 @@ public class CatController : MonoBehaviour
         player = ReInput.players.GetPlayer(playerId);
         boxCollider2D = GetComponent<BoxCollider2D>();
         healthUI = GetComponent<HealthUI>();
-        origPointsAddPos = pointAddFader.RectTransform.anchoredPosition; //todo fix null ref on restart?
         spriteRenderer = GetComponent<SpriteRenderer>();
         catBody = GetComponent<Rigidbody2D>();
         catAnimator = GetComponent<Animator>();
@@ -104,9 +97,6 @@ public class CatController : MonoBehaviour
     {
         catState = CatStates.IDLE;
         actionText.enabled = false;
-        //reset score and lives 
-        foodScoreText.text = "000";
-        catLivesTxt.text = "x9";
         
         //Add cat listeners 
         for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
@@ -367,7 +357,7 @@ public class CatController : MonoBehaviour
 
     void UpdateLivesText()
     {
-        catLivesTxt.text = "x" + catLives.ToString();
+        playerUI.SetLives("x" + catLives.ToString());
         //Checks if dead 
         if (catLives < 0)
         {
@@ -384,10 +374,7 @@ public class CatController : MonoBehaviour
     public void GainFood(int amt)
     {
         currentScore += amt; //TODO figure out how to ensure we see all the latest food pt amt updates even if anim is active 
-        pointsAddedText.text = amt.ToString();
-        plusImg.sprite = plusSprite;
-        plusImg.color = pointsAddedText.color;
-        DoPointsAnim();
+        playerUI.DoPointsAnim(amt);
         healthUI.ShowPointsAnim(amt);
     }
     
@@ -398,39 +385,8 @@ public class CatController : MonoBehaviour
     public void LoseFood(int amt)
     {
         currentScore -= amt; //TODO figure out how to ensure we see all the latest food pt amt updates even if anim is active 
-        pointsAddedText.text = amt.ToString();
-        plusImg.sprite = deathSprite;
-        plusImg.color = Color.white;
-        DoPointsAnim();
-    }
-
-    private bool animScore;
-    /// <summary>
-    /// Animates points text  TODO this could be moved to a UI component. 
-    /// </summary>
-    void DoPointsAnim()
-    {
-        if (animScore)
-        {
-            LeanTween.cancel(pointAddFader.gameObject);
-            foodScoreText.text = currentScore.ToString();
-        }
-
-        animScore = true;
-        pointAddFader.RectTransform.anchoredPosition = origPointsAddPos;
-        pointAddFader.FadeIn((() =>
-        {
-            LeanTween.delayedCall(0.1f, () =>
-            {
-                LeanTween.moveY(pointAddFader.RectTransform, 0f, 0.2f).setOnComplete(() =>
-                {
-                    //Update score and fade out
-                    foodScoreText.text = currentScore.ToString();
-                    pointAddFader.FadeOut();
-                    animScore = false;
-                });
-            });
-        }));
+     
+        playerUI.DoPointsAnim(amt, false);
     }
 
     /// <summary>
