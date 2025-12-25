@@ -89,6 +89,8 @@ public class Inhabitant : AudioHandler
         Shoot = 1, // for a redneck shooter
     }
 
+    public AttackType _AttackType => attackType;
+
     [SerializeField] private Vector2 aimingTimeRange = new Vector2(3f, 5f);
     [SerializeField] private float aimingTime;
     [SerializeField] private GameObject aimingTarget;

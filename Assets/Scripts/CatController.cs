@@ -659,7 +659,7 @@ public class CatController : MonoBehaviour
         //If we will collide with something, redirect us to closest 4 dir option which will not collide 
         if (CollisionCheck(autoDir))
         {
-            RedirectToPos(pos);
+            //RedirectToPos(pos);
         } 
         catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
     }

@@ -15,23 +15,28 @@ public class AttackTrigger : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Cat") || other.gameObject.CompareTag("Player"))
+        DamageEnemy(other.gameObject);
+    }
+
+    void DamageEnemy(GameObject obj)
+    {
+        if (obj.CompareTag("Cat") || obj.CompareTag("Player"))
         {
             if (Inhabitant && Inhabitant.trackingTarget)
             {
-                Inhabitant.TriggerAttack(other.gameObject);
+                Inhabitant.TriggerAttack(obj);
             }
             else if (Car && Car.moving)
             {
-                Car.Crash(other.gameObject);
+                Car.Crash(obj);
             }
         }
         //Cars can crash into dogs too 
-        else if (other.gameObject.CompareTag("Danger"))
+        else if (obj.CompareTag("Danger"))
         {
             if (Car && Car.moving)
             {
-                Car.Crash(other.gameObject);
+                Car.Crash(obj);
             }
         }
     }

@@ -28,10 +28,17 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //Hit cat player!
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Cat"))
         {
             Debug.Log("hit cat or player!");
             DamageCat(other.gameObject);
+        }
+        //Hit something else, destroy it 
+        else if(other.gameObject.CompareTag("House") || other.gameObject.CompareTag("Obstacle")
+                || other.gameObject.CompareTag("Car"))
+        {
+            Destroy(gameObject);
         }
     }
 
