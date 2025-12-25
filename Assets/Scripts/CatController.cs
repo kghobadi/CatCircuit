@@ -5,6 +5,7 @@ using Rewired;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -612,11 +613,8 @@ public class CatController : MonoBehaviour
     void GuidedMove(Vector3 pos)
     {
         autoDir = (Vector2) pos - (Vector2) transform.position;
-        //If we will collide with something, redirect us to closest 4 dir option which will not collide 
-        if (CollisionCheck(autoDir))
-        {
-            //RedirectToPos(pos);
-        } 
+        //If we will collide with something, redirect us 
+        CollisionCheck(autoDir);
         catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
     }
 
@@ -630,9 +628,11 @@ public class CatController : MonoBehaviour
     [SerializeField] private Vector2 colBoxSize = new Vector2(0.25f,0.25f);
 
     [SerializeField] private float colCheckDist = 0.1f;
+    [SerializeField] private float steeringForce = 5f;
 
     /// <summary>
-    /// Are we colliding with that dir 
+    /// Are we colliding with that dir?
+    /// Then steer around it using perpendicular force * steering 
     /// </summary>
     /// <returns></returns>
     bool CollisionCheck(Vector2 dir)
@@ -668,6 +668,15 @@ public class CatController : MonoBehaviour
             {
                 if ( hit.transform.gameObject.CompareTag(tag))
                 {
+                    // Get the normal of the hit object
+                    Vector2 hitNormal = hit.normal;
+
+                    // Calculate steering direction (perpendicular to the hitNormal)
+                    Vector2 steeringDirection = Vector2.Perpendicular(hitNormal).normalized;
+
+                    // Apply steering force to move around the object
+                    catBody.AddForce(steeringDirection * steeringForce);
+
                     willCollide = true;
                     break;
                 }
@@ -677,67 +686,6 @@ public class CatController : MonoBehaviour
         return willCollide;
     }
 
-    private Vector2[] dirs;
-    private bool[] collided;
-    void RedirectToPos(Vector3 pos)
-    {
-        //we will loop through these directions
-        dirs = new [] {Vector2.up, new Vector2(1, 1), Vector2.right,  new Vector2(1, -1), 
-            Vector2.down,  new Vector2(-1, -1), Vector2.left,  new Vector2(-1, 1)};
-        collided = new bool[8];
-
-        for (int i = 0; i < dirs.Length; i++)
-        {
-            //Get origin point outside my col
-            Vector2 origin = (Vector2) transform.position;
-            // Cast a ray in a direction
-            RaycastHit2D hit = Physics2D.Raycast( origin, dirs[i], colCheckDist, colMask);
-            if (hit && hit.transform != transform )
-            {
-                foreach (var tag in collisionTags)
-                {
-                    if (hit.transform.gameObject.CompareTag(tag))
-                    {
-                        collided[i] = true;
-                    }
-                }
-            }
-            // Define the center point for the box cast (current position)
-            // Vector2 origin = new Vector2(transform.position.x, transform.position.y);
-            // // Perform the BoxCastAll
-            // RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, colBoxSize, 0f, dirs[i], colCheckDist);
-            //
-            // foreach (RaycastHit2D hit in hits)
-            // {
-            //     if (hit && hit.transform != transform)
-            //     {
-            //         collided[i] = true;
-            //     }
-            // }
-        }
-
-        //Now decide best direction based on what's closest to player dest 
-        Vector2 bestDir = autoDir;
-        float shortestDist = 1000f;
-        for (int i = 0; i < collided.Length; i++)
-        {
-            //must have no collision there 
-            if (!collided[i])
-            {
-                var newPos = transform.position + new Vector3(dirs[i].x * colCheckDist,dirs[i].y * colCheckDist, transform.position.z);
-                float dist = Vector2.Distance(pos, newPos);
-                if (dist < shortestDist)
-                {
-                    shortestDist = dist;
-                    bestDir = newPos -  transform.position;
-                }
-            }
-        }
-        
-        //Now update final direct
-        autoDir = bestDir;
-    }
-    
     /// <summary>
     /// Checks for nearby food and returns highest value.
     /// </summary>
