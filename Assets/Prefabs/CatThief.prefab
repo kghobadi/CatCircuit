@@ -230,6 +230,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1563975993
   m_SortingOrder: 3
@@ -778,6 +779,7 @@ MonoBehaviour:
     m_Bits: 151
   colBoxSize: {x: 0.05, y: 0.05}
   colCheckDist: 0.25
+  steeringForce: 1
 --- !u!50 &1867304395459942023
 Rigidbody2D:
   serializedVersion: 4
