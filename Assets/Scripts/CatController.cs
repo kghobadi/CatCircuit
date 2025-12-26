@@ -258,16 +258,16 @@ public class CatController : MonoBehaviour
     /// </summary>
     public void SpawnScratchFx()
     {
-        //Get spawnpoint based on direction of current movement 
-        Vector3 spawnPoint = transform.position + new Vector3(scratchSpawnDist, 0f, 0f);
-        if (AIactive)
+        //Default to left or right spawn pos
+        Vector3 spawnPoint = transform.position - new Vector3(scratchSpawnDist, 0f, 0f);
+        if (spriteRenderer.flipX)
         {
-            Vector2 point = (Vector2)transform.position + (autoDir.normalized * scratchSpawnDist);
-            spawnPoint = (Vector3)point;
+            spawnPoint = transform.position + new Vector3(scratchSpawnDist, 0f, 0f);
         }
-        else
+        //Get spawnpoint based on direction of current movement 
+        if (catBody.velocity.magnitude > 0)
         {
-            Vector2 point = (Vector2)transform.position + (new Vector2(horizontalMove, verticalMove) * scratchSpawnDist);
+            Vector2 point = (Vector2)transform.position + (catBody.velocity.normalized * scratchSpawnDist);
             spawnPoint = (Vector3)point;
         }
 
@@ -484,7 +484,13 @@ public class CatController : MonoBehaviour
     void StateMachine()
     {
         stateTimer -= Time.deltaTime;
-        
+
+        //No AI when dead 
+        if (healthUI.IsDead)
+        {
+            return;
+        }
+
         switch (currentAiState)
         {
             //Think about what to do next and Idle 
@@ -596,6 +602,7 @@ public class CatController : MonoBehaviour
                 }
                 break;
         }
+
     }
 
     /// <summary>
