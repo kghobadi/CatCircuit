@@ -746,8 +746,7 @@ MonoBehaviour:
   currentScore: 0
   catConsumePos: {fileID: 5547138861209310791}
   purrHealStrength: 1
-  scratchSpawnLeft: {fileID: 1204986203}
-  scratchSpawnRight: {fileID: 1832205703}
+  scratchSpawnDist: 0.3
   scratchPrefabL: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
   scratchPrefabR: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
   teleporting: 0
@@ -777,9 +776,9 @@ MonoBehaviour:
   colMask:
     serializedVersion: 2
     m_Bits: 151
-  colBoxSize: {x: 0.05, y: 0.05}
-  colCheckDist: 0.25
-  steeringForce: 1
+  colBoxSize: {x: 0.25, y: 0.25}
+  colCheckDist: 0.3
+  steeringForce: 5
 --- !u!50 &1867304395459942023
 Rigidbody2D:
   serializedVersion: 4

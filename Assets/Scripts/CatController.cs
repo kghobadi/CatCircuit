@@ -78,8 +78,7 @@ public class CatController : MonoBehaviour
     public int PurrHealStrength => purrHealStrength;
 
     [Header("Scratch Effect")]
-    [SerializeField] private Transform scratchSpawnLeft;
-    [SerializeField] private Transform scratchSpawnRight;
+    [SerializeField] private float scratchSpawnDist = 0.3f;
     [SerializeField] private GameObject scratchPrefabL;
     [SerializeField] private GameObject scratchPrefabR;
 
@@ -259,11 +258,23 @@ public class CatController : MonoBehaviour
     /// </summary>
     public void SpawnScratchFx()
     {
-        Vector3 spawnPoint = scratchSpawnLeft.position;
+        //Get spawnpoint based on direction of current movement 
+        Vector3 spawnPoint = transform.position + new Vector3(scratchSpawnDist, 0f, 0f);
+        if (AIactive)
+        {
+            Vector2 point = (Vector2)transform.position + (autoDir.normalized * scratchSpawnDist);
+            spawnPoint = (Vector3)point;
+        }
+        else
+        {
+            Vector2 point = (Vector2)transform.position + (new Vector2(horizontalMove, verticalMove) * scratchSpawnDist);
+            spawnPoint = (Vector3)point;
+        }
+
+        //Get prefab based on cat flip state 
         GameObject spawnPrefab = scratchPrefabL;
         if (spriteRenderer.flipX)
         {
-            spawnPoint = scratchSpawnRight.position;
             spawnPrefab = scratchPrefabR;
         }
         
@@ -638,7 +649,7 @@ public class CatController : MonoBehaviour
     bool CollisionCheck(Vector2 dir)
     {
         // Cast a ray in a direction
-        //RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, 0.25f);
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, colCheckDist, colMask);
 
         bool willCollide = false;
         // Define the center point for the box cast (current position)
@@ -646,39 +657,40 @@ public class CatController : MonoBehaviour
         //                  (dir.normalized * (boxCollider2D.size.x / 2 + colBoxSize.x));
 
         // Perform the BoxCastAll
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, colBoxSize, 0f, dir, colCheckDist, colMask);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, colBoxSize, 0f, dir, colCheckDist, colMask);
 
         // If it hits something other than this...
-        if (hit && hit.transform != transform)
+        foreach (RaycastHit2D hit in hits)
         {
-            //Can scratch!
-            // foreach (var tag in scratchTags)
-            // {
-            //     if (hit.transform.gameObject.CompareTag(tag))
-            //     {
-            //         float dist = Vector2.Distance(transform.position, hit.transform.position);
-            //         if(dist < 0.25f &&!catAudio.myAudioSource.isPlaying)
-            //         {
-            //             Scratch();
-            //         }
-            //     }
-            // }
-            //Check if it's something we can destroy or not worry abut 
-            foreach (var tag in collisionTags)
+            //Must not be me...
+            if (hit && hit.transform != transform
+                && !hit.collider.isTrigger) //Must not be trigger collider 
             {
-                if ( hit.transform.gameObject.CompareTag(tag))
+                //Check if it's something we should avoid 
+                foreach (var tag in collisionTags)
                 {
-                    // Get the normal of the hit object
-                    Vector2 hitNormal = hit.normal;
+                    if (hit.transform.gameObject.CompareTag(tag))
+                    {
+                        // Get the normal of the hit object
+                        Vector2 hitNormal = hit.normal;
 
-                    // Calculate steering direction (perpendicular to the hitNormal)
-                    Vector2 steeringDirection = Vector2.Perpendicular(hitNormal).normalized;
+                        // Calculate steering direction (perpendicular to the hitNormal)
+                        Vector2 steeringDirection = Vector2.Perpendicular(hitNormal).normalized;
+                        // Cast a ray in a direction
+                        RaycastHit2D hitPerp = Physics2D.Raycast(transform.position, dir, colCheckDist, colMask);
+                        //TODO need better logic for deciding which way to go. this will fix it if it can intelligently pick. 
+                        if (hitPerp.collider != null)
+                        {
+                            //then flip force 
+                            steeringDirection *= -1;
+                        }
 
-                    // Apply steering force to move around the object
-                    catBody.AddForce(steeringDirection * steeringForce);
+                        // Apply steering force to move around the object
+                        catBody.AddForce(steeringDirection * steeringForce, ForceMode2D.Force);
 
-                    willCollide = true;
-                    break;
+                        willCollide = true;
+                        break;
+                    }
                 }
             }
         }

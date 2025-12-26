@@ -9,6 +9,10 @@ public class AttackTrigger : MonoBehaviour
 {
     [SerializeField] private Inhabitant Inhabitant;
     [SerializeField] private Car Car;
+
+    [SerializeField] private bool triggersOnce;
+    [SerializeField] private bool triggered;
+
     /// <summary>
     /// Attacks should be trigger based. 
     /// </summary>
@@ -18,8 +22,26 @@ public class AttackTrigger : MonoBehaviour
         DamageEnemy(other.gameObject);
     }
 
+    /// <summary>
+    /// Sometimes dogs spawn on top of things - this catches that case 
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (triggersOnce)
+        {
+            DamageEnemy(collision.gameObject);
+        }
+    }
+
     void DamageEnemy(GameObject obj)
     {
+        //Prevent multiple triggers
+        if (triggersOnce && triggered)
+        {
+            return;
+        }
+
         if (obj.CompareTag("Cat") || obj.CompareTag("Player"))
         {
             if (Inhabitant && Inhabitant.trackingTarget)
@@ -39,5 +61,6 @@ public class AttackTrigger : MonoBehaviour
                 Car.Crash(obj);
             }
         }
+        triggered = true;
     }
 }
