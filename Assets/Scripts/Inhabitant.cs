@@ -187,10 +187,7 @@ public class Inhabitant : AudioHandler
             //moves towards cat target
             if (attackType == AttackType.Chase)
             {
-                Vector3 dir = catTarget.transform.position - transform.position;
-                body.AddForce(moveSpeed * dir,  ForceMode2D.Force);
-                
-                //TODO what to do about swinging velocity? could play with it somewhat 
+                GuidedMove(catTarget.transform.position);
             }
             else if (attackType == AttackType.Shoot)
             {
@@ -414,6 +411,7 @@ public class Inhabitant : AudioHandler
         PlayRandomSound(trackSounds, 1f);
         //get target 
         catTarget = GameManager.Instance.GetNearestCatToPoint(transform.position);
+        trackingTarget = true;
         //randomize aim - shoot time 
         if (attackType == AttackType.Shoot)
         {
@@ -422,7 +420,6 @@ public class Inhabitant : AudioHandler
         }
         
         inhabitantAnim.SetBool("tracking", true);
-        trackingTarget = true;
 
         yield return new WaitUntil(() => !trackingTarget);
         inhabitantAnim.SetBool("tracking", false);
@@ -485,7 +482,91 @@ public class Inhabitant : AudioHandler
         PlayRandomSound(attackSounds, 1f);
         trackingTarget = false;
     }
-    
+
+    private Vector2 autoDir;
+    /// <summary>
+    /// Move towards position 
+    /// </summary>
+    /// <param name="pos"></param>
+    void GuidedMove(Vector3 pos, bool useGuidance = true)
+    {
+        autoDir = (Vector2)pos - (Vector2)transform.position;
+        //If we will collide with something, redirect us 
+        if (useGuidance)
+            CollisionCheck(autoDir);
+        body.AddForce(moveSpeed * autoDir, ForceMode2D.Force);
+    }
+
+    [Tooltip("What tags should the AI avoid?")]
+    [SerializeField] private string[] collisionTags;
+
+    [SerializeField] private LayerMask colMask;
+    [Tooltip("How big a box should I use to check with?")]
+    [SerializeField] private Vector2 colBoxSize = new Vector2(0.25f, 0.25f);
+    [Tooltip("Angle threshold to determine direction adjustment")]
+    [SerializeField] private float angleThreshold = 30f; // Angle threshold to determine direction adjustment
+    [SerializeField] private float colCheckDist = 0.1f;
+    [SerializeField] private float steeringForce = 5f;
+
+    /// <summary>
+    /// Are we colliding with that dir?
+    /// Then steer around it using perpendicular force * steering 
+    /// </summary>
+    /// <returns></returns>
+    bool CollisionCheck(Vector2 dir)
+    {
+        // Cast a ray in a direction
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, colCheckDist, colMask);
+
+        bool willCollide = false;
+        // Define the center point for the box cast (current position)
+        // Vector2 origin = new Vector2(transform.position.x, transform.position.y) +
+        //                  (dir.normalized * (boxCollider2D.size.x / 2 + colBoxSize.x));
+
+        // Perform the BoxCastAll
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, colBoxSize, 0f, dir, colCheckDist, colMask);
+
+        // If it hits something other than this...
+        foreach (RaycastHit2D hit in hits)
+        {
+            //Must not be me...
+            if (hit && hit.transform != transform
+                && !hit.collider.isTrigger) //Must not be trigger collider 
+            {
+                //Check if it's something we should avoid 
+                foreach (var tag in collisionTags)
+                {
+                    if (hit.transform.gameObject.CompareTag(tag))
+                    {
+                        // Get the normal of the hit object
+                        Vector2 hitNormal = hit.normal;
+
+                        // Calculate steering direction (perpendicular to the hitNormal)
+                        Vector2 steeringDirection = Vector2.Perpendicular(hitNormal).normalized;
+
+                        // Calculate the angle between the move direction and the hit normal
+                        float angle = Vector2.Angle(dir, hitNormal);
+
+                        // Adjust steering direction based on the angle
+                        if (angle < angleThreshold)
+                        {
+                            // Move in the opposite direction of the steering
+                            steeringDirection = -steeringDirection;
+                        }
+
+                        // Apply steering force to move around the object
+                        body.AddForce(steeringDirection * steeringForce, ForceMode2D.Force);
+
+                        willCollide = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return willCollide;
+    }
+
     void PushFromHiss(CatController enemyCat)
     {
         //push me away!

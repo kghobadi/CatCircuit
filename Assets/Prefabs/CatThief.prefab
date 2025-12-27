@@ -425,37 +425,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!1 &1204986202
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1204986203}
-  m_Layer: 0
-  m_Name: ScratchL
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1204986203
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204986202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1867304395459942041}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471165943
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,37 +536,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.24, y: 0.28}
   m_EdgeRadius: 0
---- !u!1 &1832205702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1832205703}
-  m_Layer: 0
-  m_Name: ScratchR
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1832205703
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832205702}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1867304395459942041}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1867304395459942044
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,8 +574,6 @@ Transform:
   - {fileID: 313422479}
   - {fileID: 533950265}
   - {fileID: 1471165944}
-  - {fileID: 1204986203}
-  - {fileID: 1832205703}
   - {fileID: 1990166891278031475}
   - {fileID: 5547138861209310791}
   - {fileID: 5973425828632924800}
@@ -746,7 +682,7 @@ MonoBehaviour:
   currentScore: 0
   catConsumePos: {fileID: 5547138861209310791}
   purrHealStrength: 1
-  scratchSpawnDist: 0.3
+  scratchSpawnDist: 0.25
   scratchPrefabL: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
   scratchPrefabR: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
   teleporting: 0
@@ -754,13 +690,14 @@ MonoBehaviour:
   timeToActivateAI: 5
   AIactive: 0
   designatedTerritory: []
-  hasFood: 
+  isDanger: 
   currentAiState: 0
   autoDir: {x: 0, y: 0}
   dest: {fileID: 0}
   foodCheckDistance: 0.3
   fightDist: 0.5
   returnDist: 1
+  stoppingDist: 0.1
   origDefendPos: {fileID: 5973425828632924800}
   scratchTags:
   - Cat
@@ -773,12 +710,15 @@ MonoBehaviour:
   - Car
   - Danger
   - Obstacle
+  - Cat
+  - Player
   colMask:
     serializedVersion: 2
     m_Bits: 151
-  colBoxSize: {x: 0.25, y: 0.25}
-  colCheckDist: 0.3
-  steeringForce: 5
+  colBoxSize: {x: 0.1, y: 0.1}
+  angleThreshold: 35
+  colCheckDist: 0.25
+  steeringForce: 10
 --- !u!50 &1867304395459942023
 Rigidbody2D:
   serializedVersion: 4
@@ -920,7 +860,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1867304395459942041}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8647839265082964062
 GameObject:
@@ -951,7 +891,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1867304395459942041}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5169421136189178196
 PrefabInstance:
@@ -1002,7 +942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6639158093364927271, guid: a895dadb699234247993ab86f624808b, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6639158093364927271, guid: a895dadb699234247993ab86f624808b, type: 3}
       propertyPath: m_AnchorMax.x

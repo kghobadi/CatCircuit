@@ -45,7 +45,7 @@ public class ScratchFx : MonoBehaviour
             {
                 if (!enemyAnimator.GetBool("dead"))
                 {
-                    Debug.Log("hit cat or player!");
+                    //Debug.Log("hit cat or player!");
                     enemyAnimator.SetTrigger(animToTrigger);
                     damagedEnemy = true;
                 }

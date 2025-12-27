@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using static Rewired.Controller;
 using Random = UnityEngine.Random;
 
 public enum PlayerType
@@ -30,6 +31,7 @@ public class CatController : MonoBehaviour
 
     private HealthUI healthUI;
     public HealthUI HealthUI => healthUI;
+    public bool IsDead => HealthUI.IsDead;
     [SerializeField] private Color playerColor;
     public Color PlayerColor => playerColor;
 
@@ -48,6 +50,7 @@ public class CatController : MonoBehaviour
     private float horizontalMove;
     private float verticalMove;
     private Vector2 moveForce;
+    private Vector2 lastHeading;
     [SerializeField] private float catInteractDistance = 0.5f;
     [SerializeField] private float hissPushForce = 50f;
 
@@ -158,6 +161,7 @@ public class CatController : MonoBehaviour
                         if (!AIactive)
                         {
                             AIactive = true;
+                            isDanger = new bool[designatedTerritory.Length];
                             SwitchState(CatAiStates.Thinking);
                         }
                     }
@@ -176,12 +180,17 @@ public class CatController : MonoBehaviour
             catBody.AddForce(moveForce, ForceMode2D.Impulse);
             CheckAnimationState(moveForce);
             CheckFlipState(moveForce);
+            //Store last substantive heading 
+            if(moveForce.magnitude > 0)
+            {
+                lastHeading = moveForce.normalized;
+            }
         }
         else
         {
             StateMachine();
             CheckAnimationState(catBody.velocity);
-            CheckFlipState(catAnimator.velocity);
+            CheckFlipState(lastHeading);
         }
     }
 
@@ -264,12 +273,10 @@ public class CatController : MonoBehaviour
         {
             spawnPoint = transform.position + new Vector3(scratchSpawnDist, 0f, 0f);
         }
+
         //Get spawnpoint based on direction of current movement 
-        if (catBody.velocity.magnitude > 0)
-        {
-            Vector2 point = (Vector2)transform.position + (catBody.velocity.normalized * scratchSpawnDist);
-            spawnPoint = (Vector3)point;
-        }
+        Vector2 point = (Vector2)transform.position + (lastHeading * scratchSpawnDist);
+        spawnPoint = (Vector3)point;
 
         //Get prefab based on cat flip state 
         GameObject spawnPrefab = scratchPrefabL;
@@ -356,17 +363,24 @@ public class CatController : MonoBehaviour
     {
         catLives = lives;
         UpdateLivesText();
-    }
-    
-    /// <summary>
-    /// Called by dangerous houses.  
-    /// </summary>
-    public void LoseLife()
-    {
-        catLives--;
-        UpdateLivesText();
+        boxCollider2D.enabled = false;
+        if (AIactive)
+        {
+            CycleHouses();
+        }
     }
 
+    /// <summary>
+    /// Reenable collision on resurrect. 
+    /// </summary>
+    public void Resurrected()
+    {
+        boxCollider2D.enabled = true;
+    }
+
+    /// <summary>
+    /// Updates the lives text. 
+    /// </summary>
     void UpdateLivesText()
     {
         playerUI.SetLives("x" + catLives.ToString());
@@ -450,9 +464,10 @@ public class CatController : MonoBehaviour
     [SerializeField] private bool useAI;
     [SerializeField] private float timeToActivateAI = 5f;
     [SerializeField] private bool AIactive;
+    public bool IsAiEnabled => AIactive;
     private float inputTimer;
     [SerializeField] private House[] designatedTerritory;
-    [SerializeField] private bool[] hasFood; // cat remembers if a house had food 
+    [SerializeField] private bool[] isDanger; // cat remembers if a house had food 
     private int currentHouse;
     [SerializeField] private CatAiStates currentAiState;
     private enum CatAiStates
@@ -477,14 +492,20 @@ public class CatController : MonoBehaviour
     [SerializeField] private float fightDist;
     [SerializeField] private float returnDist;
     [SerializeField]
+    private float stoppingDist = 0.25f;
+    [SerializeField]
     private Transform origDefendPos; // tracks pos where the fighting started - so I can return 
+
     private float distFromCat;
     private float distFromHouse;
-    
+    private FoodItem next;
+
     void StateMachine()
     {
         stateTimer -= Time.deltaTime;
-
+        //Always keep an eye on nearest cat 
+        CatController cat = GameManager.Instance.GetNearestCatToPoint(transform.position, this);
+        distFromCat = Vector2.Distance(cat.transform.position, transform.position);
         //No AI when dead 
         if (healthUI.IsDead)
         {
@@ -495,28 +516,29 @@ public class CatController : MonoBehaviour
         {
             //Think about what to do next and Idle 
             case CatAiStates.Thinking:
-                horizontalMove = 0;
-                verticalMove = 0;
+
+                //Apply slowdown / wait
+                if(catBody.velocity.magnitude > 0)
+                    catBody.velocity = Vector2.MoveTowards(catBody.velocity, Vector2.zero, Time.fixedDeltaTime * 3f);
+
+                //fight any cat who comes too close and Is not dead. 
+                if (distFromCat < fightDist && !cat.IsDead)
+                {
+                    StartFight(cat);
+                }
+
+                //Did the state end? 
                 if (stateTimer < 0)
                 {
-                    //find nearest cat 
-                    CatController cat = GameManager.Instance.GetNearestCatToPoint(transform.position, this);
-                    distFromCat = Vector2.Distance(cat.transform.position, transform.position);
                     distFromHouse = Vector2.Distance(designatedTerritory[currentHouse].CatPos.position, transform.position);
-                    //go fight
-                    if (distFromCat < fightDist)
+
+                    //go fight if a cat is closer than the nearest house 
+                    if (distFromCat < distFromHouse && !cat.IsDead)
                     {
-                        //Hiss at nearby cat to engage fight 
-                        Hiss();
-                        targetCat = cat;
-                        //Reset defend pos 
-                        origDefendPos.SetParent(transform);
-                        origDefendPos.localPosition = Vector3.zero;
-                        origDefendPos.SetParent(null);
-                        SwitchState(CatAiStates.Fighting);
+                        StartFight(cat);
                     }
                     //Near house
-                    else if (distFromHouse < 0.25f)
+                    else if (distFromHouse < stoppingDist)
                     {
                         //Look for nearest food 
                         if (hasInteracted)
@@ -527,7 +549,7 @@ public class CatController : MonoBehaviour
                                 FriendlyBehavior();
                             }
                             
-                            FoodItem next = CheckForFoodItems();
+                            next = CheckForFoodItems();
                             if (next != null)
                             {
                                 dest = next.transform;
@@ -544,8 +566,7 @@ public class CatController : MonoBehaviour
                             FriendlyBehavior();
                             hasInteracted = true;
                             //wait for Inhab
-                            float waitTime = designatedTerritory[currentHouse].Inhab.FetchWait.x +
-                                             Random.Range(stateTimeTotal.x, stateTimeTotal.y);
+                            float waitTime = designatedTerritory[currentHouse].Inhab.FetchWait.x + stateTimeTotal.y;
                             SwitchState(CatAiStates.Thinking, waitTime);
                         }
                     }
@@ -564,13 +585,37 @@ public class CatController : MonoBehaviour
                 {
                     SwitchState(CatAiStates.Thinking);
                 }
-                
-                //Stop at point 
-                float distance = Vector2.Distance(dest.transform.position, transform.position);
-                if (distance < 0.1f)
+
+                //Keep going for food 
+                if (next == null && !IsDead)
                 {
-                    catBody.velocity = Vector2.zero;
-                    
+                    //Food check 
+                    next = CheckForFoodItems();
+                    if (next != null)
+                    {
+                        dest = next.transform;
+                    }
+                }
+
+                //go fight if a cat is close
+                if (distFromCat < fightDist / 1.5f && !IsDead)
+                {   
+                    StartFight(cat);
+                }
+
+                //Stop at point 
+                if (dest != null)
+                {
+                    float distance = Vector2.Distance(dest.transform.position, transform.position);
+                    if (distance < stoppingDist)
+                    {
+                        FriendlyBehavior();
+                        //Think again 
+                        SwitchState(CatAiStates.Thinking);
+                    }
+                }
+                else
+                {
                     FriendlyBehavior();
                     //Think again 
                     SwitchState(CatAiStates.Thinking);
@@ -578,31 +623,67 @@ public class CatController : MonoBehaviour
 
                 break;
             case CatAiStates.Fighting:
+                //Get distance from cat 
                 distFromCat = Vector2.Distance(targetCat.transform.position, transform.position);
                 float distFromOrigDefPos = Vector2.Distance(origDefendPos.position, transform.position);
-                //stop fight
-                if (distFromCat > fightDist * 1.5f)
+                //Scratch the fucker 
+                if (!targetCat.IsDead)
                 {
-                    SwitchState(CatAiStates.Thinking);
-                }
-                //Keep fighting within these dists 
-                else if(distFromCat < fightDist * 1.5f && distFromOrigDefPos < returnDist)
-                {
-                    //Move towards cat 
-                    GuidedMove(targetCat.transform.position);
-                    //Scratch the fucker 
-                    if(!CatAudio.myAudioSource.isPlaying)
+                    if (!CatAudio.myAudioSource.isPlaying)
                         Scratch();
+                    //Keep fighting within these dists 
+                    if (distFromCat > fightDist && distFromOrigDefPos < returnDist)
+                    {
+                        //Move towards cat 
+                        GuidedMove(targetCat.transform.position);
+                    }
+                    //Too far from defend point, go back 
+                    else if (distFromOrigDefPos > returnDist)
+                    {
+                        CycleHouses(); // move back to house cycle 
+                    }
+
                 }
-                //Too far from defend point, go back
-                else if (distFromOrigDefPos > returnDist)
+                else
                 {
-                    dest = origDefendPos;
-                    SwitchState(CatAiStates.Moving); // move back to defend pos 
+                    CycleHouses(); // move back to house cycle 
                 }
+               
+
+                //Fight state ends 
+                if (stateTimer < 0)
+                {
+                    //stop fight when beyond dist and think 
+                    if (distFromCat > fightDist && distFromOrigDefPos < returnDist)
+                    {
+                        SwitchState(CatAiStates.Thinking);
+                    }
+                    //Too far from defend point, go back 
+                    else if (distFromOrigDefPos > returnDist)
+                    {
+                        CycleHouses(); // move back to house cycle 
+                    }
+                }
+                
                 break;
         }
 
+    }
+
+    /// <summary>
+    /// Starts a fight with a specific cat 
+    /// </summary>
+    /// <param name="cat"></param>
+    void StartFight(CatController cat)
+    {
+        //Hiss at nearby cat to engage fight 
+        Hiss();
+        targetCat = cat;
+        //Reset defend pos 
+        origDefendPos.SetParent(transform);
+        origDefendPos.localPosition = Vector3.zero;
+        origDefendPos.SetParent(null);
+        SwitchState(CatAiStates.Fighting);
     }
 
     /// <summary>
@@ -628,12 +709,18 @@ public class CatController : MonoBehaviour
     /// Move towards position 
     /// </summary>
     /// <param name="pos"></param>
-    void GuidedMove(Vector3 pos)
+    void GuidedMove(Vector3 pos, bool useGuidance = true)
     {
         autoDir = (Vector2) pos - (Vector2) transform.position;
         //If we will collide with something, redirect us 
-        CollisionCheck(autoDir);
+        if(useGuidance)
+            CollisionCheck(autoDir);
         catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+        //Store last substantive heading 
+        if(autoDir.magnitude > 0)
+        {
+            lastHeading = autoDir.normalized;
+        }
     }
 
     [Tooltip("What tags should the AI scratch?")]
@@ -644,7 +731,8 @@ public class CatController : MonoBehaviour
     [SerializeField] private LayerMask colMask;
     [Tooltip("How big a box should I use to check with?")]
     [SerializeField] private Vector2 colBoxSize = new Vector2(0.25f,0.25f);
-
+    [Tooltip("Angle threshold to determine direction adjustment")]
+    [SerializeField] private float angleThreshold = 30f; // Angle threshold to determine direction adjustment
     [SerializeField] private float colCheckDist = 0.1f;
     [SerializeField] private float steeringForce = 5f;
 
@@ -683,13 +771,15 @@ public class CatController : MonoBehaviour
 
                         // Calculate steering direction (perpendicular to the hitNormal)
                         Vector2 steeringDirection = Vector2.Perpendicular(hitNormal).normalized;
-                        // Cast a ray in a direction
-                        RaycastHit2D hitPerp = Physics2D.Raycast(transform.position, dir, colCheckDist, colMask);
-                        //TODO need better logic for deciding which way to go. this will fix it if it can intelligently pick. 
-                        if (hitPerp.collider != null)
+
+                        // Calculate the angle between the move direction and the hit normal
+                        float angle = Vector2.Angle(dir, hitNormal);
+
+                        // Adjust steering direction based on the angle
+                        if (angle < angleThreshold)
                         {
-                            //then flip force 
-                            steeringDirection *= -1;
+                            // Move in the opposite direction of the steering
+                            steeringDirection = -steeringDirection;
                         }
 
                         // Apply steering force to move around the object
@@ -728,12 +818,25 @@ public class CatController : MonoBehaviour
             FoodItem foodItem = collider.GetComponent<FoodItem>();
             if (foodItem != null)
             {
-                Debug.Log("Found food item: " + foodItem.name);
+               // Debug.Log("Found food item: " + foodItem.name);
                 // Perform any actions related to the food item here
                 if (foodItem.Points > highestPoints)
                 {
                     highestPoints = foodItem.Points;
                     best = foodItem;
+                }
+            }
+            //Try for package instead 
+            else
+            {
+                // Check if the item has a Package component
+                Package package = collider.GetComponent<Package>();
+                if(package != null)
+                {
+                    GuidedMove(package.transform.position);
+                    //scratch package 
+                    if (!CatAudio.myAudioSource.isPlaying)
+                        Scratch();
                 }
             }
         }
@@ -746,7 +849,29 @@ public class CatController : MonoBehaviour
     /// </summary>
     void CycleHouses()
     {
+        //remember if they are dangerous
+        if (hasInteracted)
+        {
+            isDanger[currentHouse] = designatedTerritory[currentHouse].Inhab.InhabiType != Inhabitant.InhabitantType.FRIENDLY;
+        }
+
         //Increment 
+        IncrementHouses();
+        //Skip dangerous houses once known 
+        while (isDanger[currentHouse])
+        {
+            IncrementHouses();
+        }
+
+        //reset interacted 
+        hasInteracted = false;
+        //Move to house point 
+        dest = designatedTerritory[currentHouse].CatPos;
+        SwitchState(CatAiStates.Moving);
+    }
+
+    void IncrementHouses()
+    {
         if (currentHouse < designatedTerritory.Length - 1)
         {
             currentHouse++;
@@ -755,7 +880,11 @@ public class CatController : MonoBehaviour
         {
             currentHouse = 0;
         }
+    }
 
+    void ResetCycle()
+    {
+        currentHouse = 0;
         //reset interacted 
         hasInteracted = false;
         //Move to house point 

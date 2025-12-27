@@ -18,8 +18,8 @@ public class TeleportTrigger : AudioHandler
         {
             CatController cat = other.gameObject.GetComponentInParent<CatController>();
 
-            //Teleport cat 
-            if (cat && !cat.teleporting)
+            //Teleport cat - NO AI for now. 
+            if (cat && !cat.teleporting && !cat.IsAiEnabled)
             {
                 cat.TeleportCatWithWait(teleportWait, teleportSpot);
                 PlayRandomSoundRandomPitch(teleportSounds, 1f);

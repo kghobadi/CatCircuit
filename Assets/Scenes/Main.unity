@@ -2471,6 +2471,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: colBoxSize.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: colBoxSize.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: foodScoreText
       value: 
       objectReference: {fileID: 0}

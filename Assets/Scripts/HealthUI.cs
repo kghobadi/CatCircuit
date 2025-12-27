@@ -19,6 +19,7 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private CatController linkedCat;
     [SerializeField] private bool isDead;
     public bool IsDead => isDead;
+    public Action OnCatDied;
 
     [SerializeField] private string healthAnimParam = "Health";
     [SerializeField] private int fullHP = 3;
@@ -142,6 +143,7 @@ public class HealthUI : MonoBehaviour
         {
             linkedCat.OverrideSetLives(lives);
         }
+        OnCatDied?.Invoke();
     }
 
     /// <summary>
@@ -199,6 +201,7 @@ public class HealthUI : MonoBehaviour
             isDead = false; 
             //anim set trigger resurrect 
             UpdateHealth(fullHP);
+            linkedCat.Resurrected();//RESURRECT!
         }
     }
 

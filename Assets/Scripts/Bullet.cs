@@ -35,11 +35,11 @@ public class Bullet : MonoBehaviour
             DamageCat(other.gameObject);
         }
         //Hit something else, destroy it 
-        else if(other.gameObject.CompareTag("House") || other.gameObject.CompareTag("Obstacle")
-                || other.gameObject.CompareTag("Car"))
-        {
-            Destroy(gameObject);
-        }
+        //else if(other.gameObject.CompareTag("House") || other.gameObject.CompareTag("Obstacle")
+        //        || other.gameObject.CompareTag("Car"))
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     /// <summary>

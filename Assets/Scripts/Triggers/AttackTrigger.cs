@@ -34,6 +34,11 @@ public class AttackTrigger : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        triggered = false;
+    }
+
     void DamageEnemy(GameObject obj)
     {
         //Prevent multiple triggers
@@ -47,10 +52,12 @@ public class AttackTrigger : MonoBehaviour
             if (Inhabitant && Inhabitant.trackingTarget)
             {
                 Inhabitant.TriggerAttack(obj);
+                triggered = true;
             }
             else if (Car && Car.moving)
             {
                 Car.Crash(obj);
+                triggered = true;
             }
         }
         //Cars can crash into dogs too 
@@ -59,8 +66,8 @@ public class AttackTrigger : MonoBehaviour
             if (Car && Car.moving)
             {
                 Car.Crash(obj);
+                triggered = true;
             }
         }
-        triggered = true;
     }
 }
