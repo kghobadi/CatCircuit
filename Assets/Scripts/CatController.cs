@@ -274,10 +274,19 @@ public class CatController : MonoBehaviour
             spawnPoint = transform.position + new Vector3(scratchSpawnDist, 0f, 0f);
         }
 
-        //Get spawnpoint based on direction of current movement 
-        Vector2 point = (Vector2)transform.position + (lastHeading * scratchSpawnDist);
-        spawnPoint = (Vector3)point;
-
+        //Get spawnpoint based on direction of current movement for player and AI
+        if(!AIactive && (moveForce.magnitude > 0))
+        {
+            Vector2 point = (Vector2)transform.position + (lastHeading * scratchSpawnDist);
+            spawnPoint = (Vector3)point;
+        }
+        else if(AIactive)
+        {
+            Vector2 dir = (targetCat.transform.position - transform.position).normalized;
+            Vector2 point = (Vector2)transform.position + (dir * scratchSpawnDist);
+            spawnPoint = (Vector3)point;
+        }
+       
         //Get prefab based on cat flip state 
         GameObject spawnPrefab = scratchPrefabL;
         if (spriteRenderer.flipX)
@@ -526,7 +535,11 @@ public class CatController : MonoBehaviour
                 {
                     StartFight(cat);
                 }
-
+                //Do a friendly behavior while inhab is present 
+                else if (designatedTerritory[currentHouse].Inhab.gameObject.activeSelf)
+                {
+                    FriendlyBehavior();
+                }
                 //Did the state end? 
                 if (stateTimer < 0)
                 {
