@@ -633,9 +633,9 @@ GameObject:
   - component: {fileID: 1867304395459942043}
   - component: {fileID: 1867304395459942022}
   - component: {fileID: 1867304395459942023}
-  - component: {fileID: 1867304395459942040}
   - component: {fileID: 314391789}
   - component: {fileID: 5150870085140112822}
+  - component: {fileID: 1322488246448434773}
   m_Layer: 3
   m_Name: CatThief
   m_TagString: Player
@@ -768,7 +768,7 @@ MonoBehaviour:
   currentScore: 0
   catConsumePos: {fileID: 5547138861209310791}
   purrHealStrength: 1
-  scratchSpawnDist: 0.25
+  scratchSpawnDist: 0.3
   scratchPrefabL: {fileID: 8351864557027186613, guid: 4dcccac0f9833c943b133c9ab5ae8216, type: 3}
   scratchPrefabR: {fileID: 3672580452675815728, guid: 4bc3dcd7f3093cd45a5aa140a5369745, type: 3}
   teleporting: 0
@@ -826,32 +826,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &1867304395459942040
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867304395459942044}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: -0.08}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
-    newSize: {x: 0.32, y: 0.32}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
-  m_EdgeRadius: 0
 --- !u!114 &314391789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,6 +891,22 @@ MonoBehaviour:
   pointsFaderR: {fileID: 8875863562083645625}
   pointsTextR: {fileID: 2240523317257414423}
   plugImgR: {fileID: 344966753363110206}
+--- !u!58 &1322488246448434773
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867304395459942044}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.02}
+  serializedVersion: 2
+  m_Radius: 0.14
 --- !u!1 &3696655242591606136
 GameObject:
   m_ObjectHideFlags: 0

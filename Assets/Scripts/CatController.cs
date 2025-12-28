@@ -20,7 +20,7 @@ public enum PlayerType
 
 public class CatController : MonoBehaviour
 {
-    private BoxCollider2D boxCollider2D;
+    private CircleCollider2D bodyCollider2D;
     // The Rewired player id of this character
     [SerializeField]
     private int playerId = 0;
@@ -100,7 +100,7 @@ public class CatController : MonoBehaviour
     {
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
-        boxCollider2D = GetComponent<BoxCollider2D>();
+        bodyCollider2D = GetComponent<CircleCollider2D>();
         healthUI = GetComponent<HealthUI>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         catBody = GetComponent<Rigidbody2D>();
@@ -266,8 +266,9 @@ public class CatController : MonoBehaviour
         SetActionText("HISS!");
     }
 
-    void Scratch()
+    void Scratch(Transform scratch = null)
     {
+        scratchTransform = scratch;
         catAudio.RandomScratch();
         OnCatAction.Invoke(CatActions.SCRATCH, this);
         
@@ -275,6 +276,7 @@ public class CatController : MonoBehaviour
         SetActionText("SCRATCH!");
     }
 
+    private Transform scratchTransform;
     /// <summary>
     /// Called by animation flag. 
     /// </summary>
@@ -295,7 +297,12 @@ public class CatController : MonoBehaviour
         }
         else if(AIactive)
         {
-            Vector2 dir = (targetCat.transform.position - transform.position).normalized;
+            Vector2 dir = lastHeading.normalized;
+            if (scratchTransform != null)
+            {
+                dir = (scratchTransform.position - transform.position).normalized;
+            }
+          
             Vector2 point = (Vector2)transform.position + (dir * scratchSpawnDist);
             spawnPoint = (Vector3)point;
         }
@@ -385,7 +392,7 @@ public class CatController : MonoBehaviour
     {
         catLives = lives;
         UpdateLivesText();
-        boxCollider2D.enabled = false;
+        bodyCollider2D.enabled = false;
         if (AIactive)
         {
             CycleHouses();
@@ -397,7 +404,7 @@ public class CatController : MonoBehaviour
     /// </summary>
     public void Resurrected()
     {
-        boxCollider2D.enabled = true;
+        bodyCollider2D.enabled = true;
     }
 
     /// <summary>
@@ -656,7 +663,7 @@ public class CatController : MonoBehaviour
                 if (!targetCat.IsDead)
                 {
                     if (!CatAudio.myAudioSource.isPlaying)
-                        Scratch();
+                        Scratch(targetCat.transform);
                     //Keep fighting within these dists 
                     if (distFromCat > fightDist && distFromOrigDefPos < returnDist)
                     {
@@ -672,6 +679,7 @@ public class CatController : MonoBehaviour
                 }
                 else
                 {
+                    targetCat = null;
                     CycleHouses(); // move back to house cycle 
                 }
                
@@ -862,7 +870,7 @@ public class CatController : MonoBehaviour
                     GuidedMove(package.transform.position);
                     //scratch package 
                     if (!CatAudio.myAudioSource.isPlaying)
-                        Scratch();
+                        Scratch(package.transform);
                 }
             }
         }

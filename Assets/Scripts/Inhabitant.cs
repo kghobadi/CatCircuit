@@ -439,7 +439,7 @@ public class Inhabitant : AudioHandler
         //trigger attack on said cat. 
         inhabitantAnim.SetTrigger("attack");
         //do something 
-        Debug.Log("hit cat or player!");
+        Debug.Log("Inhabitant bit cat or player!");
         Animator enemyAnimator = obj.GetComponent<Animator>();
         if (enemyAnimator == null)
         {
