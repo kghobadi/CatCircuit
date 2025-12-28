@@ -43,6 +43,7 @@ public class CatController : MonoBehaviour
     }
 
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer collarSprite;
     public bool IsFlipped => spriteRenderer.flipX;
     private Rigidbody2D catBody;
     private Animator catAnimator;
@@ -84,6 +85,16 @@ public class CatController : MonoBehaviour
     [SerializeField] private float scratchSpawnDist = 0.3f;
     [SerializeField] private GameObject scratchPrefabL;
     [SerializeField] private GameObject scratchPrefabR;
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (collarSprite)
+        {
+            collarSprite.color = playerColor;
+        }
+    }
+#endif
 
     private void Awake()
     {
@@ -199,12 +210,14 @@ public class CatController : MonoBehaviour
         if (force.x > 0)
         {
             spriteRenderer.flipX = true;
+            collarSprite.flipX = true;
             catConsumePos.localPosition = new Vector3(catConsumePos.localPosition.x * -1, catConsumePos.localPosition.y,
                 catConsumePos.localPosition.z);
         }
         else if(force.x < 0)
         {
             spriteRenderer.flipX = false;
+            collarSprite.flipX = false;
             catConsumePos.localPosition = new Vector3(catConsumePos.localPosition.x * -1, catConsumePos.localPosition.y,
                 catConsumePos.localPosition.z);
         }

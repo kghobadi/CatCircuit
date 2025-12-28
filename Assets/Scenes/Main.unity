@@ -1495,6 +1495,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: collarSprite
+      value: 
+      objectReference: {fileID: 707459104}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: alignPositive
       value: 1
       objectReference: {fileID: 0}
@@ -1658,6 +1662,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.r
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
       value: 2
@@ -1668,6 +1684,11 @@ PrefabInstance:
       objectReference: {fileID: 1439140611}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+--- !u!212 &707459104 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+  m_PrefabInstance: {fileID: 707459103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &774240750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8055642642299180543, guid: 96b76d7d2b6cd514f806000c8f8e50ab, type: 3}
@@ -2479,6 +2500,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: collarSprite
+      value: 
+      objectReference: {fileID: 1143822294}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: foodScoreText
       value: 
       objectReference: {fileID: 0}
@@ -2610,6 +2635,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.b
+      value: 0.07058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
       value: 2
@@ -2620,6 +2657,11 @@ PrefabInstance:
       objectReference: {fileID: 1724691993}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+--- !u!212 &1143822294 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+  m_PrefabInstance: {fileID: 1143822293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1170522615
 GameObject:
   m_ObjectHideFlags: 0
@@ -4351,6 +4393,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: collarSprite
+      value: 
+      objectReference: {fileID: 1842522637}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: alignPositive
       value: 1
       objectReference: {fileID: 0}
@@ -4514,6 +4560,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.g
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
       value: 2
@@ -4524,6 +4582,11 @@ PrefabInstance:
       objectReference: {fileID: 533583463}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+--- !u!212 &1842522637 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+  m_PrefabInstance: {fileID: 1842522636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1845711101 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
@@ -5275,6 +5338,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1684285623}
     - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: collarSprite
+      value: 
+      objectReference: {fileID: 1867304394336772408}
+    - target: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: foodScoreText
       value: 
       objectReference: {fileID: 1684285622}
@@ -5390,6 +5457,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5150870085140112822, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
       propertyPath: healthUiAnims.Array.size
       value: 2
@@ -5400,6 +5475,11 @@ PrefabInstance:
       objectReference: {fileID: 2062739633}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+--- !u!212 &1867304394336772408 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2473187713981052841, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
+  m_PrefabInstance: {fileID: 1867304394336772407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3672580453289589874
 PrefabInstance:
   m_ObjectHideFlags: 0
