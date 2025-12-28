@@ -13,12 +13,16 @@ public class PressAnyKey : MonoBehaviour
     public int [] playerIds ;
     private Player[] player; // The Rewired Player
 
+    [SerializeField]
+    private bool useParticularKey;
+    [SerializeField] private string keyToPress = "";
     public int sceneToLoad;
     public bool loadsScene;
     [SerializeField] private float loadWait = 0f;
     public FadeUiRevamped[] fadeObjects;
     
     public UnityEvent OnPress;
+    public bool hasLoaded; 
     
     void Start()
     {
@@ -35,7 +39,12 @@ public class PressAnyKey : MonoBehaviour
     {
         for (int i = 0; i < player.Length; i++)
         {
-            if (player[i].GetAnyButton())
+            bool pressAnyKey = player[i].GetAnyButton();
+            if (useParticularKey)
+            {
+                pressAnyKey = player[i].GetButtonDown(keyToPress);
+            }
+            if(pressAnyKey && !hasLoaded)
             {
                 if (loadsScene)
                 {
@@ -48,6 +57,8 @@ public class PressAnyKey : MonoBehaviour
                     fade.FadeOut();
                 }
                 OnPress.Invoke();
+
+                hasLoaded = true;
             }
         }
     }

@@ -25,6 +25,8 @@ public class CatController : MonoBehaviour
     [SerializeField]
     private int playerId = 0;
     private Player player; // The Rewired Player
+    string pJoined => "Player" + playerId.ToString() + "_joined"; //did the player join?
+    string pRemoved => "Player" + playerId.ToString() + "_removed"; //were they removed?
     public int PlayerID => playerId; // check for player id 
     [SerializeField]
     private PlayerInputActionScriptable myPlayerInputActions;
@@ -111,6 +113,17 @@ public class CatController : MonoBehaviour
     {
         catState = CatStates.IDLE;
         actionText.enabled = false;
+
+        //Disable player for the round 
+        if(PlayerPrefs.GetString(pRemoved) == "true")
+        {
+            gameObject.SetActive(false);
+        }
+        //Disable AI 
+        else if (PlayerPrefs.GetString(pJoined) == "true")
+        {
+            timeToActivateAI *= 3f;
+        }
         
         //Add cat listeners 
         for (int i = 0; i < GameManager.Instance.AllCats.Length; i++) 
