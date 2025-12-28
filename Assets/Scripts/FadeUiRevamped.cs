@@ -171,11 +171,13 @@ public class FadeUiRevamped : MonoBehaviour
 
         if (fadeInWait > 0)
         {
-            StartCoroutine(WaitToFadeIn());
+            if (gameObject.activeSelf)
+                StartCoroutine(WaitToFadeIn());
         }
         else
         {
-            StartCoroutine(FadeInOverTime());
+            if (gameObject.activeSelf)
+                StartCoroutine(FadeInOverTime());
         }
     }
     
@@ -188,11 +190,13 @@ public class FadeUiRevamped : MonoBehaviour
 
         if (fadeOutWait > 0)
         {
-            StartCoroutine(WaitToFadeOut());
+            if (gameObject.activeSelf)
+                StartCoroutine(WaitToFadeOut());
         }
         else
         {
-            StartCoroutine(FadeOutOverTime());
+            if(gameObject.activeSelf)
+                StartCoroutine(FadeOutOverTime());
         }
     }
 
