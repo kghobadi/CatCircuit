@@ -122,7 +122,7 @@ public class CatController : MonoBehaviour
         //Disable AI 
         else if (PlayerPrefs.GetString(pJoined) == "true")
         {
-            timeToActivateAI *= 3f;
+            timeToActivateAI = timeToActivateWhileJoined;
         }
         
         //Add cat listeners 
@@ -505,6 +505,7 @@ public class CatController : MonoBehaviour
     [Header("Cat AI")] 
     [SerializeField] private bool useAI;
     [SerializeField] private float timeToActivateAI = 5f;
+    [SerializeField] private float timeToActivateWhileJoined = 15f;
     [SerializeField] private bool AIactive;
     public bool IsAiEnabled => AIactive;
     private float inputTimer;
