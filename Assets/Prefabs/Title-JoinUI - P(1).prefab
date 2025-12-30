@@ -355,7 +355,7 @@ MonoBehaviour:
   fadeState: 0
   shownAtStart: 1
   startAlpha: 1
-  keepActive: 1
+  keepActive: 0
   fadeInAmount: 1
   fadeInDuration: 1
   fadeInWait: 0

@@ -774,6 +774,7 @@ MonoBehaviour:
   teleporting: 0
   useAI: 0
   timeToActivateAI: 5
+  timeToActivateWhileJoined: 15
   AIactive: 0
   designatedTerritory: []
   isDanger: 
@@ -906,7 +907,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.14
+  m_Radius: 0.12
 --- !u!1 &3696655242591606136
 GameObject:
   m_ObjectHideFlags: 0

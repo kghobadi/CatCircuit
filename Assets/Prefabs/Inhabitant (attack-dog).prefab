@@ -180,9 +180,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   colBoxSize: {x: 0.1, y: 0.1}
-  angleThreshold: 35
+  angleThreshold: 30
   colCheckDist: 0.15
-  steeringForce: 15
+  steeringForce: 5
 --- !u!82 &1024322760585241032
 AudioSource:
   m_ObjectHideFlags: 0
@@ -337,7 +337,6 @@ GameObject:
   - component: {fileID: 3595587752457816890}
   - component: {fileID: 155740623913851094}
   - component: {fileID: 2786350369731781060}
-  - component: {fileID: 158606585329547304}
   m_Layer: 0
   m_Name: AttackTrigger
   m_TagString: Attack
@@ -402,24 +401,3 @@ MonoBehaviour:
   Car: {fileID: 0}
   triggersOnce: 1
   triggered: 0
---- !u!50 &158606585329547304
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4535514541637111926}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7

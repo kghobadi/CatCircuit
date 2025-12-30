@@ -54,8 +54,8 @@ public class PressAnyKey : MonoBehaviour
                 //fade out all fade objs 
                 foreach (var fade in fadeObjects)
                 {
-                    fade.gameObject.SetActive(true);
-                    fade.FadeOut();
+                    if(gameObject.activeSelf)
+                        fade.FadeOut();
                 }
                 OnPress.Invoke();
 

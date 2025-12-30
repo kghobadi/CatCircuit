@@ -187,7 +187,7 @@ public class Inhabitant : AudioHandler
             //moves towards cat target
             if (attackType == AttackType.Chase)
             {
-                GuidedMove(catTarget.transform.position, false); //TODO guidance is currently causing issues for dogs 
+                GuidedMove(catTarget.transform.position); //TODO guidance is currently causing issues for dogs 
             }
             else if (attackType == AttackType.Shoot)
             {

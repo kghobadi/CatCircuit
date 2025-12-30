@@ -30,7 +30,7 @@ public class AttackTrigger : MonoBehaviour
     {
         if (triggersOnce)
         {
-            DamageEnemy(collision.gameObject);
+            DamageEnemy(collision.gameObject, true);
         }
     }
 
@@ -39,10 +39,10 @@ public class AttackTrigger : MonoBehaviour
         triggered = false;
     }
 
-    void DamageEnemy(GameObject obj)
+    void DamageEnemy(GameObject obj, bool check = false)
     {
         //Prevent multiple triggers
-        if (triggersOnce && triggered)
+        if (check && triggersOnce && triggered)
         {
             return;
         }
