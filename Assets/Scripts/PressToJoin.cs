@@ -39,13 +39,21 @@ public class PressToJoin : MonoBehaviour
     {
         string playerName = "P" + (playerId + 1).ToString();
         gameObject.name = "House (" + playerName + ")";
-        pJoinedUI.gameObject.name = pJoinedUI.gameObject.name.Replace("P1", playerName);
-        pRemovedUI.gameObject.name = pRemovedUI.gameObject.name.Replace("P1", playerName);
-        actionText.gameObject.name = actionText.gameObject.name.Replace("P1", playerName);
-        pJoinedUI.gameObject.name = pJoinedUI.gameObject.name.Replace("P1", playerName);
-        pJoinedText.gameObject.name = pJoinedText.gameObject.name.Replace("P1", playerName);
-        pJoinedText.color = collar.color;
-        actionText.color = collar.color;
+        if(pJoinedUI)
+            pJoinedUI.gameObject.name = pJoinedUI.gameObject.name.Replace("P1", playerName);
+        if(pRemovedUI)
+            pRemovedUI.gameObject.name = pRemovedUI.gameObject.name.Replace("P1", playerName);
+        if (actionText)
+        {
+            actionText.gameObject.name = actionText.gameObject.name.Replace("P1", playerName);
+            actionText.color = collar.color;
+        }
+        if (pJoinedText)
+        {
+            pJoinedText.gameObject.name = pJoinedText.gameObject.name.Replace("P1", playerName);
+            pJoinedText.text = pJoinedText.text.Replace("P1", playerName);
+            pJoinedText.color = collar.color;
+        }
     }
 #endif
 
@@ -58,6 +66,10 @@ public class PressToJoin : MonoBehaviour
         //start off uI 
         pJoinedUI.gameObject.SetActive(false);
         pRemovedUI.gameObject.SetActive(true);
+
+        //Reset playerprefs
+        PlayerPrefs.SetString(pRemoved, "false");
+        PlayerPrefs.SetString(pJoined, "false");
     }
 
     // Detect input 
@@ -70,6 +82,45 @@ public class PressToJoin : MonoBehaviour
         else if (player.GetButtonDown(removeKey))
         {
             PlayerRemoved();
+        }
+
+        InputTests();
+    }
+
+    /// <summary>
+    /// Tests basic player inputs. 
+    /// </summary>
+    void InputTests()
+    {
+        float horizontal = player.GetAxis("MoveHorizontal");
+        float vertical = player.GetAxis("MoveVertical");
+
+        if(vertical != 0 ||  horizontal != 0)
+        {
+            Debug.LogFormat($"Player {playerId} move is = ({horizontal}, {vertical})");
+        }
+
+        TestButtonAction("Meow");
+        TestButtonAction("Purr");
+        TestButtonAction("Hiss");
+        TestButtonAction("Scratch");
+        TestButtonAction("Restart");
+    }
+
+    private string lastAction;
+    private string current;
+    void TestButtonAction(string button)
+    {
+        if (player.GetButtonDown(button))
+        {
+
+            lastAction = current;
+            current = button;
+            Debug.LogFormat("Player {0} pressed {1}", playerId.ToString(), button);
+            if (button == "Hiss")
+                Hiss();
+            else if (button == "Scratch")
+                Scratch();
         }
     }
 
@@ -92,10 +143,10 @@ public class PressToJoin : MonoBehaviour
         playerJoined = false;
         playerRemoved = true;
         cat.gameObject.SetActive(false);
-        catAudio.RandomScratch();
         pJoinedUI.gameObject.SetActive(false);
         pRemovedUI.gameObject.SetActive(true);
         //actionText.gameObject.SetActive(false);
+        Purr();
 
         PlayerPrefs.SetString(pRemoved, "true");
         PlayerPrefs.SetString(pJoined, "false");
@@ -103,11 +154,37 @@ public class PressToJoin : MonoBehaviour
 
     void Meow()
     {
+        if (catAudio.myAudioSource.isPlaying && lastAction == "Meow")
+            return;
+        catAudio.RandomMeow();
+        SetActionText("MEOW!");
+    }
+
+    void Purr()
+    {
         if (catAudio.myAudioSource.isPlaying)
             return;
 
-        catAudio.RandomMeow();
-        SetActionText("MEOW!");
+        catAudio.RandomPurr();
+        SetActionText("PURR!");
+    }
+
+    void Hiss()
+    {
+        if (catAudio.myAudioSource.isPlaying)
+            return;
+
+        catAudio.RandomHiss();
+        SetActionText("HISS!");
+    }
+
+    void Scratch()
+    {
+        if (catAudio.myAudioSource.isPlaying)
+            return;
+
+        catAudio.RandomScratch();
+        SetActionText("SCRATCH!");
     }
 
     void SetActionText(string message)
