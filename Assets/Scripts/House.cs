@@ -10,7 +10,8 @@ public class House : MonoBehaviour
     private float distFromPlayer;
     
     [SerializeField] private SpriteRenderer house;
-    [SerializeField] private SpriteRenderer houseZone;
+    [SerializeField] private SpriteRenderer houseColor;
+    [SerializeField] private HouseTrigger houseZone;
 
     /// <summary>
     /// Allows Inhabitant to determine what the house appears as. 
@@ -25,12 +26,15 @@ public class House : MonoBehaviour
     [Tooltip("Stat for alignment to players")]
     public float[] Alignments;
     private int currentAlignment;
+    public int CurrentAlignmentIndex => currentAlignment;
     public CatController.CatActions favoriteAction;
     public CatController.CatActions hatedAction;
 
     //Could think more about how to assign points. 
     public int totalPrize; //determined when randomized
     private bool[] catPlayersPresent;
+
+    public bool[] IsPlayerPresent => catPlayersPresent;
     //over time could do something with the houses changing type?  
     [SerializeField] private HouseAudio houseAudio;
     [Header("Inhabitants")] 
@@ -65,7 +69,8 @@ public class House : MonoBehaviour
             cat.OnCatAction.AddListener(CheckCatAction);
         }
         //Reset house to neutral color. 
-        houseZone.color = new Color(1, 1, 1, 0.05f); 
+        houseColor.color = new Color(1, 1, 1, 0.05f);
+        houseZone.HouseZone.color = houseColor.color;
         RandomizeInhabitant();
     }
 
@@ -105,10 +110,10 @@ public class House : MonoBehaviour
             transform.parent.gameObject.name + "_" + house.sprite.name + "_" + inhabitantClone.gameObject.name;
         //update territory zone scale 
         if(myInhabitant.HomeData.zoneScale != Vector3.zero)
-            transform.localScale = myInhabitant.HomeData.zoneScale;
+            houseColor.transform.localScale = myInhabitant.HomeData.zoneScale;
         if (myInhabitant.HomeData.zonePos != Vector3.zero)
         {
-            transform.localPosition = myInhabitant.HomeData.zonePos;
+            houseColor.transform.localPosition = myInhabitant.HomeData.zonePos;
         }
         
         //Attach UI to house rather than myself
@@ -137,40 +142,41 @@ public class House : MonoBehaviour
         }
     }
 
-    #region Trigger Logic
-
+    /// <summary>
+    /// Gets distance from a cat player. 
+    /// </summary>
+    /// <param name="cat"></param>
+    /// <returns></returns>
     float GetDistanceFromPlayer(CatController cat)
     {
         distFromPlayer = Vector3.Distance(transform.position, cat.transform.position);
         return distFromPlayer;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    /// <summary>
+    /// Is a cat present? 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="present"></param>
+    public void SetPlayerPresent(int id, bool present)
     {
-        if (other.gameObject.CompareTag("Player"))
+        catPlayersPresent[id] = present;
+        //Check if cat gets/loses territory bonus
+        if (currentAlignment == id && present)
         {
-            CatController cat = other.gameObject.GetComponent<CatController>();
-            if (cat)
+            //Must be zone enabled to add 
+            if (houseZone.HouseZone.enabled)
             {
-                catPlayersPresent[cat.PlayerID] = true;
-            }
-            
-        }
-    }
-    
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            CatController cat = other.gameObject.GetComponent<CatController>();
-            if (cat)
-            {
-                catPlayersPresent[cat.PlayerID] = false;
+                GameManager.Instance.AllCats[id].currentSpeedBoost += GameManager.Instance.AllCats[id].boostPerHouse;
             }
         }
+        else if (currentAlignment == id && !present)
+        {
+            //Must be more than 0 to remove 
+            if(houseZone.HouseZone.enabled && GameManager.Instance.AllCats[id].currentSpeedBoost > 0)
+                GameManager.Instance.AllCats[id].currentSpeedBoost -= GameManager.Instance.AllCats[id].boostPerHouse;
+        }
     }
-
-    #endregion
 
     /// <summary>
     /// Receives input from a player cat action.
@@ -295,15 +301,19 @@ public class House : MonoBehaviour
         if (Alignments[currentAlignment] == 0)
         {
             //Reset house to neutral color. 
-            houseZone.color = new Color(1, 1, 1, 0.05f); 
+            houseColor.color = new Color(1, 1, 1, 0.05f); 
         }
         //We're moving towards that Player color 
         else if (Alignments[currentAlignment] > 0)
         {
             //Pull from player color 
             Color playerColor = GameManager.Instance.AllCats[currentAlignment].PlayerColor;
-            houseZone.color = new Color(playerColor.r, playerColor.g, playerColor.b,  Mathf.Abs(Alignments[currentAlignment]) / 10f); 
+            houseColor.color = new Color(playerColor.r, playerColor.g, playerColor.b,  Mathf.Abs(Alignments[currentAlignment]) / 10f); 
         }
+        //update zone - lower opacity 
+        Color zone = new Color(houseColor.color.r, houseColor.color.g, houseColor.color.b, houseColor.color.a / 2f);
+        houseZone.HouseZone.color = zone;
+        houseZone.UpdateZoneScale(Alignments[currentAlignment] , GameManager.Instance.AlignmentRange.y);
     }
 
     /// <summary>

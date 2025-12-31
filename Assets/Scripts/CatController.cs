@@ -50,6 +50,8 @@ public class CatController : MonoBehaviour
     private Rigidbody2D catBody;
     private Animator catAnimator;
     [SerializeField] private float moveSpeed;
+    public float currentSpeedBoost = 0;
+    public float boostPerHouse = 0.05f;
     private float horizontalMove;
     private float verticalMove;
     private Vector2 moveForce;
@@ -75,7 +77,8 @@ public class CatController : MonoBehaviour
     [SerializeField] private PlayerUI playerUI;
     [SerializeField] private int catLives = 9;
     [SerializeField] private int currentScore = 000;
-    
+
+
     [SerializeField] private Transform catConsumePos;
     public Transform ConsumePos => catConsumePos;
     public int PlayerScore => currentScore;
@@ -201,7 +204,7 @@ public class CatController : MonoBehaviour
         //TODO cats shouldn't move in death - but be moved like a respawning Pacman
         if (!AIactive)
         {
-            moveForce = new Vector2(moveSpeed * horizontalMove, moveSpeed * verticalMove);
+            moveForce = new Vector2((moveSpeed + currentSpeedBoost) * horizontalMove, (moveSpeed + currentSpeedBoost) * verticalMove);
             catBody.AddForce(moveForce, ForceMode2D.Impulse);
             CheckAnimationState(moveForce);
             CheckFlipState(moveForce);
@@ -595,6 +598,9 @@ public class CatController : MonoBehaviour
         //No AI when dead 
         if (healthUI.IsDead)
         {
+            //Move towards next house point 
+            transform.position = Vector3.Lerp(transform.position, designatedTerritory[currentHouse].CatPos.position,
+                moveSpeed );
             return;
         }
 
@@ -697,7 +703,8 @@ public class CatController : MonoBehaviour
                 if (dest != null)
                 {
                     float distance = Vector2.Distance(dest.transform.position, transform.position);
-                    if (distance < stoppingDist)
+                    //If we are close enough to pos or House tells us we are within meowing distance 
+                    if (distance < stoppingDist || designatedTerritory[currentHouse].IsPlayerPresent[playerId]) 
                     {
                         FriendlyBehavior();
                         //Think again 
@@ -837,7 +844,7 @@ public class CatController : MonoBehaviour
         //If we will collide with something, redirect us 
         if(useGuidance)
             CollisionCheck(autoDir);
-        catBody.AddForce(moveSpeed * autoDir,  ForceMode2D.Impulse);
+        catBody.AddForce((moveSpeed + currentSpeedBoost) * autoDir,  ForceMode2D.Impulse);
         //Store last substantive heading 
         if(autoDir.magnitude > 0)
         {

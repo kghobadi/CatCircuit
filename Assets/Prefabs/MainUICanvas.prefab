@@ -597,7 +597,6 @@ GameObject:
   - component: {fileID: 2486776291958353059}
   - component: {fileID: 828618215441166946}
   - component: {fileID: 5012855661533544143}
-  - component: {fileID: 5563686036431867870}
   m_Layer: 5
   m_Name: Current#1Text (TMP)
   m_TagString: Untagged
@@ -736,31 +735,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
---- !u!114 &5563686036431867870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622719451731116318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3cd13b1b64d4964fad324a0d9a83ce5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beginOnStart: 0
-  timeText:
-  - {fileID: 828618215441166946}
-  timing: 1
-  countdownTime: 60
-  mainGameTimer: 0
-  timerSource: {fileID: 0}
-  useMinutesSeconds: 1
-  zeroString: GAME OVER!
-  emptyText: 
-  OnTimerComplete:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1671854266470603727
 GameObject:
   m_ObjectHideFlags: 0
