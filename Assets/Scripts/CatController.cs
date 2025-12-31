@@ -402,9 +402,13 @@ public class CatController : MonoBehaviour
 
     void PushFromHiss(CatController enemyCat)
     {
-        //push me away!
-        Vector3 dir = transform.position - enemyCat.transform.position;
-        catBody.AddForce(hissPushForce * dir,  ForceMode2D.Impulse);
+        //Cannot push dead cats. 
+        if (!enemyCat.IsDead)
+        {
+            //push me away!
+            Vector3 dir = transform.position - enemyCat.transform.position;
+            catBody.AddForce(hissPushForce * dir,  ForceMode2D.Impulse);
+        }
     }
     
     /// <summary>
