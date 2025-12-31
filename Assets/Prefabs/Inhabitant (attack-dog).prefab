@@ -128,6 +128,7 @@ MonoBehaviour:
   voiceCounter: 0
   voices: []
   currentSound: 0
+  myHouseData: {fileID: 11400000, guid: 4bf9d74bc39115544a9d9084bfa107c4, type: 2}
   inhabitantType: 1
   spawnOffset: {x: 0, y: -0.19, z: 0}
   mailChance: 50

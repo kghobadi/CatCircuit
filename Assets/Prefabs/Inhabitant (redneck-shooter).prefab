@@ -128,9 +128,13 @@ MonoBehaviour:
   voiceCounter: 0
   voices: []
   currentSound: 0
+  myHouseData: {fileID: 11400000, guid: e8f7ac7799effaa4d8ad41133bc90c63, type: 2}
   inhabitantType: 1
   spawnOffset: {x: 0, y: -0.19, z: 0}
   mailChance: 50
+  multiplierUI: {fileID: 0}
+  faceResponse: {fileID: 0}
+  multiText: {fileID: 0}
   foodAmtRange: {x: 10, y: 50}
   foodCooldownWait: {x: 5, y: 10}
   fetchWait: {x: 1, y: 3}
@@ -172,7 +176,14 @@ MonoBehaviour:
   hurtSounds:
   - {fileID: 8300000, guid: 0c96ca3337c7cb34ba6750f1f8bb4c90, type: 3}
   - {fileID: 8300000, guid: f4998b52515fa994e9b2ef9950a7e607, type: 3}
-  OverrideMultiplier: -1
+  collisionTags: []
+  colMask:
+    serializedVersion: 2
+    m_Bits: 0
+  colBoxSize: {x: 0.25, y: 0.25}
+  angleThreshold: 30
+  colCheckDist: 0.1
+  steeringForce: 5
 --- !u!82 &1024322760585241032
 AudioSource:
   m_ObjectHideFlags: 0

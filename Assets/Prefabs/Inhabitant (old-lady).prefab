@@ -127,6 +127,7 @@ MonoBehaviour:
   voiceCounter: 0
   voices: []
   currentSound: 0
+  myHouseData: {fileID: 11400000, guid: 2980a37163e1b9f408be94e8bef4d5cf, type: 2}
   inhabitantType: 0
   spawnOffset: {x: 0, y: 0, z: 0}
   mailChance: 75
@@ -166,6 +167,14 @@ MonoBehaviour:
   trackSounds: []
   attackSounds: []
   hurtSounds: []
+  collisionTags: []
+  colMask:
+    serializedVersion: 2
+    m_Bits: 0
+  colBoxSize: {x: 0.25, y: 0.25}
+  angleThreshold: 30
+  colCheckDist: 0.1
+  steeringForce: 5
 --- !u!82 &1024322760585241032
 AudioSource:
   m_ObjectHideFlags: 0

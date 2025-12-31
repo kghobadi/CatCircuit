@@ -785,6 +785,10 @@ MonoBehaviour:
   fightDist: 0.5
   returnDist: 1
   stoppingDist: 0.1
+  isAggressive: 0
+  aggressionChance: 45
+  fightScratchChance: 7
+  hitChanceRange: {x: 5, y: 7}
   origDefendPos: {fileID: 5973425828632924800}
   scratchTags:
   - Cat

@@ -12,6 +12,16 @@ public class House : MonoBehaviour
     [SerializeField] private SpriteRenderer house;
     [SerializeField] private SpriteRenderer houseZone;
 
+    /// <summary>
+    /// Allows Inhabitant to determine what the house appears as. 
+    /// </summary>
+    /// <param name="houseSpr"></param>
+    void UpdateHouseSprite(Sprite houseSpr)
+    {
+        if(houseSpr != null)
+            house.sprite = houseSpr;
+    }
+
     [Tooltip("Stat for alignment to players")]
     public float[] Alignments;
     private int currentAlignment;
@@ -89,7 +99,18 @@ public class House : MonoBehaviour
         myInhabitant = inhabitantClone.GetComponent<Inhabitant>();
         myInhabitant.transform.localPosition = myInhabitant.SpawnOffset;
         myInhabitant.Home = this;
+        UpdateHouseSprite(myInhabitant.HomeData.homeSprite);
         inhabitantClone.SetActive(false);
+        //rename house for ease 
+        transform.parent.gameObject.name = 
+            transform.parent.gameObject.name + "_" + house.sprite.name + "_" + inhabitantClone.gameObject.name;
+        //update territory zone scale 
+        if(myInhabitant.HomeData.zoneScale != Vector3.zero)
+            transform.localScale = myInhabitant.HomeData.zoneScale;
+        if (myInhabitant.HomeData.zonePos != Vector3.zero)
+        {
+            transform.localPosition = myInhabitant.HomeData.zonePos;
+        }
     }
 
     /// <summary>

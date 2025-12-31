@@ -159,7 +159,7 @@ public class CatController : MonoBehaviour
             {
                 Purr();
             }
-            if (player.GetButtonDown("Hiss") )
+            if (player.GetButtonDown("Hiss")) // should there be other restrictions on hiss?
             {
                 Hiss();
             }
@@ -186,6 +186,7 @@ public class CatController : MonoBehaviour
                         {
                             AIactive = true;
                             isDanger = new bool[designatedTerritory.Length];
+                            DetermineCatAggression();//redetermine aggression 
                             SwitchState(CatAiStates.Thinking);
                         }
                     }
@@ -290,6 +291,15 @@ public class CatController : MonoBehaviour
     }
 
     private Transform scratchTransform;
+
+    public void TriggeredScratch()
+    {
+        if (catAudio.myAudioSource.isPlaying)
+        {
+            return;
+        }
+        SpawnScratchFx();
+    }
     /// <summary>
     /// Called by animation flag. 
     /// </summary>
@@ -536,6 +546,15 @@ public class CatController : MonoBehaviour
     [SerializeField] private float returnDist;
     [SerializeField]
     private float stoppingDist = 0.25f;
+
+    [Tooltip("Determined by the values below")]
+    [SerializeField] private bool isAggressive;
+    [Tooltip("Rolls to determine if this will be an aggressive cat or not.")]
+    [SerializeField] private float aggressionChance = 40f;
+    [Tooltip("This is an aggressive cat's hit chance when fights begin.")]
+    [SerializeField] private float fightScratchChance = 7f;
+    [Tooltip("This is an aggressive cat's hit chance when fights begin.")]
+    [SerializeField] private Vector2 hitChanceRange = new Vector2(5, 7);
     [SerializeField]
     private Transform origDefendPos; // tracks pos where the fighting started - so I can return 
 
@@ -543,6 +562,23 @@ public class CatController : MonoBehaviour
     private float distFromHouse;
     private FoodItem next;
 
+    /// <summary>
+    /// Determines whether this cat will behave aggressively and their effective hit chance. 
+    /// </summary>
+    void DetermineCatAggression()
+    {
+        float aggressive = Random.Range(0f, 100f);
+        if (aggressive < aggressionChance)
+        {
+            isAggressive = true;
+            fightScratchChance = Random.Range(hitChanceRange.x, hitChanceRange.y);
+        }
+        else
+        {
+            isAggressive = false;
+        }
+    }
+    
     void StateMachine()
     {
         stateTimer -= Time.deltaTime;
@@ -677,7 +713,25 @@ public class CatController : MonoBehaviour
                 if (!targetCat.IsDead)
                 {
                     if (!CatAudio.myAudioSource.isPlaying)
+                    {
                         Scratch(targetCat.transform);
+                    }
+                    else
+                    {
+                        //Wow this single behavior completely changes the pace of the game and the AI. it is aggression in pure form. 
+                        //A cat now has to roll to even BE aggressive. DetermineAggression()
+                        if (isAggressive)
+                        {
+                            //roll for hit chance 
+                            float randomHitChance = Random.Range(0f, 100f);
+                            //Todo could also do anim check for scratch as alternative 
+                            if (randomHitChance < fightScratchChance)
+                            {
+                                Scratch(targetCat.transform);
+                            }
+                        }
+                    }
+                        
                     //Keep fighting within these dists 
                     if (distFromCat > fightDist && distFromOrigDefPos < returnDist)
                     {
@@ -693,8 +747,21 @@ public class CatController : MonoBehaviour
                 }
                 else
                 {
-                    targetCat = null;
-                    CycleHouses(); // move back to house cycle 
+                    if (isAggressive)
+                    {
+                        //food check assuming I won
+                        next = CheckForFoodItems();
+                        if (next != null)
+                        {
+                            dest = next.transform;
+                            SwitchState(CatAiStates.Moving);
+                        }
+                    }
+                    else
+                    {
+                        targetCat = null;
+                        CycleHouses(); // move back to house cycle, leaving the player to collect their stuff 
+                    }
                 }
                
 

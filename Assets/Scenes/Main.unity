@@ -376,7 +376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345861267449371934, guid: afd53944db5e8224cb5324b785771968, type: 3}
       propertyPath: m_Name
-      value: Mailbox (3)
+      value: Mailbox (0R)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd53944db5e8224cb5324b785771968, type: 3}
@@ -446,10 +446,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 195532236}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 1
       objectReference: {fileID: 0}
@@ -459,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseDANGEROUS
+      value: House(0,2)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -510,11 +506,6 @@ PrefabInstance:
 --- !u!4 &195532235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 195532234}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &195532236 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 195532234}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &212131144
@@ -648,7 +639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseFRIENDLY
+      value: House(3,2)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -831,10 +822,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 314337327}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 1
       objectReference: {fileID: 0}
@@ -844,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseDANGEROUS
+      value: House(2,1)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -892,11 +879,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
---- !u!212 &314337327 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 314337326}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &324347817 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1867304395459942022, guid: 3c0ccabd13a6f4d4bb5c8de617a46021, type: 3}
@@ -1008,10 +990,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 436756140}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 2
       objectReference: {fileID: 0}
@@ -1021,7 +999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseINQUISITIVE
+      value: House(3,0)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -1072,11 +1050,6 @@ PrefabInstance:
 --- !u!4 &436756139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 436756138}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &436756140 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 436756138}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &436756142 stripped
@@ -1352,7 +1325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345861267449371934, guid: afd53944db5e8224cb5324b785771968, type: 3}
       propertyPath: m_Name
-      value: Mailbox (4)
+      value: Mailbox (1R)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd53944db5e8224cb5324b785771968, type: 3}
@@ -2108,7 +2081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseFRIENDLY
+      value: House(3,1)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -2174,7 +2147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseFRIENDLY
+      value: House(1,2)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -3253,10 +3226,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 1402671325}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 2
       objectReference: {fileID: 0}
@@ -3266,7 +3235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseINQUISITIVE
+      value: House(1,0)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -3314,11 +3283,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
---- !u!212 &1402671325 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 1402671324}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1402671327 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
@@ -3441,10 +3405,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 1479597025}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 2
       objectReference: {fileID: 0}
@@ -3454,7 +3414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseINQUISITIVE
+      value: House(0,0)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -3507,11 +3467,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 1479597023}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &1479597025 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 1479597023}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1479597027 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
@@ -3547,10 +3502,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 1543525488}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 1
       objectReference: {fileID: 0}
@@ -3560,7 +3511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseDANGEROUS
+      value: House(0,1)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -3611,11 +3562,6 @@ PrefabInstance:
 --- !u!4 &1543525487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 1543525486}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &1543525488 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 1543525486}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1543525490 stripped
@@ -3779,7 +3725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345861267449371934, guid: afd53944db5e8224cb5324b785771968, type: 3}
       propertyPath: m_Name
-      value: Mailbox (2)
+      value: Mailbox (2L)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd53944db5e8224cb5324b785771968, type: 3}
@@ -3807,10 +3753,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 1628004853}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 1
       objectReference: {fileID: 0}
@@ -3820,7 +3762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseDANGEROUS
+      value: House(2,2)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -3871,11 +3813,6 @@ PrefabInstance:
 --- !u!4 &1628004852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 1628004851}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &1628004853 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
   m_PrefabInstance: {fileID: 1628004851}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1628004855 stripped
@@ -4110,7 +4047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345861267449371934, guid: afd53944db5e8224cb5324b785771968, type: 3}
       propertyPath: m_Name
-      value: Mailbox (1)
+      value: Mailbox (0L)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd53944db5e8224cb5324b785771968, type: 3}
@@ -4819,7 +4756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345861267449371934, guid: afd53944db5e8224cb5324b785771968, type: 3}
       propertyPath: m_Name
-      value: Mailbox (5)
+      value: Mailbox (2R)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd53944db5e8224cb5324b785771968, type: 3}
@@ -5063,10 +5000,6 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-      propertyPath: house
-      value: 
-      objectReference: {fileID: 2137686165}
-    - target: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: houseType
       value: 2
       objectReference: {fileID: 0}
@@ -5076,7 +5009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseINQUISITIVE
+      value: House(2,0)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142843, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_RootOrder
@@ -5124,11 +5057,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
---- !u!212 &2137686165 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1644001971, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
-  m_PrefabInstance: {fileID: 2137686164}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2137686167 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4444358647124837353, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
@@ -6817,7 +6745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142821, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Name
-      value: HouseINQUISITIVE
+      value: House(1,1)
       objectReference: {fileID: 0}
     - target: {fileID: 5844163358669142842, guid: 1fa6537324ab426428c25632e86d3feb, type: 3}
       propertyPath: m_Color.b
@@ -7003,7 +6931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8345861267449371934, guid: afd53944db5e8224cb5324b785771968, type: 3}
       propertyPath: m_Name
-      value: Mailbox
+      value: Mailbox (1L)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd53944db5e8224cb5324b785771968, type: 3}

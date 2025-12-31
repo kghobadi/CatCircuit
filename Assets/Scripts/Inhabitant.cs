@@ -14,8 +14,14 @@ public class Inhabitant : AudioHandler
     public House Home
     {
         get => myHouse;
-        set => myHouse = value;
+        set
+        {
+            myHouse = value;
+        }
     }
+
+    [SerializeField] private HouseData myHouseData;
+    public HouseData HomeData => myHouseData;
     [SerializeField] private InhabitantType inhabitantType;
     public InhabitantType InhabiType => inhabitantType;
     public enum InhabitantType
@@ -24,7 +30,7 @@ public class Inhabitant : AudioHandler
         DANGEROUS = 1, // for a dangerous house - you hiss&scratch to escape the dog
         MAILMAN = 2, // delivers mail to houses 
     }
-
+    
     [SerializeField] private Vector3 spawnOffset = Vector3.zero;
     public Vector3 SpawnOffset => spawnOffset;
 

@@ -19,5 +19,17 @@ public class DestructibleTrigger : MonoBehaviour
                 myPackage.DestroyPackage();
             }
         }
+        //trigger cat to attack if AI 
+        if (other.gameObject.CompareTag("Cat") || other.gameObject.CompareTag("Player"))
+        {
+            CatController cat = other.gameObject.GetComponentInParent<CatController>();
+            if (cat)
+            {
+                if (cat.IsAiEnabled)
+                {
+                    cat.TriggeredScratch();
+                }
+            }
+        }
     }
 }
