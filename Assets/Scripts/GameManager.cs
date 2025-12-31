@@ -42,6 +42,7 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     [SerializeField] private float RestartTime = 30f;
     private float restartTimer;
 
+    [SerializeField] private TMP_Text currentHighScoreTxt;
     //For high score menu 
     [SerializeField] private HighScoreMenu highScoreMenu;
     public int currentHighScore; // set each round for highest score at end 
@@ -155,6 +156,25 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     /// </summary>
     void OnGameEnded()
     {
+        GetHighScore();
+        //disable current high score from gameplay 
+        currentHighScoreTxt.enabled = false;
+        //Set high score menu
+        highScoreMenu.LoadHighScores();
+        //Just save the score 
+        if (AllCats[winningPlayerIndex].IsAiEnabled)
+        {
+            highScoreMenu.SaveNewHighScore();
+        }
+        restartTimer = RestartTime;
+        gameOver = true;
+    }
+
+    /// <summary>
+    /// Checks current high score. 
+    /// </summary>
+    void GetHighScore()
+    {
         //Get highest score 
         currentHighScore = 0;
         winningPlayerIndex = 0;
@@ -166,11 +186,6 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
                 winningPlayerIndex = i;
             }
         }
-
-        //Set high score menu
-        highScoreMenu.LoadHighScores();
-        restartTimer = RestartTime;
-        gameOver = true;
     }
 
     private void Update()
@@ -192,6 +207,21 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             if (restartTimer < 0)
             {
                 ReturnToTitle();
+            }
+        }
+        else
+        {
+            GetHighScore();
+            //Lets us know current winning score 
+            if (currentHighScore > 0)
+            {
+                currentHighScoreTxt.enabled = true;
+                currentHighScoreTxt.text = "P" + (winningPlayerIndex + 1).ToString() + " - " + currentHighScore.ToString();
+                currentHighScoreTxt.color = AllCats[winningPlayerIndex].PlayerColor;
+            }
+            else
+            {
+                currentHighScoreTxt.enabled = false;
             }
         }
     }

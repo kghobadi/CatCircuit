@@ -364,12 +364,12 @@ public class House : MonoBehaviour
        
         //Show timer and multi?
         //start timer 
-        if (myInhabitant.InhabitantUI)
-        {
-            myInhabitant.InhabitantUI.Fader.FadeIn();
-            myInhabitant.InhabitantUI.FaceAnim.SetFloat("Face", 3f); //timer 
-            myInhabitant.InhabitantUI.BeginTimerCountdown(randomFetchWait, catController.PlayerColor);
-        }
+        // if (myInhabitant.InhabitantUI)
+        // {
+        //     myInhabitant.InhabitantUI.Fader.FadeIn();
+        //     myInhabitant.InhabitantUI.FaceAnim.SetFloat("Face", 3f); //timer 
+        //     myInhabitant.InhabitantUI.BeginTimerCountdown(randomFetchWait, catController.PlayerColor);
+        // }
 
         yield return new WaitForSeconds(randomFetchWait);
         myInhabitant.OverrideMultiplier = multiplier;

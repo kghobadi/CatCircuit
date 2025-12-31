@@ -1146,6 +1146,7 @@ MonoBehaviour:
   - {fileID: 1745626055}
   genericFoodPrefab: {fileID: 3939839917246604989, guid: a389605cb0808414799d119afc683d55, type: 3}
   RestartTime: 15
+  currentHighScoreTxt: {fileID: 1782007551}
   highScoreMenu: {fileID: 5059066847966661146}
   currentHighScore: 0
   winningPlayerIndex: 0
@@ -4144,6 +4145,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebeb381f9c47a4ea65446f6896ffb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1782007551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 828618215441166946, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+  m_PrefabInstance: {fileID: 5059066847966661142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1787383098
 GameObject:
   m_ObjectHideFlags: 0
@@ -5815,6 +5827,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FoodAnim (P2)
       objectReference: {fileID: 0}
+    - target: {fileID: 397651213874399076, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.b
+      value: 0.07058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 397651213874399076, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 397651213874399076, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 478064272916856690, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -5935,6 +5959,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1567720481989228285, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.07058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 1567720481989228285, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.7647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 1567720481989228285, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1613027045294956399, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_Name
       value: FoodScoreTextP2
@@ -5967,6 +6003,10 @@ PrefabInstance:
       propertyPath: linkedCat
       value: 
       objectReference: {fileID: 444578648}
+    - target: {fileID: 1812592180692041733, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1868070215677300527, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_text
       value: P2
@@ -6111,6 +6151,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3129062843808741890, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3129062843808741890, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 3417792096549367959, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -6182,6 +6230,14 @@ PrefabInstance:
     - target: {fileID: 3940822991047136026, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263148284232141723, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263148284232141723, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.r
+      value: 0.78431374
       objectReference: {fileID: 0}
     - target: {fileID: 4481370611934129514, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6559,6 +6615,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FoodScoreTextP3
       objectReference: {fileID: 0}
+    - target: {fileID: 7383502558971486941, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383502558971486941, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 7383502558971486941, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7463804186747973189, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -6677,6 +6745,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8337151646146957677, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516989287525258052, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516989287525258052, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.g
+      value: 0.14117648
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516989287525258052, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8563255572158318519, guid: cf32f2a449fb42545b0808aca924679c, type: 3}
