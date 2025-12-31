@@ -32,7 +32,6 @@ public class House : MonoBehaviour
     public int totalPrize; //determined when randomized
     private bool[] catPlayersPresent;
     //over time could do something with the houses changing type?  
- 
     [SerializeField] private HouseAudio houseAudio;
     [Header("Inhabitants")] 
     [Tooltip("This is the list of possible inhabitants")]
@@ -110,6 +109,12 @@ public class House : MonoBehaviour
         if (myInhabitant.HomeData.zonePos != Vector3.zero)
         {
             transform.localPosition = myInhabitant.HomeData.zonePos;
+        }
+        
+        //Attach UI to house rather than myself
+        if (myInhabitant.InhabitantUI)
+        {
+            myInhabitant.InhabitantUI.transform.SetParent(transform.parent);
         }
     }
 
@@ -320,7 +325,7 @@ public class House : MonoBehaviour
         {
             foodPts *= 2;
         }
-        myInhabitant.UpdateMultiColor(recipient.PlayerColor);
+        myInhabitant.InhabitantUI.UpdateMultiColor(recipient.PlayerColor);
         //catController.GainFood(foodPts); GIVE food directly to player
         StartCoroutine(WaitToShowInhabitant(foodPts));
     }
@@ -340,7 +345,7 @@ public class House : MonoBehaviour
         }
         //set override multiplier again for new recipient 
         myInhabitant.OverrideMultiplier = foodPts;
-        myInhabitant.UpdateMultiColor(recipient.PlayerColor);
+        myInhabitant.InhabitantUI.UpdateMultiColor(recipient.PlayerColor);
     }
 
     /// <summary>
@@ -356,6 +361,15 @@ public class House : MonoBehaviour
         fetchingFood = true;
         foodCooldown = true;
         float randomFetchWait = UnityEngine.Random.Range(myInhabitant.FetchWait.x, myInhabitant.FetchWait.y);
+       
+        //Show timer and multi?
+        //start timer 
+        if (myInhabitant.InhabitantUI)
+        {
+            myInhabitant.InhabitantUI.Fader.FadeIn();
+            myInhabitant.InhabitantUI.FaceAnim.SetFloat("Face", 3f); //timer 
+            myInhabitant.InhabitantUI.BeginTimerCountdown(randomFetchWait, catController.PlayerColor);
+        }
 
         yield return new WaitForSeconds(randomFetchWait);
         myInhabitant.OverrideMultiplier = multiplier;
@@ -363,6 +377,10 @@ public class House : MonoBehaviour
         houseAudio.RandomDoorOpen();
 
         yield return new WaitUntil(() => ! myInhabitant.gameObject.activeSelf);
+        if (myInhabitant.InhabitantUI)
+        {
+            myInhabitant.InhabitantUI.Fader.FadeOut();
+        }
         fetchingFood = false;
 
         float randomCooldown = UnityEngine.Random.Range(myInhabitant.FoodCooldown.x, myInhabitant.FoodCooldown.y);
@@ -370,4 +388,5 @@ public class House : MonoBehaviour
         yield return new WaitForSeconds(randomCooldown);
         foodCooldown = false;
     }
+
 }

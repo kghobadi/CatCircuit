@@ -131,9 +131,6 @@ MonoBehaviour:
   inhabitantType: 0
   spawnOffset: {x: 0, y: 0, z: 0}
   mailChance: 50
-  multiplierUI: {fileID: 3250666716864847049}
-  faceResponse: {fileID: 8102186596492239103}
-  multiText: {fileID: 5802785378890127049}
   foodAmtRange: {x: 10, y: 50}
   foodCooldownWait: {x: 3, y: 5}
   fetchWait: {x: 1, y: 3}
@@ -167,6 +164,7 @@ MonoBehaviour:
   trackSounds: []
   attackSounds: []
   hurtSounds: []
+  inhabitantUI: {fileID: 5086883071156498695}
   collisionTags: []
   colMask:
     serializedVersion: 2
@@ -403,35 +401,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89a4bf335c214ab479084f53bcc6b9fa, type: 3}
---- !u!114 &3250666716864847049 stripped
+--- !u!114 &5086883071156498695 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8324130733764521461, guid: 89a4bf335c214ab479084f53bcc6b9fa, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1729890062740684859, guid: 89a4bf335c214ab479084f53bcc6b9fa, type: 3}
   m_PrefabInstance: {fileID: 6816744404789244220}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9aeda02f2eb6b94c9d4238986a01dea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5802785378890127049 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1017341162338101237, guid: 89a4bf335c214ab479084f53bcc6b9fa, type: 3}
-  m_PrefabInstance: {fileID: 6816744404789244220}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 237fb2b68cb30f84088cd28ed6761a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &6056827642799647661 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 763320889273932433, guid: 89a4bf335c214ab479084f53bcc6b9fa, type: 3}
-  m_PrefabInstance: {fileID: 6816744404789244220}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8102186596492239103 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3380320007727731139, guid: 89a4bf335c214ab479084f53bcc6b9fa, type: 3}
   m_PrefabInstance: {fileID: 6816744404789244220}
   m_PrefabAsset: {fileID: 0}

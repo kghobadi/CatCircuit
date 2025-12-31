@@ -496,6 +496,8 @@ public class CatController : MonoBehaviour
         //disable physics and visuals 
         catBody.isKinematic = true;
         spriteRenderer.enabled = false;
+        collarSprite.enabled = false;
+        actionText.enabled = false;
         teleporting = true;
 
         yield return new WaitForSeconds(wait);
@@ -504,6 +506,7 @@ public class CatController : MonoBehaviour
         //enable physics and visuals 
         catBody.isKinematic = false;
         spriteRenderer.enabled = true;
+        collarSprite.enabled = true;
 
         yield return new WaitForSeconds(0.25f);
         teleporting = false;

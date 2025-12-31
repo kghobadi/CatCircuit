@@ -47,15 +47,6 @@ public class Inhabitant : AudioHandler
         Mad = 2,
     }
     
-    [SerializeField] private CanvasFader multiplierUI;
-    [SerializeField] private Animator faceResponse;
-    [SerializeField] private TMP_Text multiText;
-
-    public void UpdateMultiColor(Color color)
-    {
-        multiText.color = color;
-    }
-    
     [Header("Throw Settings")]
     [SerializeField] private Vector2Int foodAmtRange = new Vector2Int(10, 100);
     public Vector2Int FoodRange => foodAmtRange;
@@ -107,6 +98,13 @@ public class Inhabitant : AudioHandler
     [SerializeField] private AudioClip[] attackSounds; // bites. shoots
     [SerializeField] private AudioClip[] hurtSounds;
 
+    [SerializeField] private InhabitantUI inhabitantUI;
+    //Plugged in by house now. 
+    public InhabitantUI InhabitantUI
+    {
+        get => inhabitantUI;
+        set => inhabitantUI = value;
+    }
     private int multiplier = -1;
     public int OverrideMultiplier
     {
@@ -114,8 +112,10 @@ public class Inhabitant : AudioHandler
         set
         {
             multiplier = value;
-            if(multiText != null)
-                multiText.text = "X" + multiplier.ToString();
+            if (inhabitantUI)
+            {
+                inhabitantUI.UpdateMultiText(multiplier.ToString());
+            }
         }
     }
 
@@ -163,11 +163,8 @@ public class Inhabitant : AudioHandler
                 //Dangerous inhabitants attack 
                 case InhabitantType.DANGEROUS: 
                     //disable ui
-                    if (multiplierUI)
-                    {
-                        multiplierUI.gameObject.SetActive(false);
-                    }
-                 
+                    if(inhabitantUI)
+                        inhabitantUI.ToggleMultiplier(false);
                     //return to spawn offset pos 
                     transform.localPosition = spawnOffset;
                     //Begin the hunt...
@@ -252,7 +249,7 @@ public class Inhabitant : AudioHandler
             friendlyResponse = response;
             
             //Set face response
-            faceResponse.SetFloat("Face",  (float)friendlyResponse);
+            inhabitantUI.FaceAnim.SetFloat("Face",  (float)friendlyResponse);
             
             //Update alignment for this cat 
             if (response == FriendlyResponse.Happy)
@@ -290,8 +287,9 @@ public class Inhabitant : AudioHandler
         if (inhabitantType == InhabitantType.FRIENDLY)
         {
             determiningResponse = true;
-            multiplierUI.FadeIn();
-            faceResponse.SetFloat("Face", 0f);
+            if(!inhabitantUI.Fader.IsShowing)
+                inhabitantUI.Fader.FadeIn();
+            inhabitantUI.FaceAnim.SetFloat("Face", 0f);
         }
         
         //Random wait to throw from range 
@@ -305,9 +303,8 @@ public class Inhabitant : AudioHandler
         {
             yield return new WaitForSeconds(0.5f);
             
-            //disable after we are back to idle and reset multiplier 
+            //disable after we are back to idle 
             gameObject.SetActive(false);
-            OverrideMultiplier = -1;
             yield break;
         }
 
@@ -337,7 +334,6 @@ public class Inhabitant : AudioHandler
         yield return new WaitForSeconds(0.25f);
         //disable after we are back to idle and reset multiplier 
         gameObject.SetActive(false);
-        OverrideMultiplier = -1;
     }
 
     /// <summary>

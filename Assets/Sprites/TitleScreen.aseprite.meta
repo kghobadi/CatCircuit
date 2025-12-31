@@ -118,27 +118,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  animatedSpriteImportData:
-  - name: TitleScreen
-    originalName: 
-    pivot: {x: 0.5011236, y: -0.5033557}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 4
-      width: 890
-      height: 298
-    spriteID: ff653a3504d208043987a97135b683e8
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+  animatedSpriteImportData: []
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -147,16 +127,7 @@ ScriptedImporter:
     layerFlags: 0
     layerType: 0
     blendMode: 0
-    cells:
-    - name: TitleScreen
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 66
-        y: 150
-        width: 890
-        height: 298
-      spriteId: ff653a3504d208043987a97135b683e8
+    cells: []
     linkedCells: []
     parentIndex: -1
   platformSettings: []
