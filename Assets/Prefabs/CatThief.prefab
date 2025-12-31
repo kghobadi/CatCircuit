@@ -783,7 +783,7 @@ MonoBehaviour:
   currentAiState: 0
   autoDir: {x: 0, y: 0}
   dest: {fileID: 0}
-  foodCheckDistance: 0.3
+  foodCheckDistance: 0.75
   fightDist: 0.5
   returnDist: 1
   stoppingDist: 0.1

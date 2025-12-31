@@ -415,7 +415,7 @@ public class CatController : MonoBehaviour
     }
     
     /// <summary>
-    /// Can be called by linked Health UI. 
+    /// Can be called by linked Health UI when Dead. 
     /// </summary>
     /// <param name="lives"></param>
     public void OverrideSetLives(int lives)
@@ -427,8 +427,11 @@ public class CatController : MonoBehaviour
         {
             CycleHouses();
         }
+
+        deathTime = Time.time;
     }
 
+    private float deathTime;
     /// <summary>
     /// Reenable collision on resurrect. 
     /// </summary>
@@ -599,8 +602,11 @@ public class CatController : MonoBehaviour
         if (healthUI.IsDead)
         {
             //Move towards next house point 
-            transform.position = Vector3.Lerp(transform.position, designatedTerritory[currentHouse].CatPos.position,
-                moveSpeed );
+            if (Time.time - deathTime > 0.1f)
+            {
+                transform.position = Vector3.Lerp(transform.position, designatedTerritory[currentHouse].CatPos.position,
+                    moveSpeed / 3 );
+            }
             return;
         }
 
@@ -645,6 +651,7 @@ public class CatController : MonoBehaviour
                                 FriendlyBehavior();
                             }
                             
+                            //Food check 
                             next = CheckForFoodItems();
                             if (next != null)
                             {
@@ -704,18 +711,24 @@ public class CatController : MonoBehaviour
                 {
                     float distance = Vector2.Distance(dest.transform.position, transform.position);
                     //If we are close enough to pos or House tells us we are within meowing distance 
-                    if (distance < stoppingDist || designatedTerritory[currentHouse].IsPlayerPresent[playerId]) 
+                    if (distance < stoppingDist) 
                     {
                         FriendlyBehavior();
-                        //Think again 
                         SwitchState(CatAiStates.Thinking);
+                    }
+                    else
+                    {
+                        if (stateTimer < 0 && designatedTerritory[currentHouse].IsPlayerPresent[playerId])
+                        {
+                            FriendlyBehavior();
+                            SwitchState(CatAiStates.Thinking);
+                        }
                     }
                 }
                 else
                 {
                     FriendlyBehavior();
-                    //Think again 
-                    SwitchState(CatAiStates.Thinking);
+                    FoodCheck();
                 }
 
                 break;
@@ -831,6 +844,21 @@ public class CatController : MonoBehaviour
             {
                 Purr();
             }
+        }
+    }
+
+    void FoodCheck()
+    {
+        //Food check 
+        next = CheckForFoodItems();
+        if (next != null)
+        {
+            dest = next.transform;
+        }
+        else
+        {
+            //Think again 
+            SwitchState(CatAiStates.Thinking);
         }
     }
     
