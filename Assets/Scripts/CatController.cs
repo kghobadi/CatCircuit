@@ -718,7 +718,8 @@ public class CatController : MonoBehaviour
                     }
                     else
                     {
-                        if (stateTimer < 0 && designatedTerritory[currentHouse].IsPlayerPresent[playerId])
+                        //After some time, assume the cast is stuck and do friednyl stuff
+                        if (stateTimer < -2f && designatedTerritory[currentHouse].IsPlayerPresent[playerId])
                         {
                             FriendlyBehavior();
                             SwitchState(CatAiStates.Thinking);
