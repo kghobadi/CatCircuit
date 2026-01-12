@@ -49,8 +49,15 @@ public class CatController : MonoBehaviour
     public bool IsFlipped => spriteRenderer.flipX;
     private Rigidbody2D catBody;
     private Animator catAnimator;
+    public Animator CatAnim => catAnimator;
     [SerializeField] private float moveSpeed;
     public float currentSpeedBoost = 0;
+
+    public void AddSpeedBoost(float boost)
+    {
+        currentSpeedBoost += boost;
+        catAnimator.speed = 1 + currentSpeedBoost;
+    }
     public float boostPerHouse = 0.05f;
     private float horizontalMove;
     private float verticalMove;
@@ -295,13 +302,13 @@ public class CatController : MonoBehaviour
 
     private Transform scratchTransform;
 
-    public void TriggeredScratch()
+    public void TriggeredScratch(Transform scratchPos)
     {
         if (catAudio.myAudioSource.isPlaying)
         {
             return;
         }
-        SpawnScratchFx();
+        Scratch(scratchPos);
     }
     /// <summary>
     /// Called by animation flag. 

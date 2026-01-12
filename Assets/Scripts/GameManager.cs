@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Utils;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -21,7 +22,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     }
     public int [] allPlayerIds ;
     private Player[] playerInputs; // The Rewired Player
-    
+
+    public AudioSource music;
     public CountdownTimer mainTimer;
     public bool beginOnStart;
     public bool IsGameOver => mainTimer.TimeLeft <= 0 && gameOver;
@@ -41,12 +43,14 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
     //Restart to title timer
     [SerializeField] private float RestartTime = 30f;
     private float restartTimer;
+    private float[] menuTimer;
 
     [SerializeField] private TMP_Text currentHighScoreTxt;
     //For high score menu 
     [SerializeField] private HighScoreMenu highScoreMenu;
     public int currentHighScore; // set each round for highest score at end 
     public int winningPlayerIndex;
+    
     void Start()
     {
         //Get player ids
@@ -55,7 +59,8 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         {
             playerInputs[i] = ReInput.players.GetPlayer(allPlayerIds[i]);
         }
-        
+
+        menuTimer = new float[playerInputs.Length];
         //Should the game begin when start is called? 
         if (beginOnStart)
         {
@@ -73,9 +78,22 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         mainTimer.SetCountdown((int)totalGameTime);
         mainTimer.OnTimerFinished += OnGameEnded;
         RandomizeHousePools();
+        RandomizeMailman();
+        music.Play();
     }
 
-    private void OnEnable()
+    private void OnValidate()
+    {
+        if (allHouses == null || allHouses.Length == 0)
+        {
+            allHouses = FindObjectsOfType<House>();
+        }
+    }
+
+    /// <summary>
+    /// Randomizes whether mailman should favor right or left side of game. 
+    /// </summary>
+    void RandomizeMailman()
     {
         float randomChance = Random.Range(0f, 100f);
         if (randomChance <= 50f)
@@ -85,14 +103,6 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
         else
         {
             mailManFavorsRight = true;
-        }
-    }
-
-    private void OnValidate()
-    {
-        if (allHouses == null || allHouses.Length == 0)
-        {
-            allHouses = FindObjectsOfType<House>();
         }
     }
 
@@ -196,7 +206,7 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             //Reload the game scene to restart? 
             for (int i = 0; i < playerInputs.Length; i++)
             {
-                if ( playerInputs[i].GetButton("Restart"))
+                if ( playerInputs[i].GetButtonDown("Restart"))
                 {
                     Restart();
                 }
@@ -216,12 +226,39 @@ public class GameManager : NonInstantiatingSingleton<GameManager>
             if (currentHighScore > 0)
             {
                 currentHighScoreTxt.enabled = true;
-                currentHighScoreTxt.text = "P" + (winningPlayerIndex + 1).ToString() + " - " + currentHighScore.ToString();
+                currentHighScoreTxt.text = "P" + (winningPlayerIndex + 1).ToString() + ": " + currentHighScore.ToString();
                 currentHighScoreTxt.color = AllCats[winningPlayerIndex].PlayerColor;
             }
             else
             {
                 currentHighScoreTxt.enabled = false;
+            }
+        }
+        
+        //Reload the game to main menu if someone holds the restart key 
+        for (int i = 0; i < playerInputs.Length; i++)
+        {
+            string demoMode = PlayerPrefs.GetString("Demo");
+            //In demo mode... Any input should return to Title screen. 
+            if (demoMode == "true")
+            {
+                if (playerInputs[i].GetAnyButton())
+                {
+                    ReturnToTitle();
+                }
+            }
+            
+            if(playerInputs[i].GetButton("Restart"))
+            {
+                menuTimer[i] += Time.deltaTime;
+                if (menuTimer[i] > 3)
+                {
+                    ReturnToTitle();
+                }
+            }
+            else
+            {
+                menuTimer[i] = 0;
             }
         }
     }

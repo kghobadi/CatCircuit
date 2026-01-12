@@ -61,7 +61,7 @@ public class House : MonoBehaviour
         {
             Alignments = new float[4];
         }
-
+        added = new bool[4];
         catPlayersPresent = new bool[Alignments.Length];
         //add listeners
         foreach (var cat in GameManager.Instance.AllCats)
@@ -153,6 +153,7 @@ public class House : MonoBehaviour
         return distFromPlayer;
     }
 
+    private bool[] added;//tracks added bonuses to cats 
     /// <summary>
     /// Is a cat present? 
     /// </summary>
@@ -167,14 +168,19 @@ public class House : MonoBehaviour
             //Must be zone enabled to add 
             if (houseZone.HouseZone.enabled)
             {
-                GameManager.Instance.AllCats[id].currentSpeedBoost += GameManager.Instance.AllCats[id].boostPerHouse;
+                GameManager.Instance.AllCats[id].AddSpeedBoost(GameManager.Instance.AllCats[id].boostPerHouse);
+                added[id] = true;
             }
         }
-        else if (currentAlignment == id && !present)
+        else if (added[id] && !present)
         {
             //Must be more than 0 to remove 
-            if(houseZone.HouseZone.enabled && GameManager.Instance.AllCats[id].currentSpeedBoost > 0)
-                GameManager.Instance.AllCats[id].currentSpeedBoost -= GameManager.Instance.AllCats[id].boostPerHouse;
+            if (GameManager.Instance.AllCats[id].currentSpeedBoost > 0)
+            { 
+                GameManager.Instance.AllCats[id].AddSpeedBoost(-GameManager.Instance.AllCats[id].boostPerHouse);
+            }
+               
+            added[id] = false;
         }
     }
 

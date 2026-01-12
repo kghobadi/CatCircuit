@@ -757,7 +757,7 @@ MonoBehaviour:
   collarSprite: {fileID: 0}
   moveSpeed: 0.1
   currentSpeedBoost: 0
-  boostPerHouse: 0.25
+  boostPerHouse: 0.05
   catInteractDistance: 0.5
   hissPushForce: 10
   catAudio: {fileID: 313422480}

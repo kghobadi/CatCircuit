@@ -2527,7 +2527,7 @@ MonoBehaviour:
   mainGameTimer: 0
   timerSource: {fileID: 0}
   useMinutesSeconds: 0
-  zeroString: START!
+  zeroString: MEOW!
   emptyText: 
   OnTimerComplete:
     m_PersistentCalls:

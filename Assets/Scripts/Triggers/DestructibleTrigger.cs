@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +28,23 @@ public class DestructibleTrigger : MonoBehaviour
             {
                 if (cat.IsAiEnabled)
                 {
-                    cat.TriggeredScratch();
+                    cat.TriggeredScratch(transform);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        //trigger cat to attack if AI 
+        if (other.gameObject.CompareTag("Cat") || other.gameObject.CompareTag("Player"))
+        {
+            CatController cat = other.gameObject.GetComponentInParent<CatController>();
+            if (cat)
+            {
+                if (cat.IsAiEnabled)
+                {
+                    cat.TriggeredScratch(transform);
                 }
             }
         }
